@@ -1,6 +1,6 @@
 # CLAUDE_CODE_ARCHITECTURE.md
 
-> 版本：v0.6（2026-04-05）
+> 版本：v0.8（2026-04-10）
 > 来源：claude-code-leak 源码 + Ai迷思录（微信）+ 炼钢AI（微信）
 > 状态：持续研究
 
@@ -73,54 +73,187 @@ Agent Loop（主循环）
 
 **优先级：高（xiage-context-engine 已打底）**
 
-### 2.1 两种压缩模式
+### 2.1 五层压缩总览
 
-| 模式 | 函数 | 说明 |
-|------|------|------|
-| 完整压缩 | `compactConversation()` | 压缩全部历史消息，保留最近对话窗口 |
-| 部分压缩 | `partialCompactConversation()` | 从选定消息位置压缩（from/up_to 两个方向） |
+Claude Code 的 context 压缩机制是四个框架中**层次最多、设计最细**的。每轮 LLM 调用前，`query.ts` 的 queryLoop 按固定顺序执行五道压缩处理，从轻量到昂贵逐层递进。
 
-### 2.2 压缩流程（完整压缩）
+**执行入口：** `query.ts` 第 365-480 行，`queryLoop()` 内部
 
+```typescript
+let messagesForQuery = [...getMessagesAfterCompactBoundary(messages)]
+
+// 第一层：工具结果预算
+messagesForQuery = await applyToolResultBudget(messagesForQuery, ...)
+
+// 第二层：历史片段截断 (HISTORY_SNIP feature-gated)
+if (feature('HISTORY_SNIP')) {
+    const snipResult = snipModule!.snipCompactIfNeeded(messagesForQuery)
+    messagesForQuery = snipResult.messages
+}
+
+// 第三层：微压缩
+const microcompactResult = await deps.microcompact(messagesForQuery, ...)
+messagesForQuery = microcompactResult.messages
+
+// 第四层：上下文折叠 (CONTEXT_COLLAPSE feature-gated)
+if (feature('CONTEXT_COLLAPSE') && contextCollapse) {
+    const collapseResult = await contextCollapse.applyCollapsesIfNeeded(...)
+    messagesForQuery = collapseResult.messages
+}
+
+// 第五层：完整摘要压缩
+const { compactionResult } = await deps.autocompact(messagesForQuery, ...)
+```
+
+### 2.2 第一层：工具结果预算（applyToolResultBudget）
+
+**源码：** `utils/toolResultStorage.ts` — `applyToolResultBudget()`
+
+**原理：** 每个工具声明 `maxResultSizeChars`，超限时：
+1. 工具结果写入磁盘 `~/.claude/projects/<hash>/<session-id>/tool-results/`
+2. 消息内替换为文件路径引用 + 预览文本
+3. `contentReplacementState` 跨轮次追踪，Compact 后可恢复
+
+```typescript
+// 超过声明的 maxResultSizeChars → 持久化到磁盘
+const persisted = await persistToolResult(result, threshold)
+message.tool_result = { filepath: persisted.filepath, preview: persisted.preview }
+```
+
+**关键点：** 只控制单次工具输出大小，不减少历史消息数量。Read 工具设为 `Infinity`（不压缩）——如果 Read 结果也被替换成路径，再读就死循环。
+
+**Feature flag：** 无（始终启用）
+
+### 2.3 第二层：历史片段截断（snipCompact）
+
+**源码：** `services/compact/` — `HISTORY_SNIP` feature
+
+**原理：** 纯规则打分，不调用 LLM。系统对历史消息打分：
+- **低分 → 删除**：中间工具执行序列（大量 tool_call/input/output 对推理无贡献）
+- **高分 → 保留**：用户提问、关键推理内容
+
+**输出：** `tokensFreed`，传给 autocompact 的阈值计算，让后续判断基于删除后的实际 token 量。
+
+**为什么在 microcompact 之前执行？** snip 的 token 节省量需要传递给 autocompact 的阈值计算。
+
+**Feature flag：** `HISTORY_SNIP`（实验性）
+
+### 2.4 第三层：微压缩（microCompact）
+
+**源码：** `services/compact/microCompact.ts` — `microcompactMessages()`
+
+**两种触发模式：**
+
+**时间触发（Time-based）：**
+- 距上次 assistant 消息超过 60 分钟，API cache TTL 已过期
+- 直接修改本地消息：旧工具结果替换为 `[Old tool result content cleared]`，保留最近 5 条
+
+**热缓存模式（Cached）— `CACHED_MICROCOMPACT` feature-gated：**
+- cache 仍然有效，通过 `cache_edits`（`clear_tool_uses_20250919`）在**服务端**屏蔽旧工具结果
+- **本地消息保持不变**，不破坏 prompt cache
+
+```typescript
+// microCompact.ts — 两种模式
+if (isTimeBased) {
+    // 修改本地消息
+    replaceWith('[Old tool result content cleared]')
+} else {
+    // 通过 API cache_edits 在服务端屏蔽，本地不动
+    pendingCacheEdits = { type: 'clear_tool_uses_20250919', tool_use_ids: [...] }
+}
+```
+
+**Attention mask 原理（热缓存模式）：**
+```
+序列: [A][B][tool_result_1000tokens][C]
+     ↓ API 屏蔽后
+物理 token 位置不变，attention 计算时屏蔽的 token 贡献=0
+KV 矩阵全部保留，cache 完全命中
+```
+
+**可清理的工具：** Read、Bash、Grep、Glob、WebSearch、WebFetch、FileEdit、FileWrite
+**不可清理：** REPL（输出不可复现）、MCP 工具
+
+**Feature flag：** `CACHED_MICROCOMPACT`（实验性）
+
+### 2.5 第四层：上下文折叠（contextCollapse）
+
+**源码：** `services/contextCollapse/index.js` — `CONTEXT_COLLAPSE` feature
+
+**原理：** 把旧对话分组**归档**为摘要，**近期保持原样**。模型看到的是一段段摘要 + 近期完整细节，比 autoCompact 的"全部压成一段"保留更多近期上下文精度。
+
+```
+[消息1-100] → 归档为 summary_1
+[消息101-200] → 归档为 summary_2
+[消息201-220] → 保持原样（近期）
+```
+
+**与 autocompact 互斥：**
+```typescript
+if (contextCollapse.applyCollapsesIfNeeded(...) 后 token 量 < autocompact 阈值)
+    shouldAutoCompact() → false  // autocompact 不触发
+```
+
+**触发时机：** 90% 准备，95% 阻塞触发。
+
+**Feature flag：** `CONTEXT_COLLAPSE`（实验性）
+
+### 2.6 第五层：完整摘要压缩（autoCompact）
+
+**源码：** `services/compact/autoCompact.ts` — `autoCompactIfNeeded()` + `compact.ts` — `compactConversation()`
+
+**触发阈值（动态绑定 context window）：**
+```typescript
+AUTOCOMPACT_BUFFER_TOKENS = 13_000
+WARNING_THRESHOLD_BUFFER_TOKENS = 20_000
+
+getAutoCompactThreshold(model):
+    return contextWindow - reservedForOutput - 13_000
+    // claude-sonnet(200K) → 约 167K 触发
+```
+
+**执行流程：**
 ```
 compactConversation(messages, context, ...)
   │
   ├─ 1. 执行 PreCompact Hooks（自定义指令注入）
   │
-  ├─ 2. stripImagesFromMessages()  — 去掉图片/文档（节省 token）
+  ├─ 2. stripImagesFromMessages() — 去掉图片/文档（避免摘要请求超限）
   │
-  ├─ 3. stripReinjectedAttachments() — 去掉重复注入的附件
+  ├─ 3. stripReinjectedAttachments() — 去掉压缩后会重新注入的内容
   │
-  ├─ 4. streamCompactSummary() — 调用模型生成摘要
-  │    │
-  │    ├─ 路径A：Forked Agent（prompt cache 复用，默认启用）
-  │    │    → runForkedAgent({ promptMessages: [summaryRequest], ... })
-  │    │    → 共享主会话的 system prompt + tools cache
-  │    │
+  ├─ 4. fork 子 Agent → 调用 LLM 生成摘要
+  │    ├─ 路径A：Forked Agent（prompt cache 复用，默认）
   │    └─ 路径B：Streaming Fallback（cache miss 时）
-  │         → queryModelWithStreaming() 直接调用 API
   │
-  ├─ 5. PTL 重试逻辑 — 如果摘要请求本身触发 prompt-too-long
-  │    → truncateHeadForPTLRetry() 丢弃最老的 API round，重试（最多3次）
+  ├─ 5. PTL 重试 — 摘要请求本身触发 prompt-too-long
+  │    → truncateHeadForPTLRetry() 丢弃最老 API round，重试（最多3次）
   │
   ├─ 6. 写回文件状态（readFileState.clear()）
   │
   ├─ 7. 创建 PostCompact 附件
   │    ├─ createPostCompactFileAttachments() — 重建最近读取的文件（最多5个）
-  │    ├─ createSkillAttachmentIfNeeded() — 保留调用的 skill 内容
-  │    ├─ createPlanAttachmentIfNeeded() — 保留计划模式状态
-  │    ├─ createPlanModeAttachmentIfNeeded() — plan mode 继续
-  │    ├─ createAsyncAgentAttachmentsIfNeeded() — 后台 agent 状态
-  │    └─ getDeferredToolsDeltaAttachment() — 工具列表重播
+  │    ├─ createSkillAttachmentIfNeeded() — skill 内容（最多25K token）
+  │    ├─ getDeferredToolsDeltaAttachment() — 工具列表重播
+  │    └─ 其他 hooks 结果
   │
-  ├─ 8. 执行 SessionStart Hooks（压缩后初始化）
+  ├─ 8. 执行 SessionStart Hooks
   │
   ├─ 9. 执行 PostCompact Hooks
   │
-  └─ 10. 返回 CompactionResult（含 boundaryMarker + summaryMessages）
+  └─ 10. 返回 CompactionResult（含 boundaryMarker + summary + attachments）
 ```
 
-### 2.3 Token 预算
+**compact boundary 结构：**
+```
+[旧历史消息...]
+[compact_boundary: {tokensFreed, trigger, preCompactCount}]
+[摘要内容]
+[保留的尾部消息]
+[attachments: CLAUDE.md, MCP, skills, hooks...]
+```
+
+### 2.7 Token 预算
 
 | 常量 | 值 | 说明 |
 |------|-----|------|
@@ -129,36 +262,212 @@ compactConversation(messages, context, ...)
 | `POST_COMPACT_MAX_FILES_TO_RESTORE` | 5 | 最多重建5个最近文件 |
 | `POST_COMPACT_MAX_TOKENS_PER_SKILL` | 5,000 | 单 skill 截断上限 |
 | `POST_COMPACT_SKILLS_TOKEN_BUDGET` | 25,000 | skill 总上限（约5个 skill） |
-| `COMPACT_MAX_OUTPUT_TOKENS` | ? | 摘要输出上限 |
 
-### 2.4 Partial Compact（部分压缩）
+### 2.8 与 xiage-context-engine 的对比
 
-支持从指定位置定向压缩两个方向：
-
-- **direction='from'**：从 pivotIndex 往后压缩，**保留**前面的消息（prompt cache 友好）
-- **direction='up_to'**：从开头到 pivotIndex 压缩，**保留**后面的消息（需要重建 cache）
-
-### 2.5 Prompt Cache 优化
-
-- Forked agent 路径：复用主会话的 prompt cache（前缀相同则命中）
-- 实验数据：关闭时 98% cache miss，开启时大部分命中
-- PTL 重试会破坏 cache prefix，但仍需继续（用户不能被卡住）
-
-### 2.6 与 xiage-context-engine 的对比
-
-| 特性 | Claude Code compact | xiage-context-engine |
-|------|-------------------|---------------------|
-| 触发方式 | 自动（阈值）+ 手动 | 自动（阈值）+ 手动 |
-| 摘要方式 | 调用模型生成 | 待实现 |
-| PTL 处理 | truncateHeadForPTLRetry | 待实现 |
-| 文件重建 | createPostCompactFileAttachments | 待实现 |
-| Skill 保留 | createSkillAttachmentIfNeeded | 待实现 |
-| 权限 hook | PreCompact/PostCompact Hooks | 待实现 |
-| 异步 agent 保留 | createAsyncAgentAttachmentsIfNeeded | 待实现 |
+| 特性 | Claude Code 五层压缩 | xiage-context-engine |
+|------|---------------------|---------------------|
+| 第一层：工具结果预算 | applyToolResultBudget（始终启用） | 无对应 |
+| 第二层：snipCompact | HISTORY_SNIP feature，纯规则 | 无 |
+| 第三层：microCompact | 热缓存/时间双模式 | Layer2 collapse 有类似思路 |
+| 第四层：contextCollapse | 保留近期，折叠旧内容 | Layer2/Layer4 collapse |
+| 第五层：autoCompact | fork agent 生成摘要 | Layer4 方向对但深度不同 |
+| 触发阈值 | 与 context window 动态绑定 | 待实现 |
+| Prompt cache 优化 | cache_edits 服务端压缩 | 待实现 |
 
 ---
 
-## 三、Tool Orchestration（toolOrchestration.ts）
+## 三、存储架构（Storage）
+
+**优先级：高（memory 层设计参考）**
+
+### 3.1 四层存储
+
+| 层级 | 路径 | 说明 |
+|------|------|------|
+| CLAUDE.md | 项目根目录 | MEMORY.md（入口索引，最多200行/25KB） |
+| Session Memory | `.claude/session_memory/<id>.md` | 单会话实时笔记，10-section 模板 |
+| autoDream Memory | `.claude/memory/` | 跨会话整合的长期记忆 |
+| Transcript | `.claude/sessions/` | 原始对话记录 |
+
+### 3.2 Memory 类型分类（4种）
+
+| 类型 | 说明 |
+|------|------|
+| `user` | 用户角色/偏好/背景 |
+| `feedback` | 用户反馈（纠正 + 确认） |
+| `project` | 项目状态/目标/bug/事件 |
+| `reference` | 外部系统指针（Linear/Slack/Grafana 等） |
+
+### 3.3 Session Memory 模板（10 sections）
+
+```markdown
+# Session Title
+_5-10词描述性标题_
+
+# Current State
+_当前正在做什么？未完成的挂起任务？下一步？_
+
+# Task specification
+_用户要求做什么？设计决策？_
+
+# Files and Functions
+_重要文件及作用_
+
+# Workflow
+_常用 bash 命令及顺序_
+
+# Errors & Corrections
+_遇到的错误及修复方式_
+
+# Codebase and System Documentation
+_重要系统组件及工作原理_
+
+# Learnings
+_什么有效/无效，需要避免什么？_
+
+# Key results
+_用户要求的精确输出结果（表格/答案/文档）_
+
+# Worklog
+_每一步尝试了什么，做了什么（极简）_
+```
+
+### 3.4 关键约束
+
+```
+禁止在 memory 里存「代码模式/conventions/文件结构」— 可从代码派生
+禁止存 git history — git log 是权威来源
+Session memory 单文件上限 12,000 tokens
+```
+
+---
+
+## 四、索引和读取（Index & Retrieval）
+
+**优先级：中（启动加载策略参考）**
+
+### 4.1 读取机制
+
+**启动时：**
+```
+1. 扫描 .claude/ 目录
+2. 加载 MEMORY.md（最多200行/25KB）
+3. scanMemoryFiles() 扫描所有 memory 文件（最多200个）
+4. 按 mtime 排序，取 frontmatter（description + type）
+```
+
+**对话中（按需检索）：**
+```
+findRelevantMemories(query)
+  → scanMemoryFiles() 获取所有 memory headers
+  → sideQuery() 用 Sonnet 模型判断相关性（最多选5个）
+  → 读取选中的 memory 文件内容注入 prompt
+```
+
+### 4.2 sideQuery 机制
+
+```
+- 用 Sonnet 模型做相关性判断
+- 最近使用过的工具会排除 reference 类 memory（避免噪音）
+- 最多返回 5 个相关 memory
+```
+
+### 4.3 Prompt 截断规则
+
+```
+MEMORY.md：
+  ├─ 最多 200 行
+  ├─ 最多 25KB
+  └─ 超限警告 → index entries 要保持一行 under ~200 chars
+```
+
+---
+
+## 五、上下文管理（Context Management）
+
+**优先级：高（理解三层上下文叠加机制）**
+
+### 5.1 三层上下文叠加
+
+```
+System Context（git status）
+  └─ memoize 缓存，信任对话框后触发
+
+User Context（CLAUDE.md files）
+  ├─ 项目级 CLAUDE.md
+  └─ auto memory（.claude/ 下所有 memory 文件的 frontmatter 索引）
+
+Session Memory（.claude/session_memory/）
+  └─ fork agent 自动提取，10-section 模板
+       触发：token≥10k + 增长≥5k + 无工具调用停顿点
+
+autoDream（跨会话整合）
+  └─ 定期聚合成长期记忆
+       触发：24h + 5个新 session + 锁机制
+```
+
+### 5.2 关键设计
+
+**压缩时：**
+```
+1. 读取 session_memory.md
+2. 作为附件注入 prompt
+3. 摘要 + boundary marker 写入消息历史
+4. PostCompact 附件重建（最近5个文件 + skills + 计划状态）
+```
+
+**Prompt Cache 优化：**
+```
+- Forked agent 复用主会话的 prompt cache（前缀相同则命中）
+- Session Memory 模式下，避免调用 API 摘要（直接用 session_memory 内容）
+```
+
+### 5.3 内存记忆的三个层级协作
+
+```
+Session Memory（实时笔记）
+  → 每会话自动提取
+  → 压缩时作为摘要来源
+  → 注入 post-compact prompt
+
+autoDream（跨会话整合）
+  → 每天/每5个 session 触发一次
+  → 聚合成长期记忆
+  → 下次对话时通过 findRelevantMemories 召回
+
+MEMORY.md（索引入口）
+  → 启动时全量加载
+  → 作为所有 memory 文件的「目录」
+  → 按相关性在对话中召回具体 memory 文件
+```
+
+---
+
+## 六、与会话机制的关系
+
+### 6.1 消息流转
+
+```
+用户输入 → QueryEngine
+  ├─ 加载 System Context（git status）
+  ├─ 加载 User Context（CLAUDE.md + auto memory index）
+  ├─ 检查 Session Memory（是否达到提取阈值）
+  ├─ 工具调用 → 触发压缩检查
+  └─ 压缩触发 → compact() → session_memory 更新
+```
+
+### 6.2 对虾哥的启发
+
+| Claude Code 设计 | OpenClaw 现状 | 适配建议 |
+|------|-------------|---------|
+| Session Memory 10-section 模板 | 每日日志自由格式 | 每日 memory 文件采用类似模板 |
+| autoDream 跨会话整合 | 无 | 定期 cron 任务聚合（但 cron 有 bug，先放） |
+| findRelevantMemories 相关性检索 | 启动时全量读 | 实现轻量相关性过滤 |
+
+---
+
+## 八、Tool Orchestration（toolOrchestration.ts）
 
 **优先级：高（虾哥当前最弱，决定能力上限）**
 
@@ -261,7 +570,7 @@ type Batch = {
 
 ---
 
-## 四、Agent System（AgentTool）
+## 九、Agent System（AgentTool）
 
 **优先级：中（多步并行任务的基础）**
 
@@ -412,7 +721,7 @@ xiage-context-engine 的 `compact()` 触发后，可通过 `createAsyncAgentAtta
 
 ---
 
-## 五、Permissions System
+## 十、Permissions System
 
 **优先级：中（危险操作 gate）**
 
@@ -527,11 +836,7 @@ shouldAvoidPermissionPrompts = true
 
 ---
 
-## 六、Skills System
-
-**优先级：中（skill 生命周期管理）**
-
-## 六、Skills System
+## 十一、Skills System
 
 **优先级：中（skill 生命周期管理）**
 
@@ -657,7 +962,7 @@ SkillTool.checkPermissions()
 
 ---
 
-## 七、Session Memory
+## 十二、Session Memory
 
 **优先级：中（长期记忆参考）**
 
@@ -783,7 +1088,7 @@ deny all other tools and all other files
 
 ---
 
-## 八、autoDream（自动记忆整合）
+## 十三、autoDream（自动记忆整合）
 
 **优先级：中（多 session 跨会话记忆整合）**
 
@@ -860,7 +1165,7 @@ type DreamTaskState = {
 
 ---
 
-## 九、Hooks System（钩子系统）
+## 十四、Hooks System（钩子系统）
 
 **优先级：中（模块间解耦机制）**
 
@@ -937,7 +1242,7 @@ API 采样完成
 
 ---
 
-## 十、MCP System（Model Context Protocol）
+## 十五、MCP System（Model Context Protocol）
 
 **优先级：低（OpenClaw 暂无 MCP 支持）**
 
@@ -1007,7 +1312,7 @@ McpOAuthConfig:
 
 MCP 对虾哥的优先级低，因为 OpenClaw 已有 skill 机制。但如果未来需要接入外部服务（GitHub API、数据库等），MCP 是一个标准化的方式。
 
-## 十一、Team System（多 Agent 协作 + 团队记忆同步）
+## 十六、Team System（多 Agent 协作 + 团队记忆同步）
 
 **优先级：中（虾哥多会话协作能力）**
 
@@ -1088,6 +1393,7 @@ Push（推）：Local → Server
 | v0.5 | 2026-04-05 | 新增第一章「核心认知框架：Agent ≠ Chatbot」，含维度对比表 + Token经济学 + 三个Agent本质特征 |
 | v0.6 | 2026-04-05 | 新增 Team System（TeamCreate/SendMessage/Cron 多Agent协作 + Team Memory Sync 双向同步 + 冲突处理 + secrets扫描） |
 | v0.7 | 2026-04-05 | 新增 4.7 七种执行模式表格（来源：炼钢AI）；补充 9.3 24种Hook事件分类表（来源：炼钢AI） |
+| v0.8 | 2026-04-10 | 整合18:03四个维度：压缩机制（五层新版）、存储架构、索引和读取、上下文管理、与会话机制关系；修复重复的Skills System标题；章节重排至十六章 |
 
 ---
 

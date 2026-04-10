@@ -1,0 +1,9 @@
+[
+  {
+    "name": "opencli-skill",
+    "author": "joeseesun",
+    "url": "https://github.com/joeseesun/opencli-skill",
+    "description": "Use opencli CLI to interact with social/content websites (Bilibili, Zhihu, Twitter/X, YouTube, Weibo, 小红书, V2EX, Reddit, HackerNews, 雪球, BOSS直聘 etc.)",
+    "risk": "??"
+  }
+]

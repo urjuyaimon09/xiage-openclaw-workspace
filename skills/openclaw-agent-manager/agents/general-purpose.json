@@ -1,0 +1,15 @@
+{
+  "name": "general-purpose",
+  "description": "全能型 Agent",
+  "tools": ["*"],
+  "model": "inherit",
+  "runTimeoutSeconds": 600,
+  "cleanup": "delete",
+  "sandbox": "require",
+  "safety": {
+    "dangerLevel": "high",
+    "allowedOperations": ["*"],
+    "restrictedOperations": [],
+    "notes": "全能型，可执行任意操作。必须指定具体 task，仅用于复杂多步骤任务"
+  }
+}

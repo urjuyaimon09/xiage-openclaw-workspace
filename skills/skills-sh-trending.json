@@ -1,0 +1,997 @@
+[
+  {
+    "author": "skills",
+    "name": "find-skills",
+    "url": "https://skills.sh/openclaw/skills/find-skills"
+  },
+  {
+    "author": "skills",
+    "name": "yahoo-finance",
+    "url": "https://skills.sh/openclaw/skills/yahoo-finance"
+  },
+  {
+    "author": "skills",
+    "name": "mcporter",
+    "url": "https://skills.sh/openclaw/skills/mcporter"
+  },
+  {
+    "author": "skills",
+    "name": "skill-vetter",
+    "url": "https://skills.sh/openclaw/skills/skill-vetter"
+  },
+  {
+    "author": "skills",
+    "name": "agent-browser",
+    "url": "https://skills.sh/openclaw/skills/agent-browser"
+  },
+  {
+    "author": "skills",
+    "name": "proactive-agent",
+    "url": "https://skills.sh/openclaw/skills/proactive-agent"
+  },
+  {
+    "author": "skills",
+    "name": "github",
+    "url": "https://skills.sh/openclaw/skills/github"
+  },
+  {
+    "author": "skills",
+    "name": "summarize",
+    "url": "https://skills.sh/openclaw/skills/summarize"
+  },
+  {
+    "author": "skills",
+    "name": "weather",
+    "url": "https://skills.sh/openclaw/skills/weather"
+  },
+  {
+    "author": "skills",
+    "name": "gog",
+    "url": "https://skills.sh/openclaw/skills/gog"
+  },
+  {
+    "author": "skills",
+    "name": "web-search",
+    "url": "https://skills.sh/openclaw/skills/web-search"
+  },
+  {
+    "author": "skills",
+    "name": "frontend-design",
+    "url": "https://skills.sh/openclaw/skills/frontend-design"
+  },
+  {
+    "author": "skills",
+    "name": "bird",
+    "url": "https://skills.sh/openclaw/skills/bird"
+  },
+  {
+    "author": "skills",
+    "name": "youtube-summarizer",
+    "url": "https://skills.sh/openclaw/skills/youtube-summarizer"
+  },
+  {
+    "author": "skills",
+    "name": "multi-search-engine",
+    "url": "https://skills.sh/openclaw/skills/multi-search-engine"
+  },
+  {
+    "author": "skills",
+    "name": "tavily",
+    "url": "https://skills.sh/openclaw/skills/tavily"
+  },
+  {
+    "author": "skills",
+    "name": "email",
+    "url": "https://skills.sh/openclaw/skills/email"
+  },
+  {
+    "author": "skills",
+    "name": "senior-fullstack",
+    "url": "https://skills.sh/openclaw/skills/senior-fullstack"
+  },
+  {
+    "author": "skills",
+    "name": "openclaw-search",
+    "url": "https://skills.sh/openclaw/skills/openclaw-search"
+  },
+  {
+    "author": "skills",
+    "name": "ui-ux-pro-max",
+    "url": "https://skills.sh/openclaw/skills/ui-ux-pro-max"
+  },
+  {
+    "author": "skills",
+    "name": "senior-architect",
+    "url": "https://skills.sh/openclaw/skills/senior-architect"
+  },
+  {
+    "author": "skills",
+    "name": "calendar",
+    "url": "https://skills.sh/openclaw/skills/calendar"
+  },
+  {
+    "author": "skills",
+    "name": "senior-devops",
+    "url": "https://skills.sh/openclaw/skills/senior-devops"
+  },
+  {
+    "author": "skills",
+    "name": "tavily-search",
+    "url": "https://skills.sh/openclaw/skills/tavily-search"
+  },
+  {
+    "author": "skills",
+    "name": "skill-creator",
+    "url": "https://skills.sh/openclaw/skills/skill-creator"
+  },
+  {
+    "author": "skills",
+    "name": "nano-banana-pro",
+    "url": "https://skills.sh/openclaw/skills/nano-banana-pro"
+  },
+  {
+    "author": "skills",
+    "name": "senior-backend",
+    "url": "https://skills.sh/openclaw/skills/senior-backend"
+  },
+  {
+    "author": "skills",
+    "name": "todo",
+    "url": "https://skills.sh/openclaw/skills/todo"
+  },
+  {
+    "author": "skills",
+    "name": "--help",
+    "url": "https://skills.sh/openclaw/skills/--help"
+  },
+  {
+    "author": "skills",
+    "name": "agent-browser",
+    "url": "https://skills.sh/openclaw/skills/agent-browser"
+  },
+  {
+    "author": "skills",
+    "name": "humanizer",
+    "url": "https://skills.sh/openclaw/skills/humanizer"
+  },
+  {
+    "author": "skills",
+    "name": "edge-tts",
+    "url": "https://skills.sh/openclaw/skills/edge-tts"
+  },
+  {
+    "author": "skills",
+    "name": "self-improving-agent",
+    "url": "https://skills.sh/openclaw/skills/self-improving-agent"
+  },
+  {
+    "author": "skills",
+    "name": "senior-ml-engineer",
+    "url": "https://skills.sh/openclaw/skills/senior-ml-engineer"
+  },
+  {
+    "author": "skills",
+    "name": "faster-whisper",
+    "url": "https://skills.sh/openclaw/skills/faster-whisper"
+  },
+  {
+    "author": "skills",
+    "name": "ui-design-system",
+    "url": "https://skills.sh/openclaw/skills/ui-design-system"
+  },
+  {
+    "author": "skills",
+    "name": "postgres",
+    "url": "https://skills.sh/openclaw/skills/postgres"
+  },
+  {
+    "author": "skills",
+    "name": "news-aggregator-skill",
+    "url": "https://skills.sh/openclaw/skills/news-aggregator-skill"
+  },
+  {
+    "author": "skills",
+    "name": "ux-researcher-designer",
+    "url": "https://skills.sh/openclaw/skills/ux-researcher-designer"
+  },
+  {
+    "author": "skills",
+    "name": "agent-orchestrator",
+    "url": "https://skills.sh/openclaw/skills/agent-orchestrator"
+  },
+  {
+    "author": "skills",
+    "name": "context7",
+    "url": "https://skills.sh/openclaw/skills/context7"
+  },
+  {
+    "author": "skills",
+    "name": "senior-computer-vision",
+    "url": "https://skills.sh/openclaw/skills/senior-computer-vision"
+  },
+  {
+    "author": "skills",
+    "name": "instagram",
+    "url": "https://skills.sh/openclaw/skills/instagram"
+  },
+  {
+    "author": "skills",
+    "name": "wechat-publisher",
+    "url": "https://skills.sh/openclaw/skills/wechat-publisher"
+  },
+  {
+    "author": "skills",
+    "name": "senior-frontend",
+    "url": "https://skills.sh/openclaw/skills/senior-frontend"
+  },
+  {
+    "author": "skills",
+    "name": "database",
+    "url": "https://skills.sh/openclaw/skills/database"
+  },
+  {
+    "author": "skills",
+    "name": "senior-data-engineer",
+    "url": "https://skills.sh/openclaw/skills/senior-data-engineer"
+  },
+  {
+    "author": "skills",
+    "name": "senior-data-scientist",
+    "url": "https://skills.sh/openclaw/skills/senior-data-scientist"
+  },
+  {
+    "author": "skills",
+    "name": "duckduckgo-search",
+    "url": "https://skills.sh/openclaw/skills/duckduckgo-search"
+  },
+  {
+    "author": "skills",
+    "name": "self-improvement",
+    "url": "https://skills.sh/openclaw/skills/self-improvement"
+  },
+  {
+    "author": "skills",
+    "name": "google-calendar",
+    "url": "https://skills.sh/openclaw/skills/google-calendar"
+  },
+  {
+    "author": "skills",
+    "name": "tiktok",
+    "url": "https://skills.sh/openclaw/skills/tiktok"
+  },
+  {
+    "author": "skills",
+    "name": "ui-designer",
+    "url": "https://skills.sh/openclaw/skills/ui-designer"
+  },
+  {
+    "author": "skills",
+    "name": "redis",
+    "url": "https://skills.sh/openclaw/skills/redis"
+  },
+  {
+    "author": "skills",
+    "name": "youtube-analytics",
+    "url": "https://skills.sh/openclaw/skills/youtube-analytics"
+  },
+  {
+    "author": "skills",
+    "name": "coding-agent",
+    "url": "https://skills.sh/openclaw/skills/coding-agent"
+  },
+  {
+    "author": "skills",
+    "name": "ai-humanizer",
+    "url": "https://skills.sh/openclaw/skills/ai-humanizer"
+  },
+  {
+    "author": "skills",
+    "name": "content-creator",
+    "url": "https://skills.sh/openclaw/skills/content-creator"
+  },
+  {
+    "author": "skills",
+    "name": "twitter",
+    "url": "https://skills.sh/openclaw/skills/twitter"
+  },
+  {
+    "author": "skills",
+    "name": "pdf",
+    "url": "https://skills.sh/openclaw/skills/pdf"
+  },
+  {
+    "author": "skills",
+    "name": "canva",
+    "url": "https://skills.sh/openclaw/skills/canva"
+  },
+  {
+    "author": "skills",
+    "name": "senior-prompt-engineer",
+    "url": "https://skills.sh/openclaw/skills/senior-prompt-engineer"
+  },
+  {
+    "author": "skills",
+    "name": "senior-qa",
+    "url": "https://skills.sh/openclaw/skills/senior-qa"
+  },
+  {
+    "author": "skills",
+    "name": "orchestrator",
+    "url": "https://skills.sh/openclaw/skills/orchestrator"
+  },
+  {
+    "author": "skills",
+    "name": "openclaw-youtube",
+    "url": "https://skills.sh/openclaw/skills/openclaw-youtube"
+  },
+  {
+    "author": "skills",
+    "name": "read-github",
+    "url": "https://skills.sh/openclaw/skills/read-github"
+  },
+  {
+    "author": "skills",
+    "name": "us-stock-analyst",
+    "url": "https://skills.sh/openclaw/skills/us-stock-analyst"
+  },
+  {
+    "author": "skills",
+    "name": "claude",
+    "url": "https://skills.sh/openclaw/skills/claude"
+  },
+  {
+    "author": "skills",
+    "name": "todoist",
+    "url": "https://skills.sh/openclaw/skills/todoist"
+  },
+  {
+    "author": "skills",
+    "name": "openclaw-media-gen",
+    "url": "https://skills.sh/openclaw/skills/openclaw-media-gen"
+  },
+  {
+    "author": "skills",
+    "name": "ai-researcher",
+    "url": "https://skills.sh/openclaw/skills/ai-researcher"
+  },
+  {
+    "author": "skills",
+    "name": "excalidraw",
+    "url": "https://skills.sh/openclaw/skills/excalidraw"
+  },
+  {
+    "author": "skills",
+    "name": "brave-search",
+    "url": "https://skills.sh/openclaw/skills/brave-search"
+  },
+  {
+    "author": "skills",
+    "name": "firecrawl",
+    "url": "https://skills.sh/openclaw/skills/firecrawl"
+  },
+  {
+    "author": "skills",
+    "name": "llm",
+    "url": "https://skills.sh/openclaw/skills/llm"
+  },
+  {
+    "author": "skills",
+    "name": "twitter-command-center-(search-+-post)",
+    "url": "https://skills.sh/openclaw/skills/twitter-command-center-(search-+-post)"
+  },
+  {
+    "author": "skills",
+    "name": "social-media-analyzer",
+    "url": "https://skills.sh/openclaw/skills/social-media-analyzer"
+  },
+  {
+    "author": "skills",
+    "name": "open-webui",
+    "url": "https://skills.sh/openclaw/skills/open-webui"
+  },
+  {
+    "author": "skills",
+    "name": "browser-use",
+    "url": "https://skills.sh/openclaw/skills/browser-use"
+  },
+  {
+    "author": "skills",
+    "name": "obsidian",
+    "url": "https://skills.sh/openclaw/skills/obsidian"
+  },
+  {
+    "author": "skills",
+    "name": "ontology",
+    "url": "https://skills.sh/openclaw/skills/ontology"
+  },
+  {
+    "author": "skills",
+    "name": "binance",
+    "url": "https://skills.sh/openclaw/skills/binance"
+  },
+  {
+    "author": "skills",
+    "name": "searxng",
+    "url": "https://skills.sh/openclaw/skills/searxng"
+  },
+  {
+    "author": "skills",
+    "name": "deepwiki",
+    "url": "https://skills.sh/openclaw/skills/deepwiki"
+  },
+  {
+    "author": "skills",
+    "name": "brainstorming",
+    "url": "https://skills.sh/openclaw/skills/brainstorming"
+  },
+  {
+    "author": "skills",
+    "name": "polymarket-agent",
+    "url": "https://skills.sh/openclaw/skills/polymarket-agent"
+  },
+  {
+    "author": "skills",
+    "name": "ga4-analytics",
+    "url": "https://skills.sh/openclaw/skills/ga4-analytics"
+  },
+  {
+    "author": "skills",
+    "name": "task-status",
+    "url": "https://skills.sh/openclaw/skills/task-status"
+  },
+  {
+    "author": "skills",
+    "name": "notion",
+    "url": "https://skills.sh/openclaw/skills/notion"
+  },
+  {
+    "author": "skills",
+    "name": "academic-deep-research",
+    "url": "https://skills.sh/openclaw/skills/academic-deep-research"
+  },
+  {
+    "author": "skills",
+    "name": "gemini-computer-use",
+    "url": "https://skills.sh/openclaw/skills/gemini-computer-use"
+  },
+  {
+    "author": "skills",
+    "name": "context-optimizer",
+    "url": "https://skills.sh/openclaw/skills/context-optimizer"
+  },
+  {
+    "author": "skills",
+    "name": "remotion-best-practices",
+    "url": "https://skills.sh/openclaw/skills/remotion-best-practices"
+  },
+  {
+    "author": "skills",
+    "name": "skill-vetting",
+    "url": "https://skills.sh/openclaw/skills/skill-vetting"
+  },
+  {
+    "author": "skills",
+    "name": "senior-security",
+    "url": "https://skills.sh/openclaw/skills/senior-security"
+  },
+  {
+    "author": "skills",
+    "name": "healthcheck",
+    "url": "https://skills.sh/openclaw/skills/healthcheck"
+  },
+  {
+    "author": "skills",
+    "name": "marketpulse",
+    "url": "https://skills.sh/openclaw/skills/marketpulse"
+  },
+  {
+    "author": "skills",
+    "name": "senior-secops",
+    "url": "https://skills.sh/openclaw/skills/senior-secops"
+  },
+  {
+    "author": "skills",
+    "name": "system-architect",
+    "url": "https://skills.sh/openclaw/skills/system-architect"
+  },
+  {
+    "author": "skills",
+    "name": "stripe",
+    "url": "https://skills.sh/openclaw/skills/stripe"
+  },
+  {
+    "author": "skills",
+    "name": "memory",
+    "url": "https://skills.sh/openclaw/skills/memory"
+  },
+  {
+    "author": "skills",
+    "name": "product-manager-toolkit",
+    "url": "https://skills.sh/openclaw/skills/product-manager-toolkit"
+  },
+  {
+    "author": "skills",
+    "name": "openclaw-starter-kit",
+    "url": "https://skills.sh/openclaw/skills/openclaw-starter-kit"
+  },
+  {
+    "author": "skills",
+    "name": "product-strategist",
+    "url": "https://skills.sh/openclaw/skills/product-strategist"
+  },
+  {
+    "author": "skills",
+    "name": "compound-engineering",
+    "url": "https://skills.sh/openclaw/skills/compound-engineering"
+  },
+  {
+    "author": "skills",
+    "name": "yt-dlp-downloader",
+    "url": "https://skills.sh/openclaw/skills/yt-dlp-downloader"
+  },
+  {
+    "author": "skills",
+    "name": "cloudflare",
+    "url": "https://skills.sh/openclaw/skills/cloudflare"
+  },
+  {
+    "author": "skills",
+    "name": "agentmail",
+    "url": "https://skills.sh/openclaw/skills/agentmail"
+  },
+  {
+    "author": "skills",
+    "name": "better-notion",
+    "url": "https://skills.sh/openclaw/skills/better-notion"
+  },
+  {
+    "author": "skills",
+    "name": "imap-smtp-email",
+    "url": "https://skills.sh/openclaw/skills/imap-smtp-email"
+  },
+  {
+    "author": "skills",
+    "name": "humanize-ai",
+    "url": "https://skills.sh/openclaw/skills/humanize-ai"
+  },
+  {
+    "author": "skills",
+    "name": "excel",
+    "url": "https://skills.sh/openclaw/skills/excel"
+  },
+  {
+    "author": "skills",
+    "name": "browser",
+    "url": "https://skills.sh/openclaw/skills/browser"
+  },
+  {
+    "author": "skills",
+    "name": "finance",
+    "url": "https://skills.sh/openclaw/skills/finance"
+  },
+  {
+    "author": "skills",
+    "name": "python",
+    "url": "https://skills.sh/openclaw/skills/python"
+  },
+  {
+    "author": "skills",
+    "name": "aws-solution-architect",
+    "url": "https://skills.sh/openclaw/skills/aws-solution-architect"
+  },
+  {
+    "author": "skills",
+    "name": "telegram-bot-manager",
+    "url": "https://skills.sh/openclaw/skills/telegram-bot-manager"
+  },
+  {
+    "author": "skills",
+    "name": "curl-http",
+    "url": "https://skills.sh/openclaw/skills/curl-http"
+  },
+  {
+    "author": "skills",
+    "name": "telegram-bot",
+    "url": "https://skills.sh/openclaw/skills/telegram-bot"
+  },
+  {
+    "author": "skills",
+    "name": "apple-mail",
+    "url": "https://skills.sh/openclaw/skills/apple-mail"
+  },
+  {
+    "author": "skills",
+    "name": "todo-tracker",
+    "url": "https://skills.sh/openclaw/skills/todo-tracker"
+  },
+  {
+    "author": "skills",
+    "name": "academic-writer",
+    "url": "https://skills.sh/openclaw/skills/academic-writer"
+  },
+  {
+    "author": "skills",
+    "name": "gpt",
+    "url": "https://skills.sh/openclaw/skills/gpt"
+  },
+  {
+    "author": "skills",
+    "name": "spotify",
+    "url": "https://skills.sh/openclaw/skills/spotify"
+  },
+  {
+    "author": "skills",
+    "name": "social-media-content-engine",
+    "url": "https://skills.sh/openclaw/skills/social-media-content-engine"
+  },
+  {
+    "author": "skills",
+    "name": "academic-research-hub",
+    "url": "https://skills.sh/openclaw/skills/academic-research-hub"
+  },
+  {
+    "author": "skills",
+    "name": "antigravity-swarm",
+    "url": "https://skills.sh/openclaw/skills/antigravity-swarm"
+  },
+  {
+    "author": "skills",
+    "name": "email-daily-summary",
+    "url": "https://skills.sh/openclaw/skills/email-daily-summary"
+  },
+  {
+    "author": "skills",
+    "name": "n8n-workflow-automation",
+    "url": "https://skills.sh/openclaw/skills/n8n-workflow-automation"
+  },
+  {
+    "author": "skills",
+    "name": "game-light-tracker",
+    "url": "https://skills.sh/openclaw/skills/game-light-tracker"
+  },
+  {
+    "author": "skills",
+    "name": "deep-research",
+    "url": "https://skills.sh/openclaw/skills/deep-research"
+  },
+  {
+    "author": "skills",
+    "name": "seo-writer",
+    "url": "https://skills.sh/openclaw/skills/seo-writer"
+  },
+  {
+    "author": "skills",
+    "name": "crypto-wallet",
+    "url": "https://skills.sh/openclaw/skills/crypto-wallet"
+  },
+  {
+    "author": "skills",
+    "name": "seo-dataforseo",
+    "url": "https://skills.sh/openclaw/skills/seo-dataforseo"
+  },
+  {
+    "author": "skills",
+    "name": "geo-optimization",
+    "url": "https://skills.sh/openclaw/skills/geo-optimization"
+  },
+  {
+    "author": "skills",
+    "name": "code-formatter",
+    "url": "https://skills.sh/openclaw/skills/code-formatter"
+  },
+  {
+    "author": "skills",
+    "name": "auto-updater",
+    "url": "https://skills.sh/openclaw/skills/auto-updater"
+  },
+  {
+    "author": "skills",
+    "name": "captcha-solver",
+    "url": "https://skills.sh/openclaw/skills/captcha-solver"
+  },
+  {
+    "author": "skills",
+    "name": "ui-ux-master",
+    "url": "https://skills.sh/openclaw/skills/ui-ux-master"
+  },
+  {
+    "author": "skills",
+    "name": "ui-skills",
+    "url": "https://skills.sh/openclaw/skills/ui-skills"
+  },
+  {
+    "author": "skills",
+    "name": "ralph-loop",
+    "url": "https://skills.sh/openclaw/skills/ralph-loop"
+  },
+  {
+    "author": "skills",
+    "name": "git-essentials",
+    "url": "https://skills.sh/openclaw/skills/git-essentials"
+  },
+  {
+    "author": "skills",
+    "name": "ssh-essentials",
+    "url": "https://skills.sh/openclaw/skills/ssh-essentials"
+  },
+  {
+    "author": "skills",
+    "name": "gmail-manager",
+    "url": "https://skills.sh/openclaw/skills/gmail-manager"
+  },
+  {
+    "author": "skills",
+    "name": "cursor-agent",
+    "url": "https://skills.sh/openclaw/skills/cursor-agent"
+  },
+  {
+    "author": "skills",
+    "name": "web-search-plus",
+    "url": "https://skills.sh/openclaw/skills/web-search-plus"
+  },
+  {
+    "author": "skills",
+    "name": "soul",
+    "url": "https://skills.sh/openclaw/skills/soul"
+  },
+  {
+    "author": "skills",
+    "name": "qmd",
+    "url": "https://skills.sh/openclaw/skills/qmd"
+  },
+  {
+    "author": "skills",
+    "name": "clawdnet",
+    "url": "https://skills.sh/openclaw/skills/clawdnet"
+  },
+  {
+    "author": "skills",
+    "name": "%E4%B8%AD%E5%9B%BD%E5%9F%8E%E5%B8%82%E5%A4%A9%E6%B0%94weather-in-china",
+    "url": "https://skills.sh/openclaw/skills/%E4%B8%AD%E5%9B%BD%E5%9F%8E%E5%B8%82%E5%A4%A9%E6%B0%94weather-in-china"
+  },
+  {
+    "author": "skills",
+    "name": "competitor-analyst",
+    "url": "https://skills.sh/openclaw/skills/competitor-analyst"
+  },
+  {
+    "author": "skills",
+    "name": "gemini-deep-research",
+    "url": "https://skills.sh/openclaw/skills/gemini-deep-research"
+  },
+  {
+    "author": "skills",
+    "name": "mermaid-architect",
+    "url": "https://skills.sh/openclaw/skills/mermaid-architect"
+  },
+  {
+    "author": "skills",
+    "name": "competitor-analysis",
+    "url": "https://skills.sh/openclaw/skills/competitor-analysis"
+  },
+  {
+    "author": "skills",
+    "name": "capability-evolver",
+    "url": "https://skills.sh/openclaw/skills/capability-evolver"
+  },
+  {
+    "author": "skills",
+    "name": "codex-cli",
+    "url": "https://skills.sh/openclaw/skills/codex-cli"
+  },
+  {
+    "author": "skills",
+    "name": "agent-directory",
+    "url": "https://skills.sh/openclaw/skills/agent-directory"
+  },
+  {
+    "author": "skills",
+    "name": "security-audit",
+    "url": "https://skills.sh/openclaw/skills/security-audit"
+  },
+  {
+    "author": "skills",
+    "name": "agentguard",
+    "url": "https://skills.sh/openclaw/skills/agentguard"
+  },
+  {
+    "author": "skills",
+    "name": "data-analyst",
+    "url": "https://skills.sh/openclaw/skills/data-analyst"
+  },
+  {
+    "author": "skills",
+    "name": "ddg-search",
+    "url": "https://skills.sh/openclaw/skills/ddg-search"
+  },
+  {
+    "author": "skills",
+    "name": "config-guardian",
+    "url": "https://skills.sh/openclaw/skills/config-guardian"
+  },
+  {
+    "author": "skills",
+    "name": "1password",
+    "url": "https://skills.sh/openclaw/skills/1password"
+  },
+  {
+    "author": "skills",
+    "name": "video-frames",
+    "url": "https://skills.sh/openclaw/skills/video-frames"
+  },
+  {
+    "author": "skills",
+    "name": "clawarena",
+    "url": "https://skills.sh/openclaw/skills/clawarena"
+  },
+  {
+    "author": "skills",
+    "name": "agentarxiv",
+    "url": "https://skills.sh/openclaw/skills/agentarxiv"
+  },
+  {
+    "author": "skills",
+    "name": "ai-video-gen",
+    "url": "https://skills.sh/openclaw/skills/ai-video-gen"
+  },
+  {
+    "author": "skills",
+    "name": "task-decomposer",
+    "url": "https://skills.sh/openclaw/skills/task-decomposer"
+  },
+  {
+    "author": "skills",
+    "name": "baidu-search",
+    "url": "https://skills.sh/openclaw/skills/baidu-search"
+  },
+  {
+    "author": "skills",
+    "name": "pptx-creator",
+    "url": "https://skills.sh/openclaw/skills/pptx-creator"
+  },
+  {
+    "author": "skills",
+    "name": "payment",
+    "url": "https://skills.sh/openclaw/skills/payment"
+  },
+  {
+    "author": "skills",
+    "name": "nano-pdf",
+    "url": "https://skills.sh/openclaw/skills/nano-pdf"
+  },
+  {
+    "author": "skills",
+    "name": "himalaya",
+    "url": "https://skills.sh/openclaw/skills/himalaya"
+  },
+  {
+    "author": "skills",
+    "name": "bw-cli",
+    "url": "https://skills.sh/openclaw/skills/bw-cli"
+  },
+  {
+    "author": "skills",
+    "name": "tmux",
+    "url": "https://skills.sh/openclaw/skills/tmux"
+  },
+  {
+    "author": "skills",
+    "name": "ercdata",
+    "url": "https://skills.sh/openclaw/skills/ercdata"
+  },
+  {
+    "author": "skills",
+    "name": "n8n",
+    "url": "https://skills.sh/openclaw/skills/n8n"
+  },
+  {
+    "author": "skills",
+    "name": "first-principles-decomposer",
+    "url": "https://skills.sh/openclaw/skills/first-principles-decomposer"
+  },
+  {
+    "author": "skills",
+    "name": "docker-essentials",
+    "url": "https://skills.sh/openclaw/skills/docker-essentials"
+  },
+  {
+    "author": "skills",
+    "name": "polymarket-trader",
+    "url": "https://skills.sh/openclaw/skills/polymarket-trader"
+  },
+  {
+    "author": "skills",
+    "name": "google-gemini-media",
+    "url": "https://skills.sh/openclaw/skills/google-gemini-media"
+  },
+  {
+    "author": "skills",
+    "name": "gitlab-cli-skills",
+    "url": "https://skills.sh/openclaw/skills/gitlab-cli-skills"
+  },
+  {
+    "author": "skills",
+    "name": "financial-tracker",
+    "url": "https://skills.sh/openclaw/skills/financial-tracker"
+  },
+  {
+    "author": "skills",
+    "name": "bitwarden",
+    "url": "https://skills.sh/openclaw/skills/bitwarden"
+  },
+  {
+    "author": "skills",
+    "name": "daily-briefing",
+    "url": "https://skills.sh/openclaw/skills/daily-briefing"
+  },
+  {
+    "author": "skills",
+    "name": "arxiv-watcher",
+    "url": "https://skills.sh/openclaw/skills/arxiv-watcher"
+  },
+  {
+    "author": "skills",
+    "name": "google-ads",
+    "url": "https://skills.sh/openclaw/skills/google-ads"
+  },
+  {
+    "author": "skills",
+    "name": "agent-memory",
+    "url": "https://skills.sh/openclaw/skills/agent-memory"
+  },
+  {
+    "author": "skills",
+    "name": "deepwork-tracker",
+    "url": "https://skills.sh/openclaw/skills/deepwork-tracker"
+  },
+  {
+    "author": "skills",
+    "name": "tdd-guide",
+    "url": "https://skills.sh/openclaw/skills/tdd-guide"
+  },
+  {
+    "author": "skills",
+    "name": "feishu-doc",
+    "url": "https://skills.sh/openclaw/skills/feishu-doc"
+  },
+  {
+    "author": "skills",
+    "name": "blog-writer",
+    "url": "https://skills.sh/openclaw/skills/blog-writer"
+  },
+  {
+    "author": "skills",
+    "name": "a-stock-monitor",
+    "url": "https://skills.sh/openclaw/skills/a-stock-monitor"
+  },
+  {
+    "author": "skills",
+    "name": "binance-pay",
+    "url": "https://skills.sh/openclaw/skills/binance-pay"
+  },
+  {
+    "author": "skills",
+    "name": "obsidian-cli",
+    "url": "https://skills.sh/openclaw/skills/obsidian-cli"
+  },
+  {
+    "author": "skills",
+    "name": "youtube-search",
+    "url": "https://skills.sh/openclaw/skills/youtube-search"
+  },
+  {
+    "author": "skills",
+    "name": "write-plan",
+    "url": "https://skills.sh/openclaw/skills/write-plan"
+  },
+  {
+    "author": "skills",
+    "name": "36kr-hot-cn",
+    "url": "https://skills.sh/openclaw/skills/36kr-hot-cn"
+  },
+  {
+    "author": "skills",
+    "name": "apple-music",
+    "url": "https://skills.sh/openclaw/skills/apple-music"
+  }
+]

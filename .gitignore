@@ -1,0 +1,36 @@
+# 运行时产物
+node_modules
+skills/*/node_modules
+.tmp*
+*.log
+skill-usage.json
+.env
+.env.*
+old-versions/
+skills/retired/
+.git/
+
+# 嵌入的 git 仓库（无法直接 add）
+skills/autogame-17-evolver/
+skills/JK-0001-automation-workflows/
+skills/biostartechnology-humanizer/
+skills/byungkyu-api-gateway/
+skills/chindden-skill-creator/
+skills/fly0pants-admapix/
+skills/steipete-sonoscli/
+skills/steipete-mcporter/
+skills/skills/
+
+# 运行时日志
+rules-execution-log.jsonl
+supervision-issues.jsonl
+model_response.txt
+
+# 杂项
+temp/
+zhihu-articles/
+web-articles/
+xia-bing-xie-jiang/
+vapi-ai-recruiter/
+
+memory/

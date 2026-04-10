@@ -1,0 +1,11 @@
+[
+  {
+    "name": "wechat-article-reader",
+    "author": "8421bit",
+    "url": "https://github.com/8421bit/wechat-article-reader",
+    "description": "单技能安装: 8421bit/wechat-article-reader",
+    "risk": "🟢",
+    "rejectReason": "",
+    "checkMethod": "clawhub-text-rule"
+  }
+]

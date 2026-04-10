@@ -1,0 +1,67 @@
+[
+  {
+    "name": "yahoo-finance",
+    "url": "https://skills.sh/openclaw/skills/yahoo-finance",
+    "githubUrl": "https://github.com/openclaw/skills"
+  },
+  {
+    "name": "mcporter",
+    "url": "https://skills.sh/openclaw/skills/mcporter",
+    "githubUrl": "https://github.com/openclaw/skills"
+  },
+  {
+    "name": "proactive-agent",
+    "url": "https://skills.sh/openclaw/skills/proactive-agent",
+    "githubUrl": "https://github.com/openclaw/skills"
+  },
+  {
+    "name": "web-search",
+    "url": "https://skills.sh/openclaw/skills/web-search",
+    "githubUrl": "https://github.com/openclaw/skills/blob/HEAD/skills/86293073/web-search-instant-1-1-0/test-outputs.md"
+  },
+  {
+    "name": "youtube-summarizer",
+    "url": "https://skills.sh/openclaw/skills/youtube-summarizer",
+    "githubUrl": "https://github.com/openclaw/skills"
+  },
+  {
+    "name": "senior-fullstack",
+    "url": "https://skills.sh/openclaw/skills/senior-fullstack",
+    "githubUrl": "https://github.com/openclaw/skills"
+  },
+  {
+    "name": "ui-ux-pro-max",
+    "url": "https://skills.sh/openclaw/skills/ui-ux-pro-max",
+    "githubUrl": "https://github.com/openclaw/skills"
+  },
+  {
+    "name": "senior-architect",
+    "url": "https://skills.sh/openclaw/skills/senior-architect",
+    "githubUrl": "https://github.com/openclaw/skills"
+  },
+  {
+    "name": "calendar",
+    "url": "https://skills.sh/openclaw/skills/calendar",
+    "githubUrl": "https://github.com/openclaw/skills"
+  },
+  {
+    "name": "senior-devops",
+    "url": "https://skills.sh/openclaw/skills/senior-devops",
+    "githubUrl": "https://github.com/openclaw/skills"
+  },
+  {
+    "name": "senior-backend",
+    "url": "https://skills.sh/openclaw/skills/senior-backend",
+    "githubUrl": "https://github.com/openclaw/skills"
+  },
+  {
+    "name": "todo",
+    "url": "https://skills.sh/openclaw/skills/todo",
+    "githubUrl": "https://github.com/openclaw/skills"
+  },
+  {
+    "name": "humanizer",
+    "url": "https://skills.sh/openclaw/skills/humanizer",
+    "githubUrl": "https://github.com/openclaw/skills"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "author": "skills",
+    "name": "yahoo-finance",
+    "url": "https://skills.sh/openclaw/skills/yahoo-finance",
+    "source": "trending"
+  },
+  {
+    "author": "skills",
+    "name": "find-skills",
+    "url": "https://skills.sh/openclaw/skills/find-skills",
+    "source": "trending"
+  },
+  {
+    "author": "skills",
+    "name": "mcporter",
+    "url": "https://skills.sh/openclaw/skills/mcporter",
+    "source": "trending"
+  },
+  {
+    "author": "skills",
+    "name": "skill-vetter",
+    "url": "https://skills.sh/openclaw/skills/skill-vetter",
+    "source": "trending"
+  },
+  {
+    "author": "skills",
+    "name": "agent-browser",
+    "url": "https://skills.sh/openclaw/skills/agent-browser",
+    "source": "trending"
+  }
+]

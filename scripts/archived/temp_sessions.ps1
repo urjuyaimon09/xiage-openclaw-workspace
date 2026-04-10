@@ -1,0 +1,1 @@
+Get-ChildItem 'C:\Users\Administrator\.openclaw\agents\main\sessions\' -File | Where-Object { $_.Extension -eq '.jsonl' } | Sort-Object LastWriteTime -Descending | Select-Object -First 10 | ForEach-Object { Write-Host "$($_.LastWriteTime.ToString('yyyy-MM-dd HH:mm')) $($([math]::Round($_.Length/1KB)))KB $($_.Name)" }

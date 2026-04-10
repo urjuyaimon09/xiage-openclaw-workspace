@@ -1,0 +1,33 @@
+# demand-review 评估用例
+# 遵循 SKILL_LIFE.md v1.7.0 2.3 编写规范
+
+- skills: [demand-review]
+  query: "node demand-review.js run"
+  expected_behavior:
+    - "生成 docs/business/DEMAND-INPUT-YYYY-MM-DD.md（输入存档）"
+    - "生成 docs/business/DEMAND-YYYY-MM-DD.md（需求清单，覆盖）"
+    - "更新 docs/business/DEMAND.md（覆盖写入）"
+    - "输出包含坚果需求（马斯洛五层）+ 虾哥需求（按CAPABILITY_LIFE现状）"
+    - "无报错退出（exit code 0）"
+
+- skills: [demand-review]
+  query: "node demand-review.js dry-run"
+  expected_behavior:
+    - "不写入任何文件"
+    - "输出需求草稿预览（JSON格式）"
+    - "无报错退出"
+
+- skills: [demand-review]
+  query: "node demand-review.js validate"
+  expected_behavior:
+    - "读取当前 DEMAND.md"
+    - "检查每条需求的必要字段（重要度/来源/类型/状态/层级/提案方）"
+    - "输出字段完整性报告"
+    - "无报错退出"
+
+- skills: [demand-review]
+  query: "node demand-review.js summary"
+  expected_behavior:
+    - "不写入任何文件"
+    - "输出当前需求统计（总数/各层数量/重要度分布）"
+    - "无报错退出"

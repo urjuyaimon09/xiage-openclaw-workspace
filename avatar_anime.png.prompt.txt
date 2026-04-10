@@ -1,0 +1,4 @@
+参考这张照片，将人物转换为干净的日系动漫风格头像，保持原人物的五官特征和发型，不要改变五官位置和特征，整体风格是清新日系动画插画，高清，头像构图，白色背景。
+
+**提示词：**
+japanese anime style portrait, young man with the same facial features as reference picture, clean anime aesthetic, studio ghibli inspired, soft colors, high detail, avatar composition, white background, anime key visual, digital illustration --ar 1:1 --style raw

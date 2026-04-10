@@ -1,0 +1,25 @@
+# supervision-skill 评估用例
+# 遵循 SKILL_LIFE.md v1.7.0 2.3 编写规范
+
+- skills: [supervision-skill]
+  query: "node skills/supervision-skill/supervision-skill.js check"
+  expected_behavior:
+    - "返回 JSON，含 execResult（pass/fail/total/issues）"
+    - "无报错退出"
+    - "读取 rules-execution-log.jsonl 正常"
+
+- skills: [supervision-skill]
+  query: "node skills/supervision-skill/supervision-skill.js probe"
+  expected_behavior:
+    - "返回 JSON，含 probes 数组"
+    - "每次探针数量为2条（随机选择）"
+    - "每条探针含 rule 和 question 字段"
+    - "无报错退出"
+
+- skills: [supervision-skill]
+  query: "node skills/supervision-skill/supervision-skill.js report"
+  expected_behavior:
+    - "返回 JSON，含 report 字符串（监督巡检报告格式）"
+    - "含 execResult 汇总"
+    - "含 probes 数组"
+    - "无报错退出"

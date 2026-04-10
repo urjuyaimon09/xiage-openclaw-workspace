@@ -1,0 +1,19 @@
+{
+  "searchTotal": {
+    "clawhub": 0,
+    "trending": 199,
+    "downloads": 199
+  },
+  "afterInstallFilter": {
+    "clawhub": 0,
+    "trending": 5,
+    "downloads": 5
+  },
+  "afterDedup": {
+    "clawhub": 0,
+    "trending": 5,
+    "downloads": 0
+  },
+  "total": 5,
+  "timestamp": "2026-04-10T10:43:52.038Z"
+}

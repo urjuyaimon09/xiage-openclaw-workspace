@@ -1,0 +1,15 @@
+{
+  "name": "read-only-explore",
+  "description": "只读探索型 Agent",
+  "tools": ["Read", "Grep", "Glob", "WebSearch", "WebFetch"],
+  "model": "inherit",
+  "runTimeoutSeconds": 300,
+  "cleanup": "delete",
+  "sandbox": "require",
+  "safety": {
+    "dangerLevel": "low",
+    "allowedOperations": ["read", "search", "glob"],
+    "restrictedOperations": ["Write", "Edit", "Delete", "Move", "Bash"],
+    "notes": "只读搜索，禁止任何写操作。用于代码库探索、搜索、文件分析"
+  }
+}

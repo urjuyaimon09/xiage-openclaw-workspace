@@ -1,0 +1,7 @@
+{
+  "name": "openclaw-ralph-loop",
+  "version": "1.0.0",
+  "description": "Ralph Loop workflow orchestrator for OpenClaw agents",
+  "source": "https://skills.sh/openclaw/skills/ralph-loop",
+  "author": "openclaw"
+}

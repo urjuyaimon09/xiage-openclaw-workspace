@@ -1,0 +1,1 @@
+SecurityCompromiseError: Anonymous access to domain www.xiaohongshu.com blocked until Mon Mar 16 2026 15:25:03 GMT+0000 (Coordinated Universal Time) due to previous abuse found on https://www.xiaohongshu.com/discovery/item/5c1163f0000000000800392a: Suspicious action: Request to localhost: http://127.0.0.1:9222/json/version

@@ -1,0 +1,3537 @@
+[
+  {
+    "name": "Summarize",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 212000,
+    "stars": 812
+  },
+  {
+    "name": "Skill Vetter",
+    "author": "spclaudehome",
+    "version": "1.0.0",
+    "downloads": 157000,
+    "stars": 673
+  },
+  {
+    "name": "ontology",
+    "author": "oswalpalash",
+    "version": "1.0.4",
+    "downloads": 135000,
+    "stars": 406
+  },
+  {
+    "name": "Gog",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 135000,
+    "stars": 783
+  },
+  {
+    "name": "Github",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 134000,
+    "stars": 454
+  },
+  {
+    "name": "Proactive Agent",
+    "author": "halthelobster",
+    "version": "3.1.0",
+    "downloads": 122000,
+    "stars": 641
+  },
+  {
+    "name": "Self-Improving + Proactive Agent",
+    "author": "ivangdavila",
+    "version": "1.2.16",
+    "downloads": 118000,
+    "stars": 694
+  },
+  {
+    "name": "Weather",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 115000,
+    "stars": 329
+  },
+  {
+    "name": "Multi Search Engine",
+    "author": "gpyangyoujun",
+    "version": "2.0.1",
+    "downloads": 87600,
+    "stars": 438
+  },
+  {
+    "name": "AdMapix",
+    "author": "fly0pants",
+    "version": "1.0.28",
+    "downloads": 76700,
+    "stars": 202
+  },
+  {
+    "name": "Nano Pdf",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 75200,
+    "stars": 186
+  },
+  {
+    "name": "Humanizer",
+    "author": "biostartechnology",
+    "version": "1.0.0",
+    "downloads": 71800,
+    "stars": 467
+  },
+  {
+    "name": "Nano Banana Pro",
+    "author": "steipete",
+    "version": "1.0.1",
+    "downloads": 68700,
+    "stars": 275
+  },
+  {
+    "name": "Sonoscli",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 67900,
+    "stars": 46
+  },
+  {
+    "name": "Notion",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 66700,
+    "stars": 212
+  },
+  {
+    "name": "Obsidian",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 66100,
+    "stars": 274
+  },
+  {
+    "name": "Baidu Search",
+    "author": "ide-rea",
+    "version": "1.1.3",
+    "downloads": 63000,
+    "stars": 169
+  },
+  {
+    "name": "Tavily 搜索",
+    "author": "jacky1n7",
+    "version": "0.1.0",
+    "downloads": 60700,
+    "stars": 172
+  },
+  {
+    "name": "Auto-Updater Skill",
+    "author": "maximeprades",
+    "version": "1.0.0",
+    "downloads": 58500,
+    "stars": 321
+  },
+  {
+    "name": "Openai Whisper",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 58000,
+    "stars": 250
+  },
+  {
+    "name": "Skill Creator",
+    "author": "chindden",
+    "version": "0.1.0",
+    "downloads": 56400,
+    "stars": 201
+  },
+  {
+    "name": "API Gateway",
+    "author": "byungkyu",
+    "version": "1.0.71",
+    "downloads": 55800,
+    "stars": 275
+  },
+  {
+    "name": "Automation Workflows",
+    "author": "jk-0001",
+    "version": "0.1.0",
+    "downloads": 52800,
+    "stars": 218
+  },
+  {
+    "name": "Polymarket",
+    "author": "joelchance",
+    "version": "1.0.3",
+    "downloads": 51900,
+    "stars": 26
+  },
+  {
+    "name": "Agent Browser",
+    "author": "matrixy",
+    "version": "0.1.0",
+    "downloads": 48000,
+    "stars": 164
+  },
+  {
+    "name": "Mcporter",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 46500,
+    "stars": 140
+  },
+  {
+    "name": "Official",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 46500,
+    "stars": 140
+  },
+  {
+    "name": "Brave Search",
+    "author": "steipete",
+    "version": "1.0.1",
+    "downloads": 45100,
+    "stars": 165
+  },
+  {
+    "name": "Elite Longterm Memory",
+    "author": "nextfrontierbuilds",
+    "version": "1.2.3",
+    "downloads": 41500,
+    "stars": 163
+  },
+  {
+    "name": "Evolver",
+    "author": "autogame-17",
+    "version": "1.39.0",
+    "downloads": 39100,
+    "stars": 67
+  },
+  {
+    "name": "Stock Analysis",
+    "author": "udiedrichsen",
+    "version": "6.2.0",
+    "downloads": 38900,
+    "stars": 187
+  },
+  {
+    "name": "Desktop Control",
+    "author": "matagul",
+    "version": "1.0.0",
+    "downloads": 38100,
+    "stars": 258
+  },
+  {
+    "name": "Word / DOCX",
+    "author": "ivangdavila",
+    "version": "1.0.2",
+    "downloads": 36200,
+    "stars": 147
+  },
+  {
+    "name": "YouTube Watcher",
+    "author": "michaelgathara",
+    "version": "1.0.0",
+    "downloads": 36100,
+    "stars": 239
+  },
+  {
+    "name": "Video Frames",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 34300,
+    "stars": 96
+  },
+  {
+    "name": "Humanize AI text",
+    "author": "moltbro",
+    "version": "1.0.1",
+    "downloads": 33700,
+    "stars": 156
+  },
+  {
+    "name": "Feishu Evolver Wrapper",
+    "author": "autogame-17",
+    "version": "1.7.1",
+    "downloads": 33700,
+    "stars": 6
+  },
+  {
+    "name": "Slack",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 33000,
+    "stars": 108
+  },
+  {
+    "name": "Himalaya",
+    "author": "lamelas",
+    "version": "1.0.0",
+    "downloads": 32500,
+    "stars": 58
+  },
+  {
+    "name": "Clawdbot Documentation Expert",
+    "author": "nicholasspisak",
+    "version": "1.2.2",
+    "downloads": 32300,
+    "stars": 267
+  },
+  {
+    "name": "ByteRover",
+    "author": "byteroverinc",
+    "version": "2.1.0",
+    "downloads": 32100,
+    "stars": 106
+  },
+  {
+    "name": "Excel / XLSX",
+    "author": "ivangdavila",
+    "version": "1.0.2",
+    "downloads": 31400,
+    "stars": 123
+  },
+  {
+    "name": "News Summary",
+    "author": "joargp",
+    "version": "1.0.1",
+    "downloads": 30900,
+    "stars": 96
+  },
+  {
+    "name": "Browser Use",
+    "author": "shawnpana",
+    "version": "2.0.0",
+    "downloads": 30500,
+    "stars": 73
+  },
+  {
+    "name": "imap-smtp-email",
+    "author": "gzlicanyi",
+    "version": "0.0.10",
+    "downloads": 30400,
+    "stars": 79
+  },
+  {
+    "name": "Trello",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 30000,
+    "stars": 117
+  },
+  {
+    "name": "Blogwatcher",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 29400,
+    "stars": 52
+  },
+  {
+    "name": "Markdown Converter",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 28400,
+    "stars": 145
+  },
+  {
+    "name": "Model Usage",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 28300,
+    "stars": 99
+  },
+  {
+    "name": "Browser Automation",
+    "author": "peytoncasper",
+    "version": "1.0.1",
+    "downloads": 28000,
+    "stars": 39
+  },
+  {
+    "name": "Playwright MCP",
+    "author": "spiceman161",
+    "version": "1.0.0",
+    "downloads": 27300,
+    "stars": 99
+  },
+  {
+    "name": "Memory Setup",
+    "author": "jrbobbyhansen-pixel",
+    "version": "1.0.0",
+    "downloads": 27200,
+    "stars": 102
+  },
+  {
+    "name": "Gmail",
+    "author": "byungkyu",
+    "version": "1.0.6",
+    "downloads": 26800,
+    "stars": 63
+  },
+  {
+    "name": "Tavily AI Search",
+    "author": "bert-builder",
+    "version": "1.0.0",
+    "downloads": 25600,
+    "stars": 29
+  },
+  {
+    "name": "Gemini",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 25300,
+    "stars": 46
+  },
+  {
+    "name": "Clawdhub",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 25100,
+    "stars": 206
+  },
+  {
+    "name": "Discord",
+    "author": "steipete",
+    "version": "1.0.1",
+    "downloads": 24900,
+    "stars": 55
+  },
+  {
+    "name": "Xiaohongshu (小红书) Automation",
+    "author": "borye",
+    "version": "1.0.0",
+    "downloads": 24800,
+    "stars": 116
+  },
+  {
+    "name": "Pdf",
+    "author": "awspace",
+    "version": "0.1.0",
+    "downloads": 24800,
+    "stars": 40
+  },
+  {
+    "name": "Qmd",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 24600,
+    "stars": 89
+  },
+  {
+    "name": "SuperDesign",
+    "author": "mpociot",
+    "version": "1.0.0",
+    "downloads": 24600,
+    "stars": 134
+  },
+  {
+    "name": "Apple Notes",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 24500,
+    "stars": 43
+  },
+  {
+    "name": "YouTube",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 23300,
+    "stars": 124
+  },
+  {
+    "name": "Session-logs",
+    "author": "guogang1024",
+    "version": "1.0.0",
+    "downloads": 23200,
+    "stars": 19
+  },
+  {
+    "name": "Proactive Agent Lite",
+    "author": "bestrocky",
+    "version": "1.0.0",
+    "downloads": 23100,
+    "stars": 35
+  },
+  {
+    "name": "Docker Essentials",
+    "author": "arnarsson",
+    "version": "1.0.0",
+    "downloads": 22800,
+    "stars": 27
+  },
+  {
+    "name": "Web Search by Exa",
+    "author": "theishangoswami",
+    "version": "2.0.0",
+    "downloads": 22700,
+    "stars": 39
+  },
+  {
+    "name": "Stock Watcher",
+    "author": "robin797860",
+    "version": "1.0.0",
+    "downloads": 22500,
+    "stars": 72
+  },
+  {
+    "name": "Stock Market Pro",
+    "author": "kys42",
+    "version": "1.2.12",
+    "downloads": 22400,
+    "stars": 137
+  },
+  {
+    "name": "Caldav Calendar",
+    "author": "asleep123",
+    "version": "1.0.1",
+    "downloads": 22400,
+    "stars": 185
+  },
+  {
+    "name": "AgentMail",
+    "author": "adboio",
+    "version": "1.1.1",
+    "downloads": 22100,
+    "stars": 49
+  },
+  {
+    "name": "Ai Ppt Generator",
+    "author": "ide-rea",
+    "version": "1.1.4",
+    "downloads": 22000,
+    "stars": 48
+  },
+  {
+    "name": "Web Search",
+    "author": "billyutw",
+    "version": "1.0.0",
+    "downloads": 21400,
+    "stars": 25
+  },
+  {
+    "name": "n8n workflow automation",
+    "author": "kowl64",
+    "version": "1.0.0",
+    "downloads": 21300,
+    "stars": 102
+  },
+  {
+    "name": "Tavily Search",
+    "author": "matthew77",
+    "version": "1.0.1",
+    "downloads": 20900,
+    "stars": 57
+  },
+  {
+    "name": "Peekaboo",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 20900,
+    "stars": 63
+  },
+  {
+    "name": "UI/UX Pro Max",
+    "author": "xobi667",
+    "version": "0.1.0",
+    "downloads": 20700,
+    "stars": 105
+  },
+  {
+    "name": "Apple Reminders",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 20600,
+    "stars": 46
+  },
+  {
+    "name": "Deep Research Pro",
+    "author": "parags",
+    "version": "1.0.2",
+    "downloads": 20600,
+    "stars": 58
+  },
+  {
+    "name": "Powerpoint / PPTX",
+    "author": "ivangdavila",
+    "version": "1.0.1",
+    "downloads": 20500,
+    "stars": 58
+  },
+  {
+    "name": "Git Essentials",
+    "author": "arnarsson",
+    "version": "1.0.0",
+    "downloads": 20400,
+    "stars": 29
+  },
+  {
+    "name": "Playwright Scraper Skill",
+    "author": "waisimon",
+    "version": "1.2.0",
+    "downloads": 20300,
+    "stars": 45
+  },
+  {
+    "name": "LNBits Wallet wtih QR Code",
+    "author": "jamestsetsekas",
+    "version": "1.0.2",
+    "downloads": 20100,
+    "stars": 6
+  },
+  {
+    "name": "DuckDuckGo Web Search",
+    "author": "jakelin",
+    "version": "1.0.0",
+    "downloads": 20100,
+    "stars": 18
+  },
+  {
+    "name": "Sag",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 20000,
+    "stars": 21
+  },
+  {
+    "name": "Outlook",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 19600,
+    "stars": 34
+  },
+  {
+    "name": "WhatsApp Business",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 19600,
+    "stars": 51
+  },
+  {
+    "name": "Skill Finder Cn",
+    "author": "guohongbin-git",
+    "version": "1.0.1",
+    "downloads": 19200,
+    "stars": 58
+  },
+  {
+    "name": "1password",
+    "author": "steipete",
+    "version": "1.0.1",
+    "downloads": 19200,
+    "stars": 40
+  },
+  {
+    "name": "Tmux",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 19100,
+    "stars": 36
+  },
+  {
+    "name": "Marketing Mode",
+    "author": "thesethrose",
+    "version": "1.0.0",
+    "downloads": 19100,
+    "stars": 125
+  },
+  {
+    "name": "Exa Web Search (Free)",
+    "author": "whiteknight07",
+    "version": "1.0.1",
+    "downloads": 19100,
+    "stars": 63
+  },
+  {
+    "name": "Openai Image Gen",
+    "author": "steipete",
+    "version": "1.0.1",
+    "downloads": 18900,
+    "stars": 25
+  },
+  {
+    "name": "Stripe",
+    "author": "byungkyu",
+    "version": "1.0.8",
+    "downloads": 18800,
+    "stars": 24
+  },
+  {
+    "name": "Self Improving Agent",
+    "author": "xiucheng",
+    "version": "1.0.0",
+    "downloads": 18700,
+    "stars": 27
+  },
+  {
+    "name": "Spotify Player",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 18600,
+    "stars": 40
+  },
+  {
+    "name": "Humanizer",
+    "author": "brandonwise",
+    "version": "2.1.0",
+    "downloads": 18400,
+    "stars": 42
+  },
+  {
+    "name": "Shopify",
+    "author": "byungkyu",
+    "version": "1.0.1",
+    "downloads": 18000,
+    "stars": 6
+  },
+  {
+    "name": "Filesystem Management",
+    "author": "gtrusler",
+    "version": "1.0.2",
+    "downloads": 17900,
+    "stars": 69
+  },
+  {
+    "name": "Data Analysis",
+    "author": "ivangdavila",
+    "version": "1.0.2",
+    "downloads": 17800,
+    "stars": 57
+  },
+  {
+    "name": "Openai Whisper Api",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 17700,
+    "stars": 38
+  },
+  {
+    "name": "Memory Manager",
+    "author": "marmikcfc",
+    "version": "1.0.0",
+    "downloads": 17500,
+    "stars": 76
+  },
+  {
+    "name": "Markdown.new Skill",
+    "author": "joelchance",
+    "version": "1.0.0",
+    "downloads": 17500,
+    "stars": 39
+  },
+  {
+    "name": "Microsoft Excel",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 17300,
+    "stars": 37
+  },
+  {
+    "name": "Xero",
+    "author": "byungkyu",
+    "version": "1.0.4",
+    "downloads": 17300,
+    "stars": 10
+  },
+  {
+    "name": "Google Slides",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 17200,
+    "stars": 33
+  },
+  {
+    "name": "healthcheck",
+    "author": "stellarhold170nt",
+    "version": "1.0.2",
+    "downloads": 17100,
+    "stars": 9
+  },
+  {
+    "name": "Typeform",
+    "author": "byungkyu",
+    "version": "1.0.4",
+    "downloads": 17000,
+    "stars": 6
+  },
+  {
+    "name": "Salesforce",
+    "author": "byungkyu",
+    "version": "1.0.4",
+    "downloads": 16900,
+    "stars": 8
+  },
+  {
+    "name": "Using Superpowers",
+    "author": "zlc000190",
+    "version": "0.1.0",
+    "downloads": 16900,
+    "stars": 36
+  },
+  {
+    "name": "YouTube Transcript",
+    "author": "xthezealot",
+    "version": "1.0.1",
+    "downloads": 16800,
+    "stars": 21
+  },
+  {
+    "name": "Web Search Plus",
+    "author": "robbyczgw-cla",
+    "version": "2.9.0",
+    "downloads": 16800,
+    "stars": 84
+  },
+  {
+    "name": "OpenClaw Backup",
+    "author": "alex3alex",
+    "version": "1.0.0",
+    "downloads": 16700,
+    "stars": 58
+  },
+  {
+    "name": "Todoist",
+    "author": "mjrussell",
+    "version": "0.2.1",
+    "downloads": 16400,
+    "stars": 46
+  },
+  {
+    "name": "Goplaces",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 16300,
+    "stars": 27
+  },
+  {
+    "name": "Google Meet",
+    "author": "byungkyu",
+    "version": "1.0.4",
+    "downloads": 16300,
+    "stars": 14
+  },
+  {
+    "name": "ClickUp",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 16300,
+    "stars": 10
+  },
+  {
+    "name": "Calendly",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 16200,
+    "stars": 11
+  },
+  {
+    "name": "Agent Memory",
+    "author": "dennis-da-menace",
+    "version": "1.0.0",
+    "downloads": 16200,
+    "stars": 16
+  },
+  {
+    "name": "Security Auditor",
+    "author": "jgarrison929",
+    "version": "1.0.0",
+    "downloads": 16100,
+    "stars": 23
+  },
+  {
+    "name": "Code",
+    "author": "ivangdavila",
+    "version": "1.0.4",
+    "downloads": 15800,
+    "stars": 31
+  },
+  {
+    "name": "Yahoo Finance",
+    "author": "ajanraj",
+    "version": "1.0.0",
+    "downloads": 15800,
+    "stars": 38
+  },
+  {
+    "name": "Memory Hygiene",
+    "author": "dylanbaker24",
+    "version": "1.0.0",
+    "downloads": 15800,
+    "stars": 14
+  },
+  {
+    "name": "Asana",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 15800,
+    "stars": 5
+  },
+  {
+    "name": "moltbook-interact",
+    "author": "lunarcmd",
+    "version": "1.0.1",
+    "downloads": 15700,
+    "stars": 20
+  },
+  {
+    "name": "Google Workspace Admin",
+    "author": "byungkyu",
+    "version": "1.0.4",
+    "downloads": 15700,
+    "stars": 21
+  },
+  {
+    "name": "Fathom",
+    "author": "byungkyu",
+    "version": "1.0.5",
+    "downloads": 15700,
+    "stars": 12
+  },
+  {
+    "name": "Trello",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 15600,
+    "stars": 6
+  },
+  {
+    "name": "diagram-generator",
+    "author": "matthewyin",
+    "version": "1.1.1",
+    "downloads": 15500,
+    "stars": 32
+  },
+  {
+    "name": "Pipedrive",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 15100,
+    "stars": 6
+  },
+  {
+    "name": "Klaviyo",
+    "author": "byungkyu",
+    "version": "1.0.4",
+    "downloads": 15100,
+    "stars": 4
+  },
+  {
+    "name": "Opencode-controller",
+    "author": "karatla",
+    "version": "1.0.0",
+    "downloads": 15100,
+    "stars": 64
+  },
+  {
+    "name": "Mailchimp",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 15100,
+    "stars": 10
+  },
+  {
+    "name": "Google Play",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 14800,
+    "stars": 11
+  },
+  {
+    "name": "Firecrawl Search",
+    "author": "ashwingupy",
+    "version": "1.0.0",
+    "downloads": 14800,
+    "stars": 45
+  },
+  {
+    "name": "Edge TTS",
+    "author": "i3130002",
+    "version": "2.0.0",
+    "downloads": 14800,
+    "stars": 28
+  },
+  {
+    "name": "Searxng",
+    "author": "abk234",
+    "version": "1.0.3",
+    "downloads": 14800,
+    "stars": 27
+  },
+  {
+    "name": "Remotion Video Toolkit",
+    "author": "shreefentsar",
+    "version": "1.4.0",
+    "downloads": 14700,
+    "stars": 66
+  },
+  {
+    "name": "Wed 1.0.1",
+    "author": "gvillanueva84",
+    "version": "1.0.0",
+    "downloads": 14700,
+    "stars": 5
+  },
+  {
+    "name": "Debug Pro",
+    "author": "cmanfre7",
+    "version": "1.0.0",
+    "downloads": 14600,
+    "stars": 36
+  },
+  {
+    "name": "tushare-finance",
+    "author": "stanleychanh",
+    "version": "2.0.6",
+    "downloads": 14600,
+    "stars": 37
+  },
+  {
+    "name": "Answer Overflow",
+    "author": "rhyssullivan",
+    "version": "1.0.2",
+    "downloads": 14600,
+    "stars": 136
+  },
+  {
+    "name": "Agent Autonomy Kit",
+    "author": "ryancampbell",
+    "version": "1.0.0",
+    "downloads": 14400,
+    "stars": 65
+  },
+  {
+    "name": "Productivity",
+    "author": "ivangdavila",
+    "version": "1.0.4",
+    "downloads": 14300,
+    "stars": 38
+  },
+  {
+    "name": "Agent Team Orchestration",
+    "author": "arminnaimi",
+    "version": "1.0.0",
+    "downloads": 14200,
+    "stars": 44
+  },
+  {
+    "name": "n8n",
+    "author": "thomasansems",
+    "version": "2.0.0",
+    "downloads": 14100,
+    "stars": 47
+  },
+  {
+    "name": "Academic Deep Research",
+    "author": "kesslerio",
+    "version": "1.0.0",
+    "downloads": 14100,
+    "stars": 47
+  },
+  {
+    "name": "A股量化 AkShare",
+    "author": "mbpz",
+    "version": "1.0.1",
+    "downloads": 14100,
+    "stars": 45
+  },
+  {
+    "name": "Telegram",
+    "author": "codedao12",
+    "version": "1.0.1",
+    "downloads": 14000,
+    "stars": 20
+  },
+  {
+    "name": "Home Assistant",
+    "author": "iahmadzain",
+    "version": "1.0.0",
+    "downloads": 13800,
+    "stars": 38
+  },
+  {
+    "name": "GitHub",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 13600,
+    "stars": 41
+  },
+  {
+    "name": "Post Job",
+    "author": "zhangdong",
+    "version": "1.6.1",
+    "downloads": 13600,
+    "stars": 7
+  },
+  {
+    "name": "Us Stock Analysis",
+    "author": "veeramanikandanr48",
+    "version": "0.1.1",
+    "downloads": 13300,
+    "stars": 47
+  },
+  {
+    "name": "Marketing Skills",
+    "author": "jchopard69",
+    "version": "0.1.2",
+    "downloads": 13300,
+    "stars": 93
+  },
+  {
+    "name": "Monday.com",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 13300,
+    "stars": 6
+  },
+  {
+    "name": "Google Calendar (via gcalcli)",
+    "author": "lstpsche",
+    "version": "3.0.0",
+    "downloads": 13200,
+    "stars": 9
+  },
+  {
+    "name": "Gifgrep",
+    "author": "steipete",
+    "version": "1.0.1",
+    "downloads": 13200,
+    "stars": 6
+  },
+  {
+    "name": "WooCommerce",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 13100,
+    "stars": 18
+  },
+  {
+    "name": "Intelligent Stocks Screener",
+    "author": "financial-ai-analyst",
+    "version": "1.0.12",
+    "downloads": 13000,
+    "stars": 68
+  },
+  {
+    "name": "Prompt Engineering Expert",
+    "author": "tomstools11",
+    "version": "1.0.0",
+    "downloads": 12900,
+    "stars": 60
+  },
+  {
+    "name": "Cron Mastery",
+    "author": "i-mw",
+    "version": "1.0.3",
+    "downloads": 12700,
+    "stars": 30
+  },
+  {
+    "name": "Pdf Extract",
+    "author": "xejrax",
+    "version": "1.0.0",
+    "downloads": 12500,
+    "stars": 14
+  },
+  {
+    "name": "Self Reflection",
+    "author": "hopyky",
+    "version": "1.1.1",
+    "downloads": 12400,
+    "stars": 38
+  },
+  {
+    "name": "Copywriting",
+    "author": "jk-0001",
+    "version": "0.1.0",
+    "downloads": 12400,
+    "stars": 24
+  },
+  {
+    "name": "google-search",
+    "author": "mxfeinberg",
+    "version": "1.0.0",
+    "downloads": 12400,
+    "stars": 16
+  },
+  {
+    "name": "Fastest Browser Use",
+    "author": "rknoche6",
+    "version": "1.0.5",
+    "downloads": 12300,
+    "stars": 40
+  },
+  {
+    "name": "Zoho Mail",
+    "author": "byungkyu",
+    "version": "1.0.4",
+    "downloads": 12200,
+    "stars": 8
+  },
+  {
+    "name": "Zoho CRM",
+    "author": "byungkyu",
+    "version": "1.0.4",
+    "downloads": 12200,
+    "stars": 6
+  },
+  {
+    "name": "Reddit (read only - no auth)",
+    "author": "buksan1950",
+    "version": "1.0.0",
+    "downloads": 12200,
+    "stars": 32
+  },
+  {
+    "name": "Linear",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 12200,
+    "stars": 18
+  },
+  {
+    "name": "SQL Toolkit",
+    "author": "gitgoodordietrying",
+    "version": "1.0.0",
+    "downloads": 12000,
+    "stars": 35
+  },
+  {
+    "name": "Skill Scanner",
+    "author": "bvinci1-design",
+    "version": "0.1.2",
+    "downloads": 12000,
+    "stars": 21
+  },
+  {
+    "name": "Perplexity",
+    "author": "zats",
+    "version": "1.0.0",
+    "downloads": 11900,
+    "stars": 25
+  },
+  {
+    "name": "Camsnap",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 11800,
+    "stars": 9
+  },
+  {
+    "name": "Zoho Inventory",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 11800,
+    "stars": 3
+  },
+  {
+    "name": "Oracle",
+    "author": "steipete",
+    "version": "1.0.1",
+    "downloads": 11700,
+    "stars": 12
+  },
+  {
+    "name": "Zoho Calendar",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 11700,
+    "stars": 4
+  },
+  {
+    "name": "Attio",
+    "author": "byungkyu",
+    "version": "1.0.4",
+    "downloads": 11700,
+    "stars": 3
+  },
+  {
+    "name": "Market Research",
+    "author": "ivangdavila",
+    "version": "1.0.1",
+    "downloads": 11700,
+    "stars": 52
+  },
+  {
+    "name": "Frontend Design Ultimate",
+    "author": "kesslerio",
+    "version": "1.0.0",
+    "downloads": 11700,
+    "stars": 58
+  },
+  {
+    "name": "Zoho Recruit",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 11700,
+    "stars": 3
+  },
+  {
+    "name": "Zoho Bigin",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 11600,
+    "stars": 4
+  },
+  {
+    "name": "Skill Vetting",
+    "author": "eddygk",
+    "version": "1.1.0",
+    "downloads": 11600,
+    "stars": 6
+  },
+  {
+    "name": "Zoho People",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 11500,
+    "stars": 3
+  },
+  {
+    "name": "Imsg",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 11500,
+    "stars": 18
+  },
+  {
+    "name": "Google Calendar",
+    "author": "adrianmiller99",
+    "version": "0.1.0",
+    "downloads": 11500,
+    "stars": 11
+  },
+  {
+    "name": "Image",
+    "author": "ivangdavila",
+    "version": "1.0.4",
+    "downloads": 11500,
+    "stars": 16
+  },
+  {
+    "name": "Computer Use",
+    "author": "ram-raghav-s",
+    "version": "1.2.1",
+    "downloads": 11400,
+    "stars": 34
+  },
+  {
+    "name": "Frontend Design",
+    "author": "michaelmonetized",
+    "version": "0.1.0",
+    "downloads": 11400,
+    "stars": 25
+  },
+  {
+    "name": "Calendar",
+    "author": "ndcccccc",
+    "version": "1.0.0",
+    "downloads": 11300,
+    "stars": 2
+  },
+  {
+    "name": "Self Improving Agent CN",
+    "author": "zhengxinjipai",
+    "version": "1.0.0",
+    "downloads": 11300,
+    "stars": 12
+  },
+  {
+    "name": "AI Web Automation",
+    "author": "arthasking123",
+    "version": "1.0.0",
+    "downloads": 11200,
+    "stars": 7
+  },
+  {
+    "name": "Planning with files",
+    "author": "othmanadi",
+    "version": "2.26.1",
+    "downloads": 11100,
+    "stars": 29
+  },
+  {
+    "name": "Google Drive",
+    "author": "byungkyu",
+    "version": "1.0.6",
+    "downloads": 11100,
+    "stars": 25
+  },
+  {
+    "name": "Find Skills Skill",
+    "author": "fangkelvin",
+    "version": "1.0.0",
+    "downloads": 11000,
+    "stars": 26
+  },
+  {
+    "name": "LinkedIn",
+    "author": "biostartechnology",
+    "version": "1.0.0",
+    "downloads": 11000,
+    "stars": 34
+  },
+  {
+    "name": "File Search",
+    "author": "xejrax",
+    "version": "1.0.0",
+    "downloads": 11000,
+    "stars": 15
+  },
+  {
+    "name": "Ai Act Risk Check",
+    "author": "bluesbell",
+    "version": "1.0.0",
+    "downloads": 11000,
+    "stars": 0
+  },
+  {
+    "name": "Antigravity Image Generator",
+    "author": "ipedrax",
+    "version": "2.0.0",
+    "downloads": 10900,
+    "stars": 19
+  },
+  {
+    "name": "Stock Monitor",
+    "author": "thirtyfang",
+    "version": "0.1.0",
+    "downloads": 10900,
+    "stars": 50
+  },
+  {
+    "name": "OpenClaw GitHub Assistant",
+    "author": "conorkenn",
+    "version": "2.0.1",
+    "downloads": 10900,
+    "stars": 7
+  },
+  {
+    "name": "Verified Agent Identity",
+    "author": "obrezhniev",
+    "version": "1.0.4",
+    "downloads": 10900,
+    "stars": 20
+  },
+  {
+    "name": "All-Market Financial Data Hub",
+    "author": "financial-ai-analyst",
+    "version": "1.0.8",
+    "downloads": 10800,
+    "stars": 54
+  },
+  {
+    "name": "Proactive Agent Skill",
+    "author": "fangkelvin",
+    "version": "1.0.0",
+    "downloads": 10800,
+    "stars": 6
+  },
+  {
+    "name": "Things Mac",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 10800,
+    "stars": 15
+  },
+  {
+    "name": "Larry",
+    "author": "olliewazza",
+    "version": "1.0.0",
+    "downloads": 10800,
+    "stars": 135
+  },
+  {
+    "name": "Stealth Browser",
+    "author": "mayuqi-crypto",
+    "version": "1.0.0",
+    "downloads": 10700,
+    "stars": 21
+  },
+  {
+    "name": "Google Sheets",
+    "author": "byungkyu",
+    "version": "1.0.6",
+    "downloads": 10700,
+    "stars": 11
+  },
+  {
+    "name": "claw-shell",
+    "author": "imaginelogo",
+    "version": "1.0.0",
+    "downloads": 10600,
+    "stars": 8
+  },
+  {
+    "name": "Polymarket Odds",
+    "author": "deanpress",
+    "version": "1.0.0",
+    "downloads": 10500,
+    "stars": 53
+  },
+  {
+    "name": "Coding",
+    "author": "ivangdavila",
+    "version": "1.0.3",
+    "downloads": 10300,
+    "stars": 13
+  },
+  {
+    "name": "Feishu Messaging",
+    "author": "jypjypjypjyp",
+    "version": "0.0.3",
+    "downloads": 10300,
+    "stars": 18
+  },
+  {
+    "name": "Stock Info Explorer",
+    "author": "kys42",
+    "version": "1.2.10",
+    "downloads": 10100,
+    "stars": 14
+  },
+  {
+    "name": "Specialized Agents",
+    "author": "jdalbright",
+    "version": "1.1.0",
+    "downloads": 10100,
+    "stars": 2
+  },
+  {
+    "name": "xAI / Grok",
+    "author": "blueberrywoodsym",
+    "version": "1.0.2",
+    "downloads": 10000,
+    "stars": 15
+  },
+  {
+    "name": "Agent Orchestrator",
+    "author": "aatmaan1",
+    "version": "0.1.0",
+    "downloads": 10000,
+    "stars": 27
+  },
+  {
+    "name": "Linux GUI Control",
+    "author": "dreamtraveler13",
+    "version": "1.0.0",
+    "downloads": 9900,
+    "stars": 8
+  },
+  {
+    "name": "Screenshot",
+    "author": "ivangdavila",
+    "version": "1.0.1",
+    "downloads": 9900,
+    "stars": 26
+  },
+  {
+    "name": "Cellcog",
+    "author": "nitishgargiitd",
+    "version": "1.0.26",
+    "downloads": 9900,
+    "stars": 6
+  },
+  {
+    "name": "ima skills",
+    "author": "iampennyli",
+    "version": "1.1.2",
+    "downloads": 9800,
+    "stars": 24
+  },
+  {
+    "name": "Test Runner",
+    "author": "cmanfre7",
+    "version": "1.0.0",
+    "downloads": 9800,
+    "stars": 11
+  },
+  {
+    "name": "Office Document Specialist Suite",
+    "author": "robert-janssen",
+    "version": "1.0.2",
+    "downloads": 9800,
+    "stars": 11
+  },
+  {
+    "name": "ClawSec",
+    "author": "chrisochrisochriso-cmyk",
+    "version": "1.0.0",
+    "downloads": 9700,
+    "stars": 12
+  },
+  {
+    "name": "Linear",
+    "author": "manuelhettich",
+    "version": "1.0.0",
+    "downloads": 9700,
+    "stars": 18
+  },
+  {
+    "name": "Cursor CLI Agent",
+    "author": "swiftlysingh",
+    "version": "2.1.0",
+    "downloads": 9700,
+    "stars": 17
+  },
+  {
+    "name": "Google Workspace (No Cloud Console)",
+    "author": "dru-ca",
+    "version": "1.0.0",
+    "downloads": 9600,
+    "stars": 40
+  },
+  {
+    "name": "image-cog",
+    "author": "nitishgargiitd",
+    "version": "1.0.3",
+    "downloads": 9500,
+    "stars": 6
+  },
+  {
+    "name": "小红书 - RedNote",
+    "author": "hi-yu",
+    "version": "1.2.5",
+    "downloads": 9400,
+    "stars": 54
+  },
+  {
+    "name": "Git",
+    "author": "ivangdavila",
+    "version": "1.0.8",
+    "downloads": 9400,
+    "stars": 21
+  },
+  {
+    "name": "UI/UX Design Guide",
+    "author": "itsjustdri",
+    "version": "1.0.0",
+    "downloads": 9300,
+    "stars": 22
+  },
+  {
+    "name": "PDF Text Extractor",
+    "author": "michael-laffin",
+    "version": "1.0.0",
+    "downloads": 9300,
+    "stars": 19
+  },
+  {
+    "name": "A股分时量能分析",
+    "author": "cnyezi",
+    "version": "1.0.0",
+    "downloads": 9300,
+    "stars": 61
+  },
+  {
+    "name": "提供A股实时行情、分时成交量分布及主力资金动向分析，支持持仓管理和盈亏监控。",
+    "author": "cnyezi",
+    "version": "1.0.0",
+    "downloads": 9300,
+    "stars": 19
+  },
+  {
+    "name": "📄 Feishu Doc Manager | 飞书文档管理器",
+    "author": "shuai-daidai",
+    "version": "1.0.0",
+    "downloads": 9200,
+    "stars": 19
+  },
+  {
+    "name": "Web Search by Desearch",
+    "author": "okradze",
+    "version": "1.0.1",
+    "downloads": 9200,
+    "stars": 1
+  },
+  {
+    "name": "Anti-Injection-Skill",
+    "author": "georges91560",
+    "version": "2.0.3",
+    "downloads": 9100,
+    "stars": 10
+  },
+  {
+    "name": "Security Audit Toolkit",
+    "author": "gitgoodordietrying",
+    "version": "1.0.0",
+    "downloads": 9100,
+    "stars": 13
+  },
+  {
+    "name": "My Tesla",
+    "author": "officialpm",
+    "version": "0.1.64",
+    "downloads": 9100,
+    "stars": 7
+  },
+  {
+    "name": "Find Skill",
+    "author": "breckengan",
+    "version": "1.0.0",
+    "downloads": 9000,
+    "stars": 11
+  },
+  {
+    "name": "Youtube Full",
+    "author": "therohitdas",
+    "version": "1.4.1",
+    "downloads": 9000,
+    "stars": 16
+  },
+  {
+    "name": "Openhue",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 9000,
+    "stars": 7
+  },
+  {
+    "name": "Code Review",
+    "author": "wpank",
+    "version": "1.0.0",
+    "downloads": 9000,
+    "stars": 8
+  },
+  {
+    "name": "Reddit",
+    "author": "theglove44",
+    "version": "1.0.0",
+    "downloads": 8900,
+    "stars": 45
+  },
+  {
+    "name": "Office",
+    "author": "ivangdavila",
+    "version": "1.0.0",
+    "downloads": 8900,
+    "stars": 17
+  },
+  {
+    "name": "Git Workflows",
+    "author": "gitgoodordietrying",
+    "version": "1.0.0",
+    "downloads": 8800,
+    "stars": 5
+  },
+  {
+    "name": "Market Environment Analysis",
+    "author": "veeramanikandanr48",
+    "version": "0.1.0",
+    "downloads": 8800,
+    "stars": 14
+  },
+  {
+    "name": "OmniCog",
+    "author": "dexiaong",
+    "version": "1.0.0",
+    "downloads": 8700,
+    "stars": 0
+  },
+  {
+    "name": "Feishu Bridge",
+    "author": "alexanys",
+    "version": "1.0.0",
+    "downloads": 8700,
+    "stars": 7
+  },
+  {
+    "name": "Windows UI Automation",
+    "author": "wwb-daniel",
+    "version": "1.0.0",
+    "downloads": 8700,
+    "stars": 9
+  },
+  {
+    "name": "Openclaw Agent Optimize",
+    "author": "phenomenoner",
+    "version": "1.2.1",
+    "downloads": 8600,
+    "stars": 40
+  },
+  {
+    "name": "Local Whisper",
+    "author": "araa47",
+    "version": "1.0.0",
+    "downloads": 8600,
+    "stars": 11
+  },
+  {
+    "name": "My Life Feed",
+    "author": "l-fy",
+    "version": "2.0.1",
+    "downloads": 8600,
+    "stars": 15
+  },
+  {
+    "name": "Qveris",
+    "author": "hqman",
+    "version": "0.1.0",
+    "downloads": 8600,
+    "stars": 6
+  },
+  {
+    "name": "Database Operations",
+    "author": "jgarrison929",
+    "version": "1.0.0",
+    "downloads": 8600,
+    "stars": 6
+  },
+  {
+    "name": "Image Ocr",
+    "author": "xejrax",
+    "version": "1.0.0",
+    "downloads": 8600,
+    "stars": 10
+  },
+  {
+    "name": "finance",
+    "author": "anton-roos",
+    "version": "1.1.2",
+    "downloads": 8600,
+    "stars": 14
+  },
+  {
+    "name": "Video Transcript Downloader",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 8500,
+    "stars": 59
+  },
+  {
+    "name": "Songsee",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 8500,
+    "stars": 5
+  },
+  {
+    "name": "Bear Notes",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 8500,
+    "stars": 3
+  },
+  {
+    "name": "ArXiv Watcher",
+    "author": "rubenfb23",
+    "version": "1.0.0",
+    "downloads": 8400,
+    "stars": 8
+  },
+  {
+    "name": "Filesystem",
+    "author": "amaofx",
+    "version": "1.0.0",
+    "downloads": 8400,
+    "stars": 7
+  },
+  {
+    "name": "baidu baike search",
+    "author": "ide-rea",
+    "version": "1.1.0",
+    "downloads": 8400,
+    "stars": 2
+  },
+  {
+    "name": "LinkedIn",
+    "author": "byungkyu",
+    "version": "1.0.4",
+    "downloads": 8400,
+    "stars": 32
+  },
+  {
+    "name": "Openclaw Command Center",
+    "author": "jontsai",
+    "version": "1.4.1",
+    "downloads": 8400,
+    "stars": 55
+  },
+  {
+    "name": "Self Improving Agent 1.0.2",
+    "author": "txmerlxn",
+    "version": "1.0.0",
+    "downloads": 8300,
+    "stars": 19
+  },
+  {
+    "name": "AI Persona OS",
+    "author": "jeffjhunter",
+    "version": "1.6.2",
+    "downloads": 8300,
+    "stars": 84
+  },
+  {
+    "name": "Vercel Platform",
+    "author": "thesethrose",
+    "version": "1.0.1",
+    "downloads": 8300,
+    "stars": 22
+  },
+  {
+    "name": "腾讯文档 TENCENT DOCS",
+    "author": "liyang58",
+    "version": "1.0.21",
+    "downloads": 8300,
+    "stars": 17
+  },
+  {
+    "name": "ffmpeg-video-editor",
+    "author": "mahmoudadelbghany",
+    "version": "1.0.0",
+    "downloads": 8300,
+    "stars": 13
+  },
+  {
+    "name": "copywriter",
+    "author": "killerapp",
+    "version": "1.1.0",
+    "downloads": 8300,
+    "stars": 9
+  },
+  {
+    "name": "Outlook",
+    "author": "jotamed",
+    "version": "1.3.0",
+    "downloads": 8300,
+    "stars": 19
+  },
+  {
+    "name": "CCTV News Fetcher",
+    "author": "yuhangch",
+    "version": "1.0.0",
+    "downloads": 8300,
+    "stars": 10
+  },
+  {
+    "name": "Deep Scraper",
+    "author": "opsun",
+    "version": "1.0.1",
+    "downloads": 8300,
+    "stars": 8
+  },
+  {
+    "name": "Proactivity (Proactive Agent)",
+    "author": "ivangdavila",
+    "version": "1.0.1",
+    "downloads": 8200,
+    "stars": 8
+  },
+  {
+    "name": "Google Calendar",
+    "author": "byungkyu",
+    "version": "1.0.5",
+    "downloads": 8200,
+    "stars": 20
+  },
+  {
+    "name": "ai-news-collectors",
+    "author": "kenxcomp",
+    "version": "1.0.0",
+    "downloads": 8200,
+    "stars": 36
+  },
+  {
+    "name": "Technical Analyst",
+    "author": "veeramanikandanr48",
+    "version": "0.1.0",
+    "downloads": 8200,
+    "stars": 31
+  },
+  {
+    "name": "Docker",
+    "author": "ivangdavila",
+    "version": "1.0.4",
+    "downloads": 8200,
+    "stars": 16
+  },
+  {
+    "name": "Self Improving Agent",
+    "author": "mike5230odense",
+    "version": "1.0.0",
+    "downloads": 8100,
+    "stars": 2
+  },
+  {
+    "name": "Cognitive Memory",
+    "author": "icemilo414",
+    "version": "1.0.8",
+    "downloads": 8100,
+    "stars": 27
+  },
+  {
+    "name": "Task Status",
+    "author": "mightyprime1",
+    "version": "1.0.0",
+    "downloads": 8000,
+    "stars": 10
+  },
+  {
+    "name": "Self Evolving Skill",
+    "author": "whtoo",
+    "version": "1.0.2",
+    "downloads": 7900,
+    "stars": 27
+  },
+  {
+    "name": "Get笔记",
+    "author": "iswalle",
+    "version": "1.5.7",
+    "downloads": 7900,
+    "stars": 39
+  },
+  {
+    "name": "Ssh Essentials",
+    "author": "arnarsson",
+    "version": "1.0.0",
+    "downloads": 7800,
+    "stars": 13
+  },
+  {
+    "name": "Trading Coach",
+    "author": "benzema216",
+    "version": "1.0.0",
+    "downloads": 7800,
+    "stars": 14
+  },
+  {
+    "name": "Notion",
+    "author": "byungkyu",
+    "version": "1.0.6",
+    "downloads": 7800,
+    "stars": 7
+  },
+  {
+    "name": "Nextjs Expert",
+    "author": "jgarrison929",
+    "version": "1.0.0",
+    "downloads": 7800,
+    "stars": 12
+  },
+  {
+    "name": "Dingtalk Api",
+    "author": "zaohon",
+    "version": "0.0.1",
+    "downloads": 7700,
+    "stars": 1
+  },
+  {
+    "name": "Find",
+    "author": "ivangdavila",
+    "version": "1.0.0",
+    "downloads": 7700,
+    "stars": 5
+  },
+  {
+    "name": "Bluebubbles",
+    "author": "kevin19830331",
+    "version": "1.0.0",
+    "downloads": 7700,
+    "stars": 1
+  },
+  {
+    "name": "Todoist",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 7700,
+    "stars": 11
+  },
+  {
+    "name": "EcomSeer",
+    "author": "fly0pants",
+    "version": "1.0.1",
+    "downloads": 7700,
+    "stars": 162
+  },
+  {
+    "name": "Browserbase",
+    "author": "pkiv",
+    "version": "2.0.2",
+    "downloads": 7600,
+    "stars": 5
+  },
+  {
+    "name": "Agent Browser Core",
+    "author": "codedao12",
+    "version": "1.0.1",
+    "downloads": 7600,
+    "stars": 17
+  },
+  {
+    "name": "gogcli - Google Workspace CLI",
+    "author": "luccast",
+    "version": "1.0.0",
+    "downloads": 7600,
+    "stars": 5
+  },
+  {
+    "name": "Simmer",
+    "author": "adlai88",
+    "version": "1.20.1",
+    "downloads": 7600,
+    "stars": 21
+  },
+  {
+    "name": "Google Analytics",
+    "author": "byungkyu",
+    "version": "1.0.10",
+    "downloads": 7600,
+    "stars": 17
+  },
+  {
+    "name": "baidu scholar search",
+    "author": "ide-rea",
+    "version": "1.1.0",
+    "downloads": 7600,
+    "stars": 8
+  },
+  {
+    "name": "AI PPT generate",
+    "author": "baiduqianfangroup",
+    "version": "1.0.0",
+    "downloads": 7600,
+    "stars": 12
+  },
+  {
+    "name": "China Stock Analysis",
+    "author": "paulshe",
+    "version": "1.0.0",
+    "downloads": 7500,
+    "stars": 12
+  },
+  {
+    "name": "Memory",
+    "author": "ivangdavila",
+    "version": "1.0.2",
+    "downloads": 7500,
+    "stars": 8
+  },
+  {
+    "name": "Tushare Pro",
+    "author": "alphafactor",
+    "version": "1.0.9",
+    "downloads": 7500,
+    "stars": 17
+  },
+  {
+    "name": "Skill Creator",
+    "author": "yixinli867",
+    "version": "0.1.0",
+    "downloads": 7500,
+    "stars": 30
+  },
+  {
+    "name": "UI Audit",
+    "author": "tommygeoco",
+    "version": "1.0.1",
+    "downloads": 7500,
+    "stars": 20
+  },
+  {
+    "name": "Topic Monitor",
+    "author": "robbyczgw-cla",
+    "version": "1.5.0",
+    "downloads": 7500,
+    "stars": 24
+  },
+  {
+    "name": "Conventional Commits",
+    "author": "bastos",
+    "version": "1.0.1",
+    "downloads": 7500,
+    "stars": 4
+  },
+  {
+    "name": "Gemini Deep Research",
+    "author": "arun-8687",
+    "version": "1.0.0",
+    "downloads": 7500,
+    "stars": 26
+  },
+  {
+    "name": "Clawdbot Security Check",
+    "author": "thesethrose",
+    "version": "2.2.2",
+    "downloads": 7400,
+    "stars": 33
+  },
+  {
+    "name": "OpenClaw Token Optimizer",
+    "author": "asif2bd",
+    "version": "3.0.0",
+    "downloads": 7400,
+    "stars": 25
+  },
+  {
+    "name": "Eightctl",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 7400,
+    "stars": 6
+  },
+  {
+    "name": "OpenClaw Memory",
+    "author": "weareallsatoshin",
+    "version": "2.3.0",
+    "downloads": 7300,
+    "stars": 21
+  },
+  {
+    "name": "Blucli",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 7300,
+    "stars": 1
+  },
+  {
+    "name": "Focus Deep Work",
+    "author": "jhillin8",
+    "version": "1.0.0",
+    "downloads": 7300,
+    "stars": 9
+  },
+  {
+    "name": "Cron & Scheduling",
+    "author": "gitgoodordietrying",
+    "version": "1.0.0",
+    "downloads": 7300,
+    "stars": 7
+  },
+  {
+    "name": "News Aggregator Skill",
+    "author": "cclank",
+    "version": "0.1.0",
+    "downloads": 7300,
+    "stars": 19
+  },
+  {
+    "name": "Playwright Commander",
+    "author": "runeweaverstudios",
+    "version": "1.0.0",
+    "downloads": 7300,
+    "stars": 0
+  },
+  {
+    "name": "Safe Exec",
+    "author": "ottttto",
+    "version": "0.3.4",
+    "downloads": 7200,
+    "stars": 8
+  },
+  {
+    "name": "Finance News Briefings",
+    "author": "kesslerio",
+    "version": "1.0.1",
+    "downloads": 7200,
+    "stars": 9
+  },
+  {
+    "name": "AI picture book generate",
+    "author": "ide-rea",
+    "version": "1.1.0",
+    "downloads": 7200,
+    "stars": 11
+  },
+  {
+    "name": "Airtable",
+    "author": "byungkyu",
+    "version": "1.0.6",
+    "downloads": 7100,
+    "stars": 14
+  },
+  {
+    "name": "Self-Evolve",
+    "author": "be1human",
+    "version": "1.0.0",
+    "downloads": 7100,
+    "stars": 6
+  },
+  {
+    "name": "Voice Wake Say",
+    "author": "xadenryan",
+    "version": "1.0.1",
+    "downloads": 7100,
+    "stars": 4
+  },
+  {
+    "name": "Video Subtitles",
+    "author": "ngutman",
+    "version": "1.0.0",
+    "downloads": 7100,
+    "stars": 14
+  },
+  {
+    "name": "Thinking Partner",
+    "author": "itsflow",
+    "version": "1.0.0",
+    "downloads": 7000,
+    "stars": 43
+  },
+  {
+    "name": "Python Coding Guidelines",
+    "author": "adarshdigievo",
+    "version": "1.0.0",
+    "downloads": 7000,
+    "stars": 7
+  },
+  {
+    "name": "Xurl",
+    "author": "gaurangzalariya",
+    "version": "1.0.0",
+    "downloads": 7000,
+    "stars": 7
+  },
+  {
+    "name": "Local Places",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 6900,
+    "stars": 22
+  },
+  {
+    "name": "Binance Pro",
+    "author": "totaleasy",
+    "version": "1.0.0",
+    "downloads": 6900,
+    "stars": 12
+  },
+  {
+    "name": "Security Audit",
+    "author": "chandrasekar-r",
+    "version": "1.0.0",
+    "downloads": 6900,
+    "stars": 7
+  },
+  {
+    "name": "System Resource Monitor",
+    "author": "passersss",
+    "version": "1.0.0",
+    "downloads": 6900,
+    "stars": 7
+  },
+  {
+    "name": "Reminder",
+    "author": "reed1898",
+    "version": "0.1.1",
+    "downloads": 6800,
+    "stars": 7
+  },
+  {
+    "name": "browsh",
+    "author": "gumadeiras",
+    "version": "1.0.0",
+    "downloads": 6800,
+    "stars": 8
+  },
+  {
+    "name": "API Development",
+    "author": "gitgoodordietrying",
+    "version": "1.0.0",
+    "downloads": 6800,
+    "stars": 6
+  },
+  {
+    "name": "Frontend Design",
+    "author": "ivangdavila",
+    "version": "1.0.2",
+    "downloads": 6800,
+    "stars": 13
+  },
+  {
+    "name": "Seo Content Writer",
+    "author": "aaron-he-zhu",
+    "version": "4.0.0",
+    "downloads": 6800,
+    "stars": 15
+  },
+  {
+    "name": "Notion",
+    "author": "dimagious",
+    "version": "1.0.0",
+    "downloads": 6800,
+    "stars": 9
+  },
+  {
+    "name": "Ordercli",
+    "author": "steipete",
+    "version": "1.0.0",
+    "downloads": 6800,
+    "stars": 3
+  },
+  {
+    "name": "Reflect",
+    "author": "stevengonsalvez",
+    "version": "2.1.0",
+    "downloads": 6800,
+    "stars": 14
+  },
+  {
+    "name": "humanizer-zh",
+    "author": "liuxy951129-cpu",
+    "version": "1.0.0",
+    "downloads": 6800,
+    "stars": 14
+  },
+  {
+    "name": "ai notes of video",
+    "author": "ide-rea",
+    "version": "1.1.0",
+    "downloads": 6800,
+    "stars": 7
+  },
+  {
+    "name": "Market Analysis CN | 市场分析服务",
+    "author": "guohongbin-git",
+    "version": "1.0.0",
+    "downloads": 6800,
+    "stars": 17
+  },
+  {
+    "name": "System Info",
+    "author": "xejrax",
+    "version": "1.0.0",
+    "downloads": 6700,
+    "stars": 8
+  },
+  {
+    "name": "Qwen Image",
+    "author": "robin797860",
+    "version": "1.0.0",
+    "downloads": 6700,
+    "stars": 7
+  },
+  {
+    "name": "Social Media Scheduler",
+    "author": "1kalin",
+    "version": "1.0.0",
+    "downloads": 6700,
+    "stars": 7
+  },
+  {
+    "name": "Memory Tiering",
+    "author": "sarielwang93",
+    "version": "1.0.0",
+    "downloads": 6700,
+    "stars": 4
+  },
+  {
+    "name": "tushare",
+    "author": "lidayan",
+    "version": "1.1.12",
+    "downloads": 6700,
+    "stars": 23
+  },
+  {
+    "name": "Crypto Price",
+    "author": "evgyur",
+    "version": "0.2.2",
+    "downloads": 6700,
+    "stars": 10
+  },
+  {
+    "name": "Marketing Strategy Pmm",
+    "author": "alirezarezvani",
+    "version": "2.1.1",
+    "downloads": 6600,
+    "stars": 26
+  },
+  {
+    "name": "Fundamental Stock Analysis",
+    "author": "nickfiorani",
+    "version": "1.0.5",
+    "downloads": 6600,
+    "stars": 12
+  },
+  {
+    "name": "Financial Search Engine",
+    "author": "financial-ai-analyst",
+    "version": "1.0.6",
+    "downloads": 6600,
+    "stars": 50
+  },
+  {
+    "name": "Backtest Expert",
+    "author": "veeramanikandanr48",
+    "version": "0.1.0",
+    "downloads": 6600,
+    "stars": 17
+  },
+  {
+    "name": "Realtime Web Search",
+    "author": "ytthuan",
+    "version": "1.0.0",
+    "downloads": 6600,
+    "stars": 7
+  },
+  {
+    "name": "Tokenoptimizer",
+    "author": "smartpeopleconnected",
+    "version": "1.0.18",
+    "downloads": 6600,
+    "stars": 23
+  },
+  {
+    "name": "Markdown Formatter",
+    "author": "michael-laffin",
+    "version": "1.0.0",
+    "downloads": 6600,
+    "stars": 6
+  },
+  {
+    "name": "Browser",
+    "author": "pshotts",
+    "version": "1.0.0",
+    "downloads": 6500,
+    "stars": 2
+  },
+  {
+    "name": "Feishu Doc",
+    "author": "autogame-17",
+    "version": "1.2.7",
+    "downloads": 6500,
+    "stars": 8
+  },
+  {
+    "name": "WeChat MP CN",
+    "author": "guohongbin-git",
+    "version": "1.0.0",
+    "downloads": 6500,
+    "stars": 31
+  },
+  {
+    "name": "Kit",
+    "author": "byungkyu",
+    "version": "1.0.2",
+    "downloads": 6500,
+    "stars": 5
+  },
+  {
+    "name": "Translate",
+    "author": "ivangdavila",
+    "version": "1.0.0",
+    "downloads": 6500,
+    "stars": 7
+  },
+  {
+    "name": "Supermemory",
+    "author": "clawdbot51-oss",
+    "version": "1.0.0",
+    "downloads": 6500,
+    "stars": 17
+  },
+  {
+    "name": "Skills.sh Search",
+    "author": "thesethrose",
+    "version": "1.0.4",
+    "downloads": 6500,
+    "stars": 19
+  },
+  {
+    "name": "Research Paper Writer",
+    "author": "veeramanikandanr48",
+    "version": "0.1.0",
+    "downloads": 6500,
+    "stars": 28
+  },
+  {
+    "name": "Polymarket API",
+    "author": "dannyshmueli",
+    "version": "1.0.0",
+    "downloads": 6400,
+    "stars": 16
+  },
+  {
+    "name": "Figma",
+    "author": "maddiedreese",
+    "version": "2.1.0",
+    "downloads": 6400,
+    "stars": 13
+  },
+  {
+    "name": "Tencent Cloud Lighthouse",
+    "author": "lhanyun",
+    "version": "1.0.0",
+    "downloads": 6400,
+    "stars": 0
+  },
+  {
+    "name": "clawsec-suite",
+    "author": "davida-ps",
+    "version": "0.1.4",
+    "downloads": 6400,
+    "stars": 7
+  },
+  {
+    "name": "Web Pilot",
+    "author": "liranudi",
+    "version": "1.0.0",
+    "downloads": 6400,
+    "stars": 1
+  },
+  {
+    "name": "Chart Image",
+    "author": "dannyshmueli",
+    "version": "2.6.18",
+    "downloads": 6400,
+    "stars": 10
+  },
+  {
+    "name": "Web Development",
+    "author": "ivangdavila",
+    "version": "1.0.0",
+    "downloads": 6400,
+    "stars": 9
+  },
+  {
+    "name": "Agent Council",
+    "author": "itsahedge",
+    "version": "1.0.0",
+    "downloads": 6400,
+    "stars": 10
+  },
+  {
+    "name": "DeepWiki",
+    "author": "arun-8687",
+    "version": "1.0.0",
+    "downloads": 6400,
+    "stars": 9
+  },
+  {
+    "name": "Base Trader",
+    "author": "sp0oby",
+    "version": "1.1.1",
+    "downloads": 6300,
+    "stars": 23
+  },
+  {
+    "name": "Context7 MCP",
+    "author": "thesethrose",
+    "version": "1.0.3",
+    "downloads": 6300,
+    "stars": 14
+  },
+  {
+    "name": "Literature Review",
+    "author": "weird-aftertaste",
+    "version": "1.2.0",
+    "downloads": 6300,
+    "stars": 17
+  },
+  {
+    "name": "Windows Control",
+    "author": "spliff7777",
+    "version": "1.0.0",
+    "downloads": 6300,
+    "stars": 28
+  },
+  {
+    "name": "Telegram Bot",
+    "author": "byungkyu",
+    "version": "1.0.2",
+    "downloads": 6300,
+    "stars": 9
+  },
+  {
+    "name": "Last 30 Days",
+    "author": "zats",
+    "version": "1.0.0",
+    "downloads": 6300,
+    "stars": 24
+  },
+  {
+    "name": "Google Docs",
+    "author": "byungkyu",
+    "version": "1.0.5",
+    "downloads": 6300,
+    "stars": 7
+  },
+  {
+    "name": "Desktop Control (Windows)",
+    "author": "lexylent",
+    "version": "1.0.1",
+    "downloads": 6300,
+    "stars": 3
+  },
+  {
+    "name": ".Claude Plugin",
+    "author": "nhadaututtheky",
+    "version": "4.21.0",
+    "downloads": 6300,
+    "stars": 6
+  },
+  {
+    "name": "Mission Control",
+    "author": "rdsthomas",
+    "version": "2.3.1",
+    "downloads": 6300,
+    "stars": 7
+  },
+  {
+    "name": "tech-news-digest",
+    "author": "dinstein",
+    "version": "3.16.0",
+    "downloads": 6300,
+    "stars": 19
+  },
+  {
+    "name": "Supabase",
+    "author": "lucassynnott",
+    "version": "1.0.0",
+    "downloads": 6200,
+    "stars": 16
+  },
+  {
+    "name": "Shadcn Ui",
+    "author": "jgarrison929",
+    "version": "1.0.0",
+    "downloads": 6200,
+    "stars": 8
+  },
+  {
+    "name": "Market News Analyst",
+    "author": "veeramanikandanr48",
+    "version": "0.1.0",
+    "downloads": 6200,
+    "stars": 23
+  },
+  {
+    "name": "Personas",
+    "author": "robbyczgw-cla",
+    "version": "2.2.6",
+    "downloads": 6200,
+    "stars": 26
+  },
+  {
+    "name": "Remotion Best Practices",
+    "author": "am-will",
+    "version": "1.0.0",
+    "downloads": 6200,
+    "stars": 9
+  },
+  {
+    "name": "Pexoclawskill",
+    "author": "rainer-liao",
+    "version": "0.3.4",
+    "downloads": 6200,
+    "stars": 12
+  },
+  {
+    "name": "Tavily Search Pro",
+    "author": "shaharsha",
+    "version": "1.0.0",
+    "downloads": 6200,
+    "stars": 6
+  },
+  {
+    "name": "Wechat Article Search",
+    "author": "wuchubuzai2018",
+    "version": "0.1.0",
+    "downloads": 6200,
+    "stars": 20
+  },
+  {
+    "name": "Mcp Integration",
+    "author": "lunarpulse",
+    "version": "0.1.1",
+    "downloads": 6200,
+    "stars": 13
+  },
+  {
+    "name": "Trading",
+    "author": "ivangdavila",
+    "version": "1.0.1",
+    "downloads": 6100,
+    "stars": 10
+  },
+  {
+    "name": "Word Automation",
+    "author": "fadeloo",
+    "version": "0.1.0",
+    "downloads": 6100,
+    "stars": 9
+  },
+  {
+    "name": "Agent Directory",
+    "author": "aerialcombat",
+    "version": "1.2.0",
+    "downloads": 6100,
+    "stars": 15
+  },
+  {
+    "name": "Financial Calculator Pro",
+    "author": "tarigha",
+    "version": "1.0.0",
+    "downloads": 6100,
+    "stars": 9
+  },
+  {
+    "name": "AI Agent Helper",
+    "author": "katrina-jpg",
+    "version": "1.0.0",
+    "downloads": 6100,
+    "stars": 4
+  },
+  {
+    "name": "News Aggregator",
+    "author": "httencn",
+    "version": "1.0.3",
+    "downloads": 6100,
+    "stars": 3
+  },
+  {
+    "name": "国内外社会、科技、军事新闻汇总。自动搜索、筛选、整理新闻要点。",
+    "author": "httencn",
+    "version": "1.0.0",
+    "downloads": 6100,
+    "stars": 8
+  },
+  {
+    "name": "Adaptive Reasoning",
+    "author": "enzoricciulli",
+    "version": "1.0.0",
+    "downloads": 6100,
+    "stars": 8
+  },
+  {
+    "name": "deepresearch conversation",
+    "author": "ide-rea",
+    "version": "1.1.2",
+    "downloads": 6100,
+    "stars": 2
+  },
+  {
+    "name": "YouTube Summarizer",
+    "author": "abe238",
+    "version": "1.0.0",
+    "downloads": 6100,
+    "stars": 3
+  },
+  {
+    "name": "Gemini Image Simple",
+    "author": "cluka-399",
+    "version": "1.1.0",
+    "downloads": 6000,
+    "stars": 2
+  },
+  {
+    "name": "Portfolio Watcher",
+    "author": "jhillin8",
+    "version": "1.0.0",
+    "downloads": 6000,
+    "stars": 4
+  },
+  {
+    "name": "NextJS 16+ Complete Documentation",
+    "author": "leonaaardob",
+    "version": "16.1.6",
+    "downloads": 6000,
+    "stars": 2
+  },
+  {
+    "name": "JIRA",
+    "author": "jdrhyne",
+    "version": "1.3.3",
+    "downloads": 6000,
+    "stars": 12
+  },
+  {
+    "name": "Clawdex by Koi",
+    "author": "wearekoi",
+    "version": "1.0.2",
+    "downloads": 6000,
+    "stars": 6
+  },
+  {
+    "name": "send-email",
+    "author": "fontstep",
+    "version": "1.0.1",
+    "downloads": 6000,
+    "stars": 5
+  },
+  {
+    "name": "Security Monitor",
+    "author": "chandrasekar-r",
+    "version": "1.0.0",
+    "downloads": 6000,
+    "stars": 4
+  },
+  {
+    "name": "Hyperliquid Trading & Analysis",
+    "author": "anajuliabit",
+    "version": "1.0.0",
+    "downloads": 5900,
+    "stars": 20
+  },
+  {
+    "name": "Tavily",
+    "author": "tylordius",
+    "version": "0.1.1",
+    "downloads": 5900,
+    "stars": 3
+  },
+  {
+    "name": "pr-reviewer",
+    "author": "briancolinger",
+    "version": "1.0.1",
+    "downloads": 5900,
+    "stars": 0
+  },
+  {
+    "name": "Document Pro",
+    "author": "jackeven02",
+    "version": "1.0.0",
+    "downloads": 5900,
+    "stars": 9
+  },
+  {
+    "name": "Obsidian Ontology Sync",
+    "author": "parthpandya1729",
+    "version": "1.0.1",
+    "downloads": 5900,
+    "stars": 15
+  },
+  {
+    "name": "Spotify",
+    "author": "2mawi2",
+    "version": "1.0.0",
+    "downloads": 5900,
+    "stars": 9
+  },
+  {
+    "name": "Social Media Agent",
+    "author": "psmamm",
+    "version": "1.0.0",
+    "downloads": 5900,
+    "stars": 9
+  },
+  {
+    "name": "Seo Optimizer",
+    "author": "veeramanikandanr48",
+    "version": "0.1.0",
+    "downloads": 5900,
+    "stars": 11
+  },
+  {
+    "name": "Kubernetes",
+    "author": "kcns008",
+    "version": "1.0.6",
+    "downloads": 5900,
+    "stars": 6
+  },
+  {
+    "name": "Exa",
+    "author": "fardeenxyz",
+    "version": "0.0.2",
+    "downloads": 5900,
+    "stars": 4
+  },
+  {
+    "name": "Remotion",
+    "author": "am-will",
+    "version": "1.0.1",
+    "downloads": 5900,
+    "stars": 8
+  },
+  {
+    "name": "Clean Code",
+    "author": "gabrielsubtil",
+    "version": "1.0.0",
+    "downloads": 5900,
+    "stars": 22
+  },
+  {
+    "name": "Mcp Skill",
+    "author": "simlocker",
+    "version": "1.0.0",
+    "downloads": 5900,
+    "stars": 4
+  },
+  {
+    "name": "Clawdvault",
+    "author": "greatape42069",
+    "version": "1.0.0",
+    "downloads": 5900,
+    "stars": 0
+  },
+  {
+    "name": "Polymarket Agent",
+    "author": "andretuta",
+    "version": "1.0.2",
+    "downloads": 5900,
+    "stars": 25
+  },
+  {
+    "name": "ElevenLabs Voices",
+    "author": "robbyczgw-cla",
+    "version": "2.1.6",
+    "downloads": 5800,
+    "stars": 16
+  },
+  {
+    "name": "Global Macro Database Assistant",
+    "author": "financial-ai-analyst",
+    "version": "1.0.9",
+    "downloads": 5800,
+    "stars": 58
+  },
+  {
+    "name": "Microsoft OneDrive",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 5800,
+    "stars": 9
+  },
+  {
+    "name": "Web Deploy GitHub Pages",
+    "author": "thomeksolutions",
+    "version": "1.0.0",
+    "downloads": 5800,
+    "stars": 7
+  },
+  {
+    "name": "Writing Assistant",
+    "author": "urrrich",
+    "version": "0.1.0",
+    "downloads": 5800,
+    "stars": 6
+  },
+  {
+    "name": "Yt Dlp Downloader",
+    "author": "apollo1234",
+    "version": "0.1.0",
+    "downloads": 5800,
+    "stars": 8
+  },
+  {
+    "name": "PARA Second Brain",
+    "author": "halthelobster",
+    "version": "2.0.1",
+    "downloads": 5800,
+    "stars": 49
+  },
+  {
+    "name": "NotebookLM CLI",
+    "author": "fadeloo",
+    "version": "0.1.1",
+    "downloads": 5800,
+    "stars": 16
+  },
+  {
+    "name": "Yahoo Finance CLI",
+    "author": "stuhorsman",
+    "version": "1.0.0",
+    "downloads": 5800,
+    "stars": 8
+  },
+  {
+    "name": "Brainstorming",
+    "author": "zlc000190",
+    "version": "0.1.0",
+    "downloads": 5800,
+    "stars": 3
+  },
+  {
+    "name": "Polymarket FastLoop Trader",
+    "author": "adlai88",
+    "version": "1.5.0",
+    "downloads": 5800,
+    "stars": 48
+  },
+  {
+    "name": "Moltbook Agent Registry",
+    "author": "drjmz",
+    "version": "1.0.3",
+    "downloads": 5700,
+    "stars": 1
+  },
+  {
+    "name": "Supabase Complete Documentation",
+    "author": "leonaaardob",
+    "version": "0.1.0",
+    "downloads": 5700,
+    "stars": 9
+  },
+  {
+    "name": "Security Scanner",
+    "author": "dmx64",
+    "version": "1.0.0",
+    "downloads": 5700,
+    "stars": 1
+  },
+  {
+    "name": "Polymarket Analysis",
+    "author": "lukebaze",
+    "version": "2.1.0",
+    "downloads": 5700,
+    "stars": 14
+  },
+  {
+    "name": "X Api",
+    "author": "lobstergeneralintelligence",
+    "version": "0.1.0",
+    "downloads": 5700,
+    "stars": 42
+  },
+  {
+    "name": "Agent Browser - Stagehand",
+    "author": "peytoncasper",
+    "version": "1.0.0",
+    "downloads": 5700,
+    "stars": 4
+  },
+  {
+    "name": "Web Search Pro",
+    "author": "zjianru",
+    "version": "2.1.4",
+    "downloads": 5700,
+    "stars": 9
+  },
+  {
+    "name": "Clawflows",
+    "author": "cluka-399",
+    "version": "1.0.0",
+    "downloads": 5700,
+    "stars": 4
+  },
+  {
+    "name": "Video Cog",
+    "author": "nitishgargiitd",
+    "version": "1.0.4",
+    "downloads": 5700,
+    "stars": 22
+  },
+  {
+    "name": "ADB Connection",
+    "author": "staticai",
+    "version": "1.0.0",
+    "downloads": 5700,
+    "stars": 12
+  },
+  {
+    "name": "Test Master",
+    "author": "veeramanikandanr48",
+    "version": "0.1.0",
+    "downloads": 5600,
+    "stars": 7
+  },
+  {
+    "name": "Best Image Generation",
+    "author": "evolinkai",
+    "version": "1.0.2",
+    "downloads": 5600,
+    "stars": 7
+  },
+  {
+    "name": "Agent Reach",
+    "author": "panniantong",
+    "version": "1.1.0",
+    "downloads": 5600,
+    "stars": 7
+  },
+  {
+    "name": "React Expert",
+    "author": "veeramanikandanr48",
+    "version": "0.1.0",
+    "downloads": 5600,
+    "stars": 4
+  },
+  {
+    "name": "B站 (bilibili) 热门视频监控",
+    "author": "jacobzwj",
+    "version": "1.0.21",
+    "downloads": 5600,
+    "stars": 16
+  },
+  {
+    "name": "生成B站热门视频日报并发送邮件。触发词：B站热门、bilibili日报、视频日报、热门视频",
+    "author": "jacobzwj",
+    "version": "1.0.2",
+    "downloads": 5600,
+    "stars": 2
+  },
+  {
+    "name": "skill-guard",
+    "author": "jamesouttake",
+    "version": "1.0.2",
+    "downloads": 5600,
+    "stars": 2
+  },
+  {
+    "name": "Reddit Insights",
+    "author": "dowands",
+    "version": "2.2.0",
+    "downloads": 5600,
+    "stars": 4
+  },
+  {
+    "name": "Google Search Console",
+    "author": "byungkyu",
+    "version": "1.0.5",
+    "downloads": 5600,
+    "stars": 9
+  },
+  {
+    "name": "Google Tasks",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 5600,
+    "stars": 9
+  },
+  {
+    "name": "Wechat Publisher",
+    "author": "0731coderlee-sudo",
+    "version": "0.1.0",
+    "downloads": 5600,
+    "stars": 32
+  },
+  {
+    "name": "Telegram Bot Builder",
+    "author": "sebastian-buitrag0",
+    "version": "1.0.0",
+    "downloads": 5600,
+    "stars": 7
+  },
+  {
+    "name": "Save Money",
+    "author": "peterokase42",
+    "version": "4.2.0",
+    "downloads": 5600,
+    "stars": 24
+  },
+  {
+    "name": "AI Video Script Generator",
+    "author": "aguo333",
+    "version": "1.0.0",
+    "downloads": 5600,
+    "stars": 18
+  },
+  {
+    "name": "PaddleOCR Document Parsing",
+    "author": "bobholamovic",
+    "version": "2.0.10",
+    "downloads": 5500,
+    "stars": 36
+  },
+  {
+    "name": "Content Strategy",
+    "author": "jk-0001",
+    "version": "0.1.0",
+    "downloads": 5500,
+    "stars": 11
+  },
+  {
+    "name": "security-reviewer",
+    "author": "veeramanikandanr48",
+    "version": "1.0.0",
+    "downloads": 5500,
+    "stars": 4
+  },
+  {
+    "name": "Polyclaw",
+    "author": "pipethedev",
+    "version": "1.0.2",
+    "downloads": 5500,
+    "stars": 9
+  },
+  {
+    "name": "AI Image Generation",
+    "author": "ivangdavila",
+    "version": "1.0.3",
+    "downloads": 5500,
+    "stars": 8
+  },
+  {
+    "name": "TODO Tracker",
+    "author": "jdrhyne",
+    "version": "1.0.0",
+    "downloads": 5500,
+    "stars": 0
+  },
+  {
+    "name": "GA4 Analytics",
+    "author": "adamkristopher",
+    "version": "1.0.0",
+    "downloads": 5500,
+    "stars": 11
+  },
+  {
+    "name": "Context Optimizer",
+    "author": "ad2546",
+    "version": "1.0.0",
+    "downloads": 5500,
+    "stars": 14
+  },
+  {
+    "name": "Image Editing",
+    "author": "ivangdavila",
+    "version": "1.0.0",
+    "downloads": 5500,
+    "stars": 5
+  },
+  {
+    "name": "Slack",
+    "author": "byungkyu",
+    "version": "1.0.8",
+    "downloads": 5500,
+    "stars": 7
+  },
+  {
+    "name": "Faster Whisper",
+    "author": "theplasmak",
+    "version": "1.5.1",
+    "downloads": 5500,
+    "stars": 4
+  },
+  {
+    "name": "QuickBooks",
+    "author": "byungkyu",
+    "version": "1.0.4",
+    "downloads": 5500,
+    "stars": 5
+  },
+  {
+    "name": "Codex Quota",
+    "author": "odrobnik",
+    "version": "1.2.2",
+    "downloads": 5500,
+    "stars": 3
+  },
+  {
+    "name": "Google Ads",
+    "author": "byungkyu",
+    "version": "1.0.5",
+    "downloads": 5400,
+    "stars": 17
+  },
+  {
+    "name": "Demo Video Creator",
+    "author": "0xs4m1337",
+    "version": "1.0.0",
+    "downloads": 5400,
+    "stars": 7
+  },
+  {
+    "name": "Excalidraw Diagram Generator",
+    "author": "a-anand-91119",
+    "version": "1.0.0",
+    "downloads": 5400,
+    "stars": 11
+  },
+  {
+    "name": "Yoder Skill Auditor",
+    "author": "yoder-bawt",
+    "version": "3.1.0",
+    "downloads": 5400,
+    "stars": 3
+  },
+  {
+    "name": "Agent Builder",
+    "author": "plgonzalezrx8",
+    "version": "1.0.0",
+    "downloads": 5400,
+    "stars": 24
+  },
+  {
+    "name": "Google Search Console",
+    "author": "jdrhyne",
+    "version": "1.2.2",
+    "downloads": 5400,
+    "stars": 21
+  },
+  {
+    "name": "Notebooklm",
+    "author": "guccidgi",
+    "version": "0.1.0",
+    "downloads": 5400,
+    "stars": 15
+  },
+  {
+    "name": "Daily Ai News",
+    "author": "laurent-zhu",
+    "version": "0.1.0",
+    "downloads": 5400,
+    "stars": 29
+  },
+  {
+    "name": "Stock Monitor",
+    "author": "shengbinxu",
+    "version": "1.3.0",
+    "downloads": 5300,
+    "stars": 4
+  },
+  {
+    "name": "Python Executor",
+    "author": "okaris",
+    "version": "0.1.5",
+    "downloads": 5300,
+    "stars": 2
+  },
+  {
+    "name": "Elevenlabs Tts",
+    "author": "shaharsha",
+    "version": "2.3.0",
+    "downloads": 5300,
+    "stars": 6
+  },
+  {
+    "name": "Google Contacts",
+    "author": "byungkyu",
+    "version": "1.0.3",
+    "downloads": 5300,
+    "stars": 5
+  },
+  {
+    "name": "Claude Code Integration",
+    "author": "hw10181913",
+    "version": "1.0.0",
+    "downloads": 5300,
+    "stars": 11
+  },
+  {
+    "name": "Antigravity Quota",
+    "author": "mukhtharcm",
+    "version": "1.1.0",
+    "downloads": 5300,
+    "stars": 12
+  },
+  {
+    "name": "Code Mentor",
+    "author": "samuelkahessay",
+    "version": "1.0.2",
+    "downloads": 5300,
+    "stars": 2
+  },
+  {
+    "name": "Bluesky",
+    "author": "jeffaf",
+    "version": "1.6.0",
+    "downloads": 5300,
+    "stars": 15
+  },
+  {
+    "name": "X(Twitter) Post Automation",
+    "author": "harshhmaniya",
+    "version": "1.0.0",
+    "downloads": 5200,
+    "stars": 2
+  },
+  {
+    "name": "Agentic Coding",
+    "author": "ivangdavila",
+    "version": "1.0.0",
+    "downloads": 5200,
+    "stars": 6
+  },
+  {
+    "name": "Google Merchant Center",
+    "author": "byungkyu",
+    "version": "1.0.5",
+    "downloads": 5200,
+    "stars": 5
+  },
+  {
+    "name": "Rss Ai Reader",
+    "author": "benzema216",
+    "version": "1.0.0",
+    "downloads": 5200,
+    "stars": 13
+  },
+  {
+    "name": "Brave Api Search",
+    "author": "broedkrummen",
+    "version": "3.0.2",
+    "downloads": 5200,
+    "stars": 1
+  },
+  {
+    "name": "Douyin Hot Trend",
+    "author": "franklu0819-lang",
+    "version": "1.1.0",
+    "downloads": 5200,
+    "stars": 17
+  },
+  {
+    "name": "Prd",
+    "author": "bjesuiter",
+    "version": "2.0.5",
+    "downloads": 5200,
+    "stars": 7
+  },
+  {
+    "name": "EvoWeb.ai Website Builder",
+    "author": "galizki",
+    "version": "1.0.10",
+    "downloads": 5200,
+    "stars": 10
+  },
+  {
+    "name": "Sysadmin Toolbox",
+    "author": "jdrhyne",
+    "version": "1.1.0",
+    "downloads": 5200,
+    "stars": 0
+  },
+  {
+    "name": "ClawVault",
+    "author": "g9pedro",
+    "version": "2.5.13",
+    "downloads": 5200,
+    "stars": 9
+  },
+  {
+    "name": "beauty-generation-api",
+    "author": "luruibu",
+    "version": "1.2.47",
+    "downloads": 5200,
+    "stars": 11
+  },
+  {
+    "name": "Ai Pdf Builder",
+    "author": "nextfrontierbuilds",
+    "version": "1.2.3",
+    "downloads": 5200,
+    "stars": 1
+  },
+  {
+    "name": "Stagehand Browser CLI",
+    "author": "peytoncasper",
+    "version": "1.0.0",
+    "downloads": 5200,
+    "stars": 0
+  },
+  {
+    "name": "Acuity Scheduling",
+    "author": "byungkyu",
+    "version": "1.0.2",
+    "downloads": 5200,
+    "stars": 3
+  },
+  {
+    "name": "feishu-calendar",
+    "author": "autogame-17",
+    "version": "1.0.0",
+    "downloads": 5200,
+    "stars": 1
+  },
+  {
+    "name": "Subagent Driven Development",
+    "author": "zlc000190",
+    "version": "0.1.0",
+    "downloads": 5200,
+    "stars": 5
+  },
+  {
+    "name": "Language Learning Tutor",
+    "author": "chipagosfinest",
+    "version": "1.0.0",
+    "downloads": 5100,
+    "stars": 17
+  },
+  {
+    "name": "Jira",
+    "author": "byungkyu",
+    "version": "1.0.5",
+    "downloads": 5100,
+    "stars": 7
+  }
+]

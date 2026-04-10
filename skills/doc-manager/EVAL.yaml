@@ -1,0 +1,37 @@
+# doc-manager 评估用例
+# 遵循 SKILL_LIFE.md v1.7.0 2.3 编写规范
+
+- skills: [doc-manager]
+  query: "node skills/doc-manager/executor.js query DOC_RULES.md partial"
+  expected_behavior:
+    - "返回 JSON，含 type=partial、docName、DOC_RULES.md 和 headers 数组"
+    - "headers 包含所有一级+二级标题"
+    - "无报错退出（exit code 0）"
+
+- skills: [doc-manager]
+  query: "node skills/doc-manager/executor.js query DOC_RULES.md 3.1"
+  expected_behavior:
+    - "返回 JSON，含 type=sub、level=3.1"
+    - "items 数组非空，含对应三级条款"
+    - "无报错退出"
+
+- skills: [doc-manager]
+  query: "node skills/doc-manager/executor.js query DOC_RULES.md 3.1.2"
+  expected_behavior:
+    - "返回 JSON，含 type=item、level=3.1.2"
+    - "lines 含条款标题和内容"
+    - "无报错退出"
+
+- skills: [doc-manager]
+  query: "node skills/doc-manager/executor.js todo TEST.md '测试待办'"
+  expected_behavior:
+    - "写入当日 memory/YYYY-MM-DD.md"
+    - "内容含 TEST.md 和测试待办"
+    - "无报错退出"
+
+- skills: [doc-manager]
+  query: "node skills/doc-manager/executor.js append-vh TEST.md v1.0.0 2026-04-03 二级 '测试版本历史' '虾哥'"
+  expected_behavior:
+    - "在 TEST.md 版本历史表格中追加一行"
+    - "版本号/日期/层级/变更/更新人均正确"
+    - "无报错退出"

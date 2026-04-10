@@ -1,0 +1,38 @@
+# code-manager 评估用例
+# 遵循 SKILL_LIFE.md v1.7.0 2.3 编写规范
+
+- skills: [code-manager]
+  query: "node skills/code-manager/executor.js syntax <目标js文件>"
+  expected_behavior:
+    - "语法正确文件：返回 success:true，exit code 0"
+    - "语法错误文件：返回 success:false，带错误信息"
+    - "非 .js 文件：返回 success:false，提示不支持"
+
+- skills: [code-manager]
+  query: "node skills/code-manager/preCommitCheck.js <目标文件路径>"
+  expected_behavior:
+    - "5项检查全部通过：输出 pass count=5，exit code 0"
+    - "某项失败：输出 fail 项+具体原因，exit code 非0"
+    - "有 console.log：报第2项失败"
+    - "有明文API key：报第3项失败"
+
+- skills: [code-manager]
+  query: "node skills/code-manager/executor.js pr '测试变更'"
+  expected_behavior:
+    - "返回 JSON，含 success:true、id、file 字段"
+    - "在 .code-pending/ 下生成对应文件"
+    - "无报错退出"
+
+- skills: [code-manager]
+  query: "node skills/code-manager/executor.js run-full <workspace下某js文件>"
+  expected_behavior:
+    - "文件存在：返回 stdout/stderr 内容"
+    - "文件不存在：返回 error 信息"
+    - "无报错退出（执行结果反映在 success 字段）"
+
+- skills: [code-manager]
+  query: "node skills/code-manager/executor.js run-partial <某js文件> <函数名>"
+  expected_behavior:
+    - "函数存在：正常执行，返回函数输出"
+    - "函数不存在：返回 error 信息"
+    - "无报错退出"

@@ -1,0 +1,15 @@
+{
+  "name": "planner",
+  "description": "规划型 Agent",
+  "tools": ["Read", "Grep", "Glob", "WebSearch", "WebFetch"],
+  "model": "inherit",
+  "runTimeoutSeconds": 600,
+  "cleanup": "delete",
+  "sandbox": "require",
+  "safety": {
+    "dangerLevel": "low",
+    "allowedOperations": ["read", "search", "plan"],
+    "restrictedOperations": ["Write", "Edit", "Delete", "Move", "Bash", "exec"],
+    "notes": "只读规划型。用于架构设计、需求分析、实施计划制定"
+  }
+}

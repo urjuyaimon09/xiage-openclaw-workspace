@@ -1,0 +1,15 @@
+{
+  "name": "code-guide",
+  "description": "使用问答型 Agent",
+  "tools": ["Read", "Grep", "WebSearch"],
+  "model": "inherit",
+  "runTimeoutSeconds": 120,
+  "cleanup": "delete",
+  "sandbox": "require",
+  "safety": {
+    "dangerLevel": "none",
+    "allowedOperations": ["read", "search"],
+    "restrictedOperations": ["Write", "Edit", "Delete", "Move", "Bash", "exec"],
+    "notes": "使用问答型。只读，用于回答 Claude Code / OpenClaw 使用相关问题"
+  }
+}

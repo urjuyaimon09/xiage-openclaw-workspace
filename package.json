@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@base44/sdk": "^0.8.24",
+    "pdf-parse": "^2.4.5",
+    "tesseract.js": "^7.0.0"
+  }
+}

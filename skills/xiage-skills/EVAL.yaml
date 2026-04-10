@@ -1,0 +1,41 @@
+# xiage-skills 评估用例
+# 遵循 SKILL_LIFE.md v1.7.0 2.3 编写规范
+# 自编写 Skill：先定义标准，再实现，再验证
+
+- skills: [xiage-skills]
+  query: "node xiage-skills.js search"
+  expected_behavior:
+    - "执行成功，无报错退出"
+    - "生成 .tmp-skills-trending.html（skills.sh 24h趋势，≥100条）"
+    - "生成 .tmp-skills-downloads.html（skills.sh总下载，≥100条）"
+    - "生成 .tmp-clawhub-downloads.html（ClawHub总下载，≥100条）"
+    - "文件写入 skills/ 目录"
+
+- skills: [xiage-skills]
+  query: "node xiage-skills.js filter"
+  expected_behavior:
+    - "生成 .filtered-top20.json"
+    - "文件包含 clawhub/trending/downloads 三个分组"
+    - "每个分组最多20条，总数≤60"
+    - "已安装技能已被过滤（不在候选中）"
+
+- skills: [xiage-skills]
+  query: "node xiage-skills.js skill <author/skillname>"
+  expected_behavior:
+    - "安装成功后在 SKILLS-INDEX.md 中出现新记录"
+    - "skills/<author-skill>/SKILL.md 存在且非空"
+    - "skills/<author-skill>/ 下有实际内容（非空目录）"
+    - "安检通过（无红 Flag 报错）"
+
+- skills: [xiage-skills]
+  query: "node xiage-skills.js use <skill名> success"
+  expected_behavior:
+    - "记录追加到 memory/skill-usage.json"
+    - "执行成功无报错"
+
+- skills: [xiage-skills]
+  query: "node xiage-skills.js evaluate"
+  expected_behavior:
+    - "生成 SKILLS-EVALUATION.md 报告"
+    - "报告包含所有已安装技能的四维度评分"
+    - "每项技能有综合评级（🟢/🟡/🔴）"

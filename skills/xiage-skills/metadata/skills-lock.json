@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "skills": {
+    "agent-browser": {
+      "source": "inferen-sh/skills",
+      "sourceType": "github",
+      "computedHash": "c20da326c9fb408b50ec1075cb471511d45d4fd466cd01cbf985cfda2d616d7b"
+    },
+    "architecture-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "baa0be9b01540d612be90820e654dccd2e41877f57e65ef1dc51a5387c5eecb9"
+    },
+    "copilot-coding-agent": {
+      "source": "supercent-io/skills-template",
+      "sourceType": "github",
+      "computedHash": "7e8325d7453ce2d9c2ceb9fbd8e844e8024757de999a1363984d8448aba1726a"
+    },
+    "documentation": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "computedHash": "43947d80ab634432362a076657eb225212760adbe731c0829a92709aeb842666"
+    },
+    "faster-whisper": {
+      "source": "theplasmak/faster-whisper",
+      "sourceType": "github",
+      "computedHash": "f583000a29d28a6f1298071274eda87ae48c1da0a24709a2c7c08b2742289e30"
+    },
+    "humanizer-zh": {
+      "source": "op7418/humanizer-zh",
+      "sourceType": "github",
+      "computedHash": "ad6b2b1f1433413c64f6403dc322d950da175a058f494291bd4399e77cb587c7"
+    },
+    "image-ocr": {
+      "source": "fearovex/claude-config",
+      "sourceType": "github",
+      "computedHash": "b6d11818afcad4e114cd5816da05127dc5f6b9bf0a42a940d7b64ed87591b564"
+    },
+    "music-downloader": {
+      "source": "nymbo/skills",
+      "sourceType": "github",
+      "computedHash": "d123324dd0fb4f3653fcef3a592622f70813682741577524bf0d94924b3b3023"
+    },
+    "ocr-document-processor": {
+      "source": "dkyazzentwatwa/chatgpt-skills",
+      "sourceType": "github",
+      "computedHash": "3b05bafe5baa11e42dab3ca1a7f4e60ee71960e7cb390cae00eec6d566c7774a"
+    },
+    "proactive-agent": {
+      "source": "halthelobster/proactive-agent",
+      "sourceType": "github",
+      "computedHash": "2faade71f52c70238c29fa2403a221575fd93dae0b125e0f946c5e36bb7ba53e"
+    },
+    "self-improving-agent": {
+      "source": "charon-fan/agent-playbook",
+      "sourceType": "github",
+      "computedHash": "f52b5577f09152ab9c2577f6fd6bd4d23ba87acc884dfc3e90a551949f0d90f1"
+    },
+    "skill-hunter": {
+      "source": "zenobi-us/dotfiles",
+      "sourceType": "github",
+      "computedHash": "bc75329246bd92938d2a52cb67dcdbfef6ae7918adb966fb5969970c8a00f5eb"
+    },
+    "task-planning": {
+      "source": "supercent-io/skills-template",
+      "sourceType": "github",
+      "computedHash": "cc0f00bb1c8c5130160a08b18cd71d6f743871036593ce5b31e0fc9e4e0205df"
+    },
+    "tavily-search": {
+      "source": "tavily-ai/skills",
+      "sourceType": "github",
+      "computedHash": "8cc6213302c9e74916e135d8abf462b8b0fc1ddea328b6f6a6a3f1d7d4b5c2ac"
+    },
+    "yt-dlp": {
+      "source": "knoopx/pi",
+      "sourceType": "github",
+      "computedHash": "1c3117bd3eb209c571db4ed5a29d9020ab91a856de7e575ca1bcfba35748872e"
+    }
+  }
+}

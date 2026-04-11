@@ -55,6 +55,43 @@ git checkout HEAD -- SAFETY_RULES.md
 git checkout HEAD -- skills/xiage-skills/
 ```
 
+### Step 0-B — PM2 进程守护（Gateway 稳定方案）
+
+**解决的问题：**
+- Gateway崩溃后不能自动拉起
+- 手工启动依赖PowerShell窗口
+- 进程挤爆问题
+
+**已完成的配置：**
+
+| 组件 | 状态 | 说明 |
+|------|------|------|
+| PM2 安装 | ✅ | `npm install -g pm2` |
+| Gateway 托管 | ✅ | `pm2 start "node ...openclaw/dist/index.js gateway" --name openclaw` |
+| 重启退避 | ✅ | `--exp-backoff-restart-delay=1000`（间隔1秒起递增） |
+| 进程保存 | ✅ | `pm2 save`（保存到快照） |
+| 开机自启 | ✅ | `startup.bat` 放入 `shell:startup` |
+
+**PM2 常用命令：**
+```powershell
+pm2 list                  # 查看状态
+pm2 info openclaw         # 查看详细信息
+pm2 logs openclaw         # 查看日志
+pm2 restart openclaw      # 重启Gateway
+pm2 save                  # 保存当前进程快照（改完PM2配置后必跑）
+pm2 resurrect             # 从快照恢复所有进程（开机自启用）
+```
+
+**注意事项：**
+- 改了Gateway配置或重启了PM2进程 → 要跑 `pm2 save` 保存新快照
+- PM2 daemon本身很稳定，一般不需要动
+- Gateway启动慢（4分钟）是正常现象，不是PM2的问题
+
+**崩溃时的行为：**
+- Gateway进程退出 → PM2检测到 → 按退避策略重启（1秒 → 2秒 → 4秒...）
+- 一分钟内重启超过5次 → PM2停止重启，进入errored状态
+- 下次开电脑 → `startup.bat` → `pm2 resurrect` → 自动恢复所有进程
+
 **需要恢复的关键文件（均在 workspace 内，受 Git 管理）：**
 
 | 文件/目录 | 说明 |
@@ -187,7 +224,15 @@ openclaw configure
 
 ---
 
+**PM2 故障排查：**
+- `pm2 list` 显示 `errored` 状态 → 说明进程超过最大重启次数，停止拉起 → 手动 `pm2 restart openclaw` 恢复
+- `pm2 logs openclaw` 无输出 → daemon 可能挂了 → 重启PM2：`pm2 restart all`
+- 开机后Gateway没起来 → 检查 `startup.bat` 是否在启动文件夹里、是否以管理员权限运行
+
+---
+
 *版本历史*
 - v1.0.0 (2026-04-04)：初始版本，纳入：自我保护规则/崩溃恢复手册/外界安全/定期巡检
 - v1.0.1 (2026-04-05)：新增 1.1 OpenClaw 核心代码改动规程（改动前备份、chunk结构说明、崩溃恢复步骤）
 - v1.0.2 (2026-04-06)：新增 Step 0 Windows 服务状态检查；补充 gateway 服务运行时强制关闭的危害说明；关联 skill: openclaw-gateway-service
+- v1.0.3 (2026-04-11)：新增 Step 0-B PM2 进程守护方案（Gateway 稳定化完整配置）

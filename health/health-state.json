@@ -1,8 +1,8 @@
 {
-  "lastCheck": "2026-04-12T00:30:58.179Z",
+  "lastCheck": "2026-04-12T02:25:55.144Z",
   "status": "healthy",
   "rpcMs": 2,
-  "memoryMB": 692,
+  "memoryMB": 692.7,
   "portPID": 8016,
   "restartCount": 1163,
   "configValid": false,

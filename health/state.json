@@ -1,0 +1,14 @@
+{
+  "lastCheck": "2026-04-12T02:33:12.028Z",
+  "incidentId": "INC-20260412-001",
+  "status": "healthy",
+  "rpcMs": 2,
+  "memoryMB": 705.1,
+  "portPID": 8016,
+  "portStatus": "listening",
+  "restartCount": 1163,
+  "configValid": true,
+  "logErrors": 0,
+  "bonjourIssue": false,
+  "issues": []
+}

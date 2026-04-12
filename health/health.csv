@@ -1,0 +1,4 @@
+time,incident_id,type,status,rpcMs,memoryMB,portPID,restartCount,configValid,logErrors,bonjourIssue,issues
+2026-04-12T02:26:33.615Z,INC-20260412-001,check,healthy,2,694.9,8016,1163,false,0,false,
+2026-04-12T02:27:05.985Z,INC-20260412-001,check,healthy,1,691.1,8016,1163,true,0,false,
+2026-04-12T02:33:12.028Z,INC-20260412-001,check,healthy,2,705.1,8016,1163,true,0,false,

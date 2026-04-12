@@ -1,0 +1,13 @@
+{
+  "daily": [
+    {
+      "date": "2026-04-12",
+      "rpcAvg": 0.7,
+      "memAvg": 686.3,
+      "count": 4,
+      "issueCount": 1,
+      "criticalCount": 0,
+      "maxRestartCount": 1163
+    }
+  ]
+}

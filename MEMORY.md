@@ -24,6 +24,25 @@
 
 ---
 
+## Gateway 健康监控系统（2026-04-12）
+
+**触发词：** `/gateway health`
+
+**检查内容：** PM2状态、端口18789、RPC延迟、内存、restart次数、配置有效性、日志错误、Bonjour阻塞
+
+**存储策略：**
+- `health/health-state.json` — 当前状态（每次覆盖）
+- `health/health-events.json` — 状态跳变事件（仅记录变化，保留7天）
+- `health/health-daily.json` — 每日聚合（RPC平均、内存平均、问题次数，保留7天）
+
+**状态等级：** healthy（🟢）/ degraded（🟡）/ critical（🔴）
+
+**自动运行：** 每30分钟一次（HEARTBEAT.md）
+
+**脚本：** `scripts/gateway-health.js`
+
+---
+
 ## 记忆文件索引
 
 | 层级 | 文件 | 说明 |

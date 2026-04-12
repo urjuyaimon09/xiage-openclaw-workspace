@@ -1,0 +1,18 @@
+{
+  "events": [
+    {
+      "time": "2026-04-12T00:27:43.798Z",
+      "from": "none",
+      "to": "degraded",
+      "rpcMs": null,
+      "issue": "Log errors found"
+    },
+    {
+      "time": "2026-04-12T00:29:03.374Z",
+      "from": "degraded",
+      "to": "healthy",
+      "rpcMs": 0,
+      "issue": null
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "lastCheck": "2026-04-12T00:30:58.179Z",
+  "status": "healthy",
+  "rpcMs": 2,
+  "memoryMB": 692,
+  "portPID": 8016,
+  "restartCount": 1163,
+  "configValid": false,
+  "logErrors": 0,
+  "issues": []
+}

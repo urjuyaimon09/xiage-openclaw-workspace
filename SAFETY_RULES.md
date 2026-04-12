@@ -1,8 +1,8 @@
-# 安全规则 v1.0.2
+# 安全规则 v1.0.4
 
 _虾哥生存保障核心文档_
 
-最后更新：2026-04-06
+最后更新：2026-04-12
 
 ---
 
@@ -62,35 +62,97 @@ git checkout HEAD -- skills/xiage-skills/
 - 手工启动依赖PowerShell窗口
 - 进程挤爆问题
 
-**已完成的配置：**
+**当前配置（v1.0.4）：**
 
 | 组件 | 状态 | 说明 |
 |------|------|------|
 | PM2 安装 | ✅ | `npm install -g pm2` |
-| Gateway 托管 | ✅ | `pm2 start "node ...openclaw/dist/index.js gateway" --name openclaw` |
-| 重启退避 | ✅ | `--exp-backoff-restart-delay=1000`（间隔1秒起递增） |
-| 进程保存 | ✅ | `pm2 save`（保存到快照） |
-| 开机自启 | ✅ | `startup.bat` 放入 `shell:startup` |
+| pm2-windows-service | ✅ | PM2 作为 Windows 服务运行（后台，无窗口闪烁） |
+| Gateway 托管 | ✅ | `pm2 start openclaw`（fork_mode） |
+| 进程保存 | ✅ | `pm2 save`（已保存到 `C:\Users\Administrator\.pm2\dump.pm2`） |
+| 开机自启 | ✅ | PM2 服务本身是 Automatic（由服务控制管理器管理） |
 
 **PM2 常用命令：**
 ```powershell
-pm2 list                  # 查看状态
-pm2 info openclaw         # 查看详细信息
-pm2 logs openclaw         # 查看日志
-pm2 restart openclaw      # 重启Gateway
-pm2 save                  # 保存当前进程快照（改完PM2配置后必跑）
-pm2 resurrect             # 从快照恢复所有进程（开机自启用）
+cmd /c "pm2 list"           # 查看状态（用cmd绕开PowerShell执行策略）
+cmd /c "pm2 info openclaw"   # 查看详细信息
+cmd /c "pm2 logs openclaw"   # 查看日志
+cmd /c "pm2 restart openclaw" # 重启Gateway
+cmd /c "pm2 save"            # 保存当前进程快照
 ```
 
-**注意事项：**
-- 改了Gateway配置或重启了PM2进程 → 要跑 `pm2 save` 保存新快照
-- PM2 daemon本身很稳定，一般不需要动
-- Gateway启动慢（4分钟）是正常现象，不是PM2的问题
+**⚠️ fork_mode 已知问题（不影响服务模式）：**
+- fork_mode 下 restart 时旧子进程不会被 PM2 kill，导致端口冲突
+- 表现：PM2 restart 后新进程起不来，日志里 lock timeout
+- 根因：PM2 fork_mode 无法管理子进程的生命周期
+- **解决：服务模式的 PM2 daemon 独立于用户会话，更稳定**
+- 当前 restart 次数 1163 次是旧手工 gateway 留下的，新服务进程正常
 
-**崩溃时的行为：**
-- Gateway进程退出 → PM2检测到 → 按退避策略重启（1秒 → 2秒 → 4秒...）
-- 一分钟内重启超过5次 → PM2停止重启，进入errored状态
-- 下次开电脑 → `startup.bat` → `pm2 resurrect` → 自动恢复所有进程
+**注意事项：**
+- 改了 Gateway 配置或重启了 PM2 进程 → 必须跑 `pm2 save` 保存新快照
+- PM2 服务本身很稳定，一般不需要动
+- Gateway 启动慢（~72秒）是正常现象，不是 PM2 的问题
+
+### Step 0-C — Gateway 健康监控流程（2026-04-12 新增）
+
+**完整流程：检查 → 诊断 → 修复 → 记录**
+
+#### 1. 检查（gateway-diagnose.ps1）
+
+```powershell
+powershell -ExecutionPolicy Bypass -File C:\Users\Administrator\.openclaw\workspace\scripts\gateway-diagnose.ps1
+```
+
+检查项（7项）：PM2状态 / 端口18789 / RPC健康 / Config有效性 / Bonjour阻塞 / 日志错误 / Codex ACP
+
+#### 2. 诊断
+
+诊断脚本输出：`[OK]` / `[WARN]` / `[ERR]`，并给出 `Recommended fixes` 列表
+
+#### 3. 修复（-Fix）
+
+```powershell
+.\gateway-diagnose.ps1 -Fix
+```
+
+4种自动修复：
+- **Config 无效** → 从 `.json.bak` 恢复
+- **端口被旧进程占** → `Stop-Process -Id <pid> -Force` 杀旧进程
+- **Bonjour 延迟** → 在 `dump.pm2` 里写入 `OPENCLAW_DISABLE_BONJOUR=1`
+- **需要重启** → `pm2 restart openclaw`
+
+#### 4. 记录（自动，无需手动）
+
+| 文件 | 触发条件 | 内容 | 保留 |
+|------|---------|------|------|
+| `health/health-state.json` | 每次检查 | 当前状态（覆盖） | 最新 |
+| `health/health-events.json` | 状态跳变时 | 跳变事件（from/to/rpcMs/issue） | 7天 |
+| `health/health-daily.json` | 每天首次检查 | 聚合数据（rpcAvg/memAvg/issueCount） | 7天 |
+
+**设计原则：** 有问题才记录，稳定态不写数据。
+
+**自动运行：** 每30分钟一次（HEARTBEAT.md）
+
+#### `/gateway health` 指令
+
+触发词：`/gateway health`
+
+效果：读取 `health-state.json` + `health-events.json`（最近7天）+ `health-daily.json`（最近7天），输出：
+```
+🟢 HEALTHY | RPC: 50ms | Mem: 729MB | Restarts: 1163
+最近：Bonjour延迟 → 已禁用（04-11 22:00）
+趋势：近7天 RPC稳定在40-60ms
+```
+
+#### 状态等级
+
+| 等级 | 条件 |
+|------|------|
+| 🟢 healthy | 端口监听 + RPC<200ms + 无错误 |
+| 🟡 degraded | RPC 200-500ms 或 有日志错误/Bonjour阻塞 |
+| 🔴 critical | 端口未监听 或 RPC>500ms 或 错误>5条 |
+
+---
 
 **需要恢复的关键文件（均在 workspace 内，受 Git 管理）：**
 
@@ -225,9 +287,10 @@ openclaw configure
 ---
 
 **PM2 故障排查：**
-- `pm2 list` 显示 `errored` 状态 → 说明进程超过最大重启次数，停止拉起 → 手动 `pm2 restart openclaw` 恢复
-- `pm2 logs openclaw` 无输出 → daemon 可能挂了 → 重启PM2：`pm2 restart all`
-- 开机后Gateway没起来 → 检查 `startup.bat` 是否在启动文件夹里、是否以管理员权限运行
+- `pm2 list` 显示 `errored` 状态 → 进程超过最大重启次数，停止拉起 → `pm2 restart openclaw` 恢复
+- `pm2 logs openclaw` 无输出 → 服务本身可能挂了 → 检查 PM2 Windows 服务：`Get-Service pm2.exe`
+- 开机后 Gateway 没起来 → 检查 PM2 服务状态是否为 Running；检查 Task Scheduler 里的 OpenClaw Gateway 任务
+- 端口被陈旧 PID 占用 → `Stop-Process -Id <pid> -Force` 杀旧进程；PM2 会自动拉起新进程
 
 ---
 
@@ -236,3 +299,4 @@ openclaw configure
 - v1.0.1 (2026-04-05)：新增 1.1 OpenClaw 核心代码改动规程（改动前备份、chunk结构说明、崩溃恢复步骤）
 - v1.0.2 (2026-04-06)：新增 Step 0 Windows 服务状态检查；补充 gateway 服务运行时强制关闭的危害说明；关联 skill: openclaw-gateway-service
 - v1.0.3 (2026-04-11)：新增 Step 0-B PM2 进程守护方案（Gateway 稳定化完整配置）
+- v1.0.4 (2026-04-12)：Step 0-B 更新为 pm2-windows-service 方案；新增 Step 0-C Gateway 健康监控完整流程（检查/诊断/修复/记录三段式）；更新 PM2 fork_mode 已知问题

@@ -131,7 +131,7 @@ powershell -ExecutionPolicy Bypass -File C:\Users\Administrator\.openclaw\worksp
 
 **设计原则：** 有问题才记录，稳定态不写数据。
 
-**自动运行：** 每30分钟一次（HEARTBEAT.md）
+**自动运行：** Windows 任务计划程序 `OpenClaw Gateway Health`（每30分钟，独立于 OpenClaw）
 
 #### `/gateway health` 指令
 
@@ -262,6 +262,97 @@ openclaw configure
 
 ---
 
+## 二-A Gateway 自动运维流程
+
+### 架构
+
+```
+scripts/
+  gateway-health.js    # 检查（定时30分钟+手动）
+  gateway-diagnose.js  # 诊断（手动）
+  gateway-fix.js       # 修复（手动）
+health/
+  health.csv           # 所有轨迹，append-only，7天
+  state.json           # 当前状态快照
+```
+
+### 三层职责
+
+| 脚本 | 职责 | 触发 |
+|------|------|------|
+| `gateway-health.js` | 检查，输出状态 | Task Scheduler 每30分钟 / 手动 |
+| `gateway-diagnose.js` | 诊断，输出问题点 | 手动 |
+| `gateway-fix.js` | 修复，执行修复操作 | 手动 |
+
+数据集成点：`health.csv`（append-only），通过 `incident_id` 串联同一问题的检查→诊断→修复完整生命周期。
+
+### incident_id 规则
+
+- **格式**：`INC-YYYYMMDD-NNN`（日期 + 当日序号）
+- 首次发现问题的 check 行生成新 ID，后续 diagnose/fix 复用同一 ID
+- 正常 check（无问题）复用上一个 ID
+- 修复完成后，新问题生成新 ID
+
+### 检查项（gateway-health.js）
+
+| 检查项 | 判定 |
+|--------|------|
+| PM2 在线 | `pm2 jlist` 含 online |
+| 端口18789 | netstat LISTENING |
+| RPC延迟 | Node.js TCP connect 计时 |
+| Config有效 | JSON.parse |
+| 日志错误 | 最近1小时：ECONNREFUSED / unhandledRejection / SIGTERM |
+| Bonjour阻塞 | pm2 logs 有 stuck announcing |
+| 内存MB | PM2 monit.memory |
+| restart次数 | PM2 restart_time |
+
+**状态等级**：
+- 🟢 healthy：端口监听 + RPC<200ms + 无错误
+- 🟡 degraded：RPC 200-500ms 或 有日志错误/Bonjour阻塞
+- 🔴 critical：端口未监听 或 RPC>500ms 或 错误>5条
+
+### 诊断规则（gateway-diagnose.js）
+
+| 症状 | 诊断结论 |
+|------|---------|
+| portStatus != listening | 端口未监听，Gateway 未运行 |
+| rpcMs > 500 | RPC 严重延迟，检查网络/负载 |
+| logErrors 有 ECONNREFUSED | 某服务拒绝连接 |
+| bonjourIssue 有 stuck | Bonjour 广播阻塞，禁用 |
+| restartCount 突增 | PM2 频繁重启，检查进程稳定性 |
+| configValid = false | Config 文件损坏，需回滚 |
+
+### 修复上限规则
+
+| 级别 | 问题 | 修复策略 | 上限 |
+|------|------|---------|------|
+| 小 | 端口被占（stale PID） | kill 旧进程 → PM2 restart | 重试2次 |
+| 小 | Bonjour 延迟 | 写入 OPENCLAW_DISABLE_BONJOUR=1 到 dump.pm2 | 一次性 |
+| 小 | 日志错误 | 写记录，等待人工处理 | — |
+| 大 | Config 无效 | 从 .json.bak 回滚 | 直接执行，不重试 |
+| 大 | PM2 errored | pm2 restart | 3次不行进重建 |
+
+超过上限：记录并停用自动修复，等待人工介入。
+
+### 运维
+
+| 项目 | 说明 |
+|------|------|
+| 脚本存放 | `scripts/` |
+| 数据存放 | `health/` |
+| 日志聚合 | 所有 stdout → pm2 logs |
+| Git 管理 | 脚本和数据都在 workspace，受 Git 版本控制 |
+| 过期处理 | CSV 只保留7天 |
+| 备份 | Git commit = 备份 |
+
+### 当前进度
+
+- ✅ `gateway-health.js` 已上线
+- ⬜ `gateway-diagnose.js` 待实现
+- ⬜ `gateway-fix.js` 待实现
+
+---
+
 ## 三、外界安全
 
 | 风险 | 防护措施 |
@@ -300,3 +391,4 @@ openclaw configure
 - v1.0.2 (2026-04-06)：新增 Step 0 Windows 服务状态检查；补充 gateway 服务运行时强制关闭的危害说明；关联 skill: openclaw-gateway-service
 - v1.0.3 (2026-04-11)：新增 Step 0-B PM2 进程守护方案（Gateway 稳定化完整配置）
 - v1.0.4 (2026-04-12)：Step 0-B 更新为 pm2-windows-service 方案；新增 Step 0-C Gateway 健康监控完整流程（检查/诊断/修复/记录三段式）；更新 PM2 fork_mode 已知问题
+- v1.0.5 (2026-04-12)：新增二-A「Gateway 自动运维流程」章节（架构/职责/incident_id/检查项/诊断规则/修复上限/运维）；diagnose.js 和 fix.js 待实现

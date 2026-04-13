@@ -282,14 +282,32 @@ IMA 不做实时同步，只存放稳定版文档，供随时查阅。
 
 **修改方法：** 编辑 `openclaw.json` 后执行 `openclaw gateway restart`。
 
+### 7.4 配置文件变更规范
+
+**触发条件：** 修改 `openclaw.json` 之前
+
+**操作流程：**
+1. 每次修改 openclaw.json 前，先运行存档脚本：
+   ```
+   node scripts/archive-openclaw-config.ps1
+   ```
+2. 脚本自动将当前配置存档为 `openclaw.json.bak.YYYY-MM-DD_HH-MM-SS` 格式
+3. 保留最近 10 个版本，自动清理旧备份
+4. `CONFIG_INVALID` 自动从最新的带时间戳备份恢复
+
+**禁忌：**
+- 禁止在未存档的情况下直接修改 openclaw.json
+- 禁止修改 .bak 文件（保留原始备份）
+
 ---
 
 ## 版本历史
 
-**当前版本：v1.5.0**
+**当前版本：v1.7.0**
 
 | 版本 | 日期 | 更新层级 | 详细变更 | 更新人 |
 |------|------|----------|----------|--------|
+| v1.7.0 | 2026-04-13 | 二级 | 新增7.4「配置文件变更规范」：修改openclaw.json前必须存档；新增archive-openclaw-config.ps1脚本；CONFIG_INVALID fix改为从最新带时间戳备份恢复 | 虾哥（坚果确认） |
 | v1.6.0 | 2026-04-05 | 二级 | 3.5工具并行规则：触发时机改为强制表述「必须调用」，并行≥2个时必须触发；SOUL.md新增规则9：效率优先必须调用parallel-tool-executor | 虾哥（坚果确认） |
 | v1.5.0 | 2026-04-05 | 二级 | 新增 3.5「工具并行规则」：parallel-tool-executor skill 调用规范、子agent并发约束（maxConcurrent=5）、并发安全工具白名单；明确标注当前为阉割版，完整版需OpenClaw开放工具批次级hook | 虾哥（坚果确认） |
 | v1.4.1 | 2026-04-05 | 二级 | AGENTS.md路径同步：beforeWrite.js/beforeCode.js路径改为实际位置 skills/doc-manager/ 和 skills/code-manager/ | 虾哥（坚果确认） |
@@ -301,5 +319,5 @@ IMA 不做实时同步，只存放稳定版文档，供随时查阅。
 | v1.1.0 | 2026-04-01 | 二级 | 升级Memory章节：新增5层记忆分层结构、记结论不记过程写入规则、结构化日志格式模板 | 虾哥（坚果确认） |
 | v1.0.0 | 2026-03-22 | 一级 | 初始版本，workspace使用规范 | 虾哥 |
 
-*最后更新：2026-04-05*
+*最后更新：2026-04-13*
 *版本：v1.5.0*

@@ -1,0 +1,17 @@
+{
+  "FEISHU_400:A": {
+    "successes": 28,
+    "failures": 0,
+    "auto": true
+  },
+  "SKILLS_SKIP:A": {
+    "successes": 48,
+    "failures": 0,
+    "auto": true
+  },
+  "PORT_DOWN:A": {
+    "successes": 0,
+    "failures": 3,
+    "auto": false
+  }
+}

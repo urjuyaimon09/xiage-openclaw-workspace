@@ -2,3 +2,149 @@ time,incident_id,type,status,rpcMs,memoryMB,portPID,restartCount,configValid,log
 2026-04-12T02:26:33.615Z,INC-20260412-001,check,healthy,2,694.9,8016,1163,false,0,false,
 2026-04-12T02:27:05.985Z,INC-20260412-001,check,healthy,1,691.1,8016,1163,true,0,false,
 2026-04-12T02:33:12.028Z,INC-20260412-001,check,healthy,2,705.1,8016,1163,true,0,false,
+2026-04-12T02:40:01.292Z,INC-20260412-001,check,healthy,1,773.2,8016,1163,true,0,false,
+2026-04-12T03:07:52.937Z,INC-20260412-001,check,healthy,2,806.8,8016,1163,true,0,false,
+2026-04-12T03:10:01.292Z,INC-20260412-001,check,healthy,1,820.4,8016,1163,true,0,false,
+2026-04-12T03:21:58.565Z,INC-20260412-001,check,healthy,1,786.4,8016,1163,true,0,false,
+2026-04-12T03:22:22.540Z,INC-20260412-001,check,healthy,2,774.3,8016,1163,true,0,false,
+2026-04-12T03:23:39.507Z,INC-20260412-001,check,healthy,1,782,8016,1163,true,0,false,feishu_400:50;skills_skip:15
+2026-04-12T03:24:40.335Z,INC-20260412-001,diagnose,healthy,1,782,8016,1163,true,0,false,feishu_400:50;skills_skip:15,warning:FEISHU_400:Feishu streaming 400 errors: 50次;warning:SKILLS_SKIP:Skills skipping: 15次,FEISHU_400;SKILLS_SKIP,,
+2026-04-12T03:26:02.279Z,INC-20260412-001,diagnose,healthy,1,782,8016,1163,true,0,false,feishu_400:50;skills_skip:15,warning:FEISHU_400:Feishu streaming 400 errors: 50次;warning:SKILLS_SKIP:Skills skipping: 15次,FEISHU_400;SKILLS_SKIP,,
+2026-04-12T03:28:16.401Z,INC-20260412-001,fix,healthy,1,782,8016,1163,true,0,false,feishu_400:50;skills_skip:15,FEISHU_400,A:Check feishu card msgtype format config,applied
+2026-04-12T03:28:16.402Z,INC-20260412-001,fix,healthy,1,782,8016,1163,true,0,false,feishu_400:50;skills_skip:15,SKILLS_SKIP,A:Review skills paths in openclaw.json,applied
+2026-04-12T03:28:31.600Z,INC-20260412-001,fix,healthy,1,782,8016,1163,true,0,false,feishu_400:50;skills_skip:15,FEISHU_400,A:Show feishu plugin config,applied
+2026-04-12T03:28:31.600Z,INC-20260412-001,fix,healthy,1,782,8016,1163,true,0,false,feishu_400:50;skills_skip:15,SKILLS_SKIP,A:Review skills paths in openclaw.json,applied
+2026-04-12T03:29:02.180Z,INC-20260412-001,fix,healthy,1,782,8016,1163,true,0,false,feishu_400:50;skills_skip:15,FEISHU_400,A:Show feishu channel config,applied
+2026-04-12T03:29:02.180Z,INC-20260412-001,fix,healthy,1,782,8016,1163,true,0,false,feishu_400:50;skills_skip:15,SKILLS_SKIP,A:Review skills paths in openclaw.json,applied
+2026-04-12T03:59:55.204Z,INC-20260412-001,check,healthy,2,608.1,8016,1163,true,0,false,feishu_400:53;skills_skip:16
+2026-04-12T04:01:22.019Z,INC-20260412-001,fix,healthy,2,608.1,8016,1163,true,0,false,feishu_400:53;skills_skip:16,FEISHU_400,A:Show feishu channel config,applied
+2026-04-12T04:01:22.020Z,INC-20260412-001,fix,healthy,2,608.1,8016,1163,true,0,false,feishu_400:53;skills_skip:16,SKILLS_SKIP,A:Review skills paths in openclaw.json,applied
+2026-04-12T04:10:23.214Z,INC-20260412-001,fix,healthy,2,608.1,8016,1163,true,0,false,feishu_400:53;skills_skip:16,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T04:10:23.267Z,INC-20260412-001,fix,healthy,2,608.1,8016,1163,true,0,false,feishu_400:53;skills_skip:16,SKILLS_SKIP,A:Fix bad paths in SKILL.md (replace ~/ with workspace),applied
+2026-04-12T04:10:37.488Z,INC-20260412-001,check,healthy,1,727.6,8016,1163,true,0,false,feishu_400:53;skills_skip:19
+2026-04-12T04:10:47.655Z,INC-20260412-001,check,healthy,1,732.4,8016,1163,true,0,false,feishu_400:53;skills_skip:19
+2026-04-12T04:11:16.227Z,INC-20260412-001,check,healthy,1,736.4,8016,1163,true,0,false,feishu_400:53;skills_skip:19
+2026-04-12T04:12:22.483Z,INC-20260412-001,fix,healthy,1,736.4,8016,1163,true,0,false,feishu_400:53;skills_skip:19,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T04:12:22.483Z,INC-20260412-001,fix,healthy,1,736.4,8016,1163,true,0,false,feishu_400:53;skills_skip:19,SKILLS_SKIP,A:Ignore (SKILLS_SKIP: blanket path replacement too risky),skipped
+2026-04-12T04:18:19.929Z,INC-20260412-001,check,healthy,1,770.5,8016,1163,true,0,false,feishu_400:53;skills_skip:19
+2026-04-12T04:18:47.230Z,INC-20260412-001,fix,healthy,1,770.5,8016,1163,true,0,false,feishu_400:53;skills_skip:19,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T04:18:47.307Z,INC-20260412-001,fix,healthy,1,770.5,8016,1163,true,0,false,feishu_400:53;skills_skip:19,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T04:40:01.292Z,INC-20260412-001,check,healthy,1,727.6,8016,1163,true,0,false,feishu_400:53;skills_skip:20
+2026-04-12T04:43:06.341Z,INC-20260412-001,check,healthy,2,737.3,8016,1163,true,0,false,feishu_400:53;skills_skip:20
+2026-04-12T04:43:07.201Z,INC-20260412-001,diagnose,healthy,2,737.3,8016,1163,true,0,false,feishu_400:53;skills_skip:20,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 20次,FEISHU_400;SKILLS_SKIP,,
+2026-04-12T04:43:07.278Z,INC-20260412-001,fix,healthy,2,737.3,8016,1163,true,0,false,feishu_400:53;skills_skip:20,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T04:43:07.353Z,INC-20260412-001,fix,healthy,2,737.3,8016,1163,true,0,false,feishu_400:53;skills_skip:20,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T05:02:13.326Z,INC-20260412-001,check,healthy,2,766.4,8016,1163,true,0,false,feishu_400:53;skills_skip:21;skills_skip:1
+2026-04-12T05:03:38.111Z,INC-20260412-001,diagnose,healthy,2,766.4,8016,1163,true,0,false,feishu_400:53;skills_skip:21;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 21次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T05:12:01.582Z,INC-20260412-001,check,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:21;skills_skip:1
+2026-04-12T05:12:01.761Z,INC-20260412-001,diagnose,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:21;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 21次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T05:12:01.850Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:21;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T05:12:01.950Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:21;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T05:12:02.038Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:21;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T05:42:00.612Z,INC-20260412-001,check,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:22;skills_skip:1
+2026-04-12T05:42:00.763Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:22;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 22次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T05:42:00.850Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:22;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T05:42:00.947Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:22;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T05:42:01.050Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:22;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T06:12:00.633Z,INC-20260412-001,check,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:23;skills_skip:1
+2026-04-12T06:12:00.787Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:23;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 23次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T06:12:00.866Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:23;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T06:12:00.975Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:23;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T06:12:01.059Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:23;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T06:42:00.606Z,INC-20260412-001,check,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:24;skills_skip:1
+2026-04-12T06:42:00.765Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:24;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 24次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T06:42:00.843Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:24;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T06:42:00.953Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:24;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T06:42:01.038Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:24;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T06:55:26.349Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:24;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 24次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T07:12:00.633Z,INC-20260412-001,check,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:25;skills_skip:1
+2026-04-12T07:12:00.796Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:25;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 25次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T07:12:00.896Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:25;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T07:12:00.977Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:25;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T07:12:01.048Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:25;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T07:18:06.531Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:25;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T07:18:06.603Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:25;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T07:18:06.678Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:25;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T07:28:11.333Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:25;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 25次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T07:31:05.448Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:25;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 25次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T07:42:00.654Z,INC-20260412-001,check,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:26;skills_skip:1
+2026-04-12T07:42:00.804Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:26;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 26次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T07:42:00.888Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:26;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T07:42:00.995Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:26;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T07:42:01.071Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:26;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T08:12:00.659Z,INC-20260412-001,check,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:27;skills_skip:1
+2026-04-12T08:12:00.815Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:27;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 27次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T08:12:00.903Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:27;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T08:12:01.002Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:27;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T08:12:01.074Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:27;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T08:42:00.678Z,INC-20260412-001,check,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:28;skills_skip:1
+2026-04-12T08:42:00.817Z,INC-20260412-001,diagnose,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:28;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 28次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T08:42:00.899Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:28;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T08:42:00.983Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:28;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T08:42:01.093Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:28;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T09:12:00.698Z,INC-20260412-001,check,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:29;skills_skip:1
+2026-04-12T09:12:00.862Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:29;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 29次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T09:12:00.948Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:29;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T09:12:01.045Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:29;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T09:12:01.122Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:29;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T09:42:00.718Z,INC-20260412-001,check,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:30;skills_skip:1
+2026-04-12T09:42:00.879Z,INC-20260412-001,diagnose,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:30;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 30次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T09:42:00.970Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:30;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T09:42:01.052Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:30;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T09:42:01.130Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:30;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T09:57:28.589Z,INC-20260412-001,check,healthy,1,821,8016,1163,true,0,false,feishu_400:53;skills_skip:31;model_timeout:1305;skills_skip:1;model_timeout:9
+2026-04-12T10:01:04.184Z,INC-20260412-001,check,healthy,2,823,8016,1163,true,0,false,feishu_400:53;skills_skip:31;skills_skip:1
+2026-04-12T10:12:00.710Z,INC-20260412-001,check,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:31;skills_skip:1
+2026-04-12T10:12:00.862Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:31;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 31次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T10:12:00.938Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:31;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T10:12:01.012Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:31;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T10:12:01.087Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:31;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T10:42:00.730Z,INC-20260412-001,check,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:32;skills_skip:1
+2026-04-12T10:42:00.893Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:32;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 32次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T10:42:00.970Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:32;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T10:42:01.059Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:32;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T10:42:01.142Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:32;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T11:12:00.741Z,INC-20260412-001,check,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:33;skills_skip:1
+2026-04-12T11:12:00.906Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:33;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 33次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T11:12:00.986Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:33;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T11:12:01.068Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:33;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T11:12:01.154Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:33;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T11:42:00.733Z,INC-20260412-001,check,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:34;skills_skip:1
+2026-04-12T11:42:00.902Z,INC-20260412-001,diagnose,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:34;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 34次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T11:42:00.977Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:34;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T11:42:01.061Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:34;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T11:42:01.142Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:34;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T12:12:00.757Z,INC-20260412-001,check,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:36;skills_skip:1
+2026-04-12T12:12:00.914Z,INC-20260412-001,diagnose,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:36;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 36次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T12:12:01.007Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:36;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T12:12:01.095Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:36;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T12:12:01.180Z,INC-20260412-001,fix,healthy,0,,8016,,true,0,false,feishu_400:53;skills_skip:36;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T12:42:00.762Z,INC-20260412-001,check,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:37;skills_skip:1
+2026-04-12T12:42:00.929Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:37;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 37次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T12:42:01.009Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:37;skills_skip:1,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T12:42:01.102Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:37;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T12:42:01.207Z,INC-20260412-001,fix,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:37;skills_skip:1,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T12:53:04.308Z,INC-20260412-001,diagnose,healthy,1,,8016,,true,0,false,feishu_400:53;skills_skip:37;skills_skip:1,warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 37次;warning:SKILLS_SKIP:Skills skipping: 1次,FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T12:53:17.618Z,INC-20260412-001,check,healthy,2,893.4,8016,1163,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2
+2026-04-12T13:11:49.566Z,INC-20260412-001,check,critical,1,0,,15,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2
+2026-04-12T13:11:50.196Z,INC-20260412-001,diagnose,critical,1,0,,15,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2,critical:PORT_DOWN:Port 18789 not listening;warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 38次;warning:SKILLS_SKIP:Skills skipping: 2次,PORT_DOWN;FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T13:11:50.301Z,INC-20260412-001,fix,critical,1,0,,15,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T13:11:50.377Z,INC-20260412-001,fix,critical,1,0,,15,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T13:11:50.455Z,INC-20260412-001,fix,critical,1,0,,15,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T13:12:00.740Z,INC-20260412-001,check,critical,1,,,,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2
+2026-04-12T13:12:00.894Z,INC-20260412-001,diagnose,critical,1,,,,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2,critical:PORT_DOWN:Port 18789 not listening;warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 38次;warning:SKILLS_SKIP:Skills skipping: 2次,PORT_DOWN;FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T13:12:00.973Z,INC-20260412-001,fix,critical,1,,,,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T13:12:01.054Z,INC-20260412-001,fix,critical,1,,,,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T13:12:01.132Z,INC-20260412-001,fix,critical,1,,,,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T13:42:00.778Z,INC-20260412-001,check,critical,1,,,,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2
+2026-04-12T13:42:00.952Z,INC-20260412-001,diagnose,critical,1,,,,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2,critical:PORT_DOWN:Port 18789 not listening;warning:FEISHU_400:Feishu streaming 400 errors: 53次;warning:SKILLS_SKIP:Skills skipping: 38次;warning:SKILLS_SKIP:Skills skipping: 2次,PORT_DOWN;FEISHU_400;SKILLS_SKIP;SKILLS_SKIP,,
+2026-04-12T13:42:01.045Z,INC-20260412-001,fix,critical,1,,,,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2,FEISHU_400,A:Check cardkit permissions (手动: 飞书开放平台 → 添加权限),applied
+2026-04-12T13:42:01.141Z,INC-20260412-001,fix,critical,1,,,,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T13:42:01.248Z,INC-20260412-001,fix,critical,1,,,,true,0,false,feishu_400:53;skills_skip:38;skills_skip:2,SKILLS_SKIP,A:Run fix-skill-paths.js to fix known bad ~/ paths in 3 skills,applied
+2026-04-12T14:12:00.756Z,INC-20260412-001,check,critical,1,,,,true,0,false,
+2026-04-12T14:12:00.876Z,INC-20260412-001,diagnose,critical,1,,,,true,0,false,,critical:PORT_DOWN:Port 18789 not listening,PORT_DOWN,,
+2026-04-12T14:12:00.997Z,INC-20260412-001,fix,critical,1,,,,true,0,false,,PORT_DOWN,A:清理端口占用 + PM2 restart,failed
+2026-04-12T14:42:00.869Z,INC-20260412-001,check,healthy,1,,20852,,true,0,false,
+2026-04-12T14:42:01.354Z,INC-20260412-001,fix,healthy,1,,20852,,true,0,false,,PORT_DOWN,A:清理端口占用 + PM2 restart,failed
+2026-04-12T15:12:01.005Z,INC-20260412-001,check,healthy,1,,21308,,true,0,false,
+2026-04-12T15:12:01.492Z,INC-20260412-001,fix,healthy,1,,21308,,true,0,false,,PORT_DOWN,A:清理端口占用 + PM2 restart,failed

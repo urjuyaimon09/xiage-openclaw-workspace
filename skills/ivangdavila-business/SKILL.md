@@ -14,10 +14,10 @@ User has a business idea to validate, needs strategic direction, faces a key dec
 
 ## Architecture
 
-Decision memory lives in `~/business/`. See `memory-template.md` for setup.
+Decision memory lives in `C:\\Users\\Administrator\\.openclaw\\workspace\\business\\`. See `memory-template.md` for setup.
 
 ```
-~/business/
+C:\\Users\\Administrator\\.openclaw\\workspace\\business\\
 ├── decisions.md       # HOT: active decisions + outcomes
 ├── metrics.md         # Current business metrics
 ├── ideas/             # Idea validation logs
@@ -75,7 +75,7 @@ For every decision, classify:
 90% of decisions are two-way doors. Treat them accordingly.
 
 ### 5. Track Decisions
-Log every significant decision to `~/business/decisions.md`:
+Log every significant decision to `C:\\Users\\Administrator\\.openclaw\\workspace\\business\\decisions.md`:
 ```
 ## [DATE] Decision Name
 Context: Why this came up

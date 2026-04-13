@@ -5,7 +5,7 @@ version: 1.2.16
 homepage: https://clawic.com/skills/self-improving
 description: "Self-reflection + Self-criticism + Self-learning + Self-organizing memory. Agent evaluates its own work, catches mistakes, and improves permanently. Use when (1) a command, tool, API, or operation fails; (2) the user corrects you or rejects your work; (3) you realize your knowledge is outdated or incorrect; (4) you discover a better approach; (5) the user explicitly installs or references the skill for the current task."
 changelog: "Clarifies the setup flow for proactive follow-through and safer installation behavior."
-metadata: {"clawdbot":{"emoji":"🧠","requires":{"bins":[]},"os":["linux","darwin","win32"],"configPaths":["~/self-improving/"],"configPaths.optional":["./AGENTS.md","./SOUL.md","./HEARTBEAT.md"]}}
+metadata: {"clawdbot":{"emoji":"🧠","requires":{"bins":[]},"os":["linux","darwin","win32"],"configPaths":["C:\\Users\\Administrator\\.openclaw\\workspace\\self-improving\\"],"configPaths.optional":["./AGENTS.md","./SOUL.md","./HEARTBEAT.md"]}}
 ---
 
 ## When to Use
@@ -14,11 +14,11 @@ User corrects you or points out mistakes. You complete significant work and want
 
 ## Architecture
 
-Memory lives in `~/self-improving/` with tiered structure. If `~/self-improving/` does not exist, run `setup.md`.
+Memory lives in `C:\\Users\\Administrator\\.openclaw\\workspace\\self-improving\\` with tiered structure. If `C:\\Users\\Administrator\\.openclaw\\workspace\\self-improving\\` does not exist, run `setup.md`.
 Workspace setup should add the standard self-improving steering to the workspace AGENTS, SOUL, and `HEARTBEAT.md` files, with recurring maintenance routed through `heartbeat-rules.md`.
 
 ```
-~/self-improving/
+C:\\Users\\Administrator\\.openclaw\\workspace\\self-improving\\
 ├── memory.md          # HOT: ≤100 lines, always loaded
 ├── index.md           # Topic index with line counts
 ├── heartbeat-state.md # Heartbeat state: last run, reviewed change, action notes
@@ -214,21 +214,21 @@ If context limit hit:
 
 This skill ONLY:
 - Learns from user corrections and self-reflection
-- Stores preferences in local files (`~/self-improving/`)
-- Maintains heartbeat state in `~/self-improving/heartbeat-state.md` when the workspace integrates heartbeat
+- Stores preferences in local files (`C:\\Users\\Administrator\\.openclaw\\workspace\\self-improving\\`)
+- Maintains heartbeat state in `C:\\Users\\Administrator\\.openclaw\\workspace\\self-improving\\heartbeat-state.md` when the workspace integrates heartbeat
 - Reads its own memory files on activation
 
 This skill NEVER:
 - Accesses calendar, email, or contacts
 - Makes network requests
-- Reads files outside `~/self-improving/`
+- Reads files outside `C:\\Users\\Administrator\\.openclaw\\workspace\\self-improving\\`
 - Infers preferences from silence or observation
 - Deletes or blindly rewrites self-improving memory during heartbeat cleanup
 - Modifies its own SKILL.md
 
 ## Data Storage
 
-Local state lives in `~/self-improving/`:
+Local state lives in `C:\\Users\\Administrator\\.openclaw\\workspace\\self-improving\\`:
 
 - `memory.md` for HOT rules and confirmed preferences
 - `corrections.md` for explicit corrections and reusable lessons

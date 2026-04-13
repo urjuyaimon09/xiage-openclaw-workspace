@@ -1,0 +1,31 @@
+{
+  "saved_at": "2026-04-13T15:16:22.433Z",
+  "openclaw_json_hash": "6492beca9b03c3aadc0764a3cc781a72",
+  "gateway_cmd_hash": "c145a04c65f03a16197c69cd51f68ed7",
+  "dump_pm2_hash": "45519b703de88b0c959939d52ed1890c",
+  "openclaw_npm_version": "2026.4.10",
+  "node_version": "25.8.0",
+  "npm_global_packages": [
+    "@buape/carbon",
+    "@jackwener/opencli",
+    "@larksuiteoapi/node-sdk",
+    "@slack/web-api",
+    "@steipete/summarize",
+    "@svrooij/sonos-cli",
+    "@zed-industries/codex-acp-win32-x64",
+    "adm-zip",
+    "agent-browser",
+    "clawdhub",
+    "clawhub",
+    "grammy",
+    "mcporter",
+    "openclaw",
+    "playwright",
+    "pm2-windows-service",
+    "pm2",
+    "pnpm",
+    "svg2png",
+    "undici",
+    "xreach-cli"
+  ]
+}

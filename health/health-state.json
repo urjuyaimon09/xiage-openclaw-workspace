@@ -1,11 +1,11 @@
 {
-  "lastCheck": "2026-04-12T02:25:55.144Z",
+  "lastCheck": "2026-04-13T04:32:00.000Z",
   "status": "healthy",
   "rpcMs": 2,
   "memoryMB": 692.7,
-  "portPID": 8016,
-  "restartCount": 1163,
-  "configValid": false,
+  "portPID": 16456,
+  "restartCount": 0,
+  "configValid": true,
   "logErrors": 0,
   "issues": []
 }

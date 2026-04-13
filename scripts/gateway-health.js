@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Gateway Health Check - CSV output with incident_id
+// Gateway Health Check - CSV output with incident_id + warnings (third tier)
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
@@ -8,25 +8,21 @@ const HEALTH_DIR = 'C:\\Users\\Administrator\\.openclaw\\workspace\\health';
 const CSV_FILE = path.join(HEALTH_DIR, 'health.csv');
 const STATE_FILE = path.join(HEALTH_DIR, 'state.json');
 
-// CSV header
-const CSV_HEADER = 'time,incident_id,type,status,rpcMs,memoryMB,portPID,restartCount,configValid,logErrors,bonjourIssue,issues';
+const CSV_HEADER = 'time,incident_id,type,status,rpcMs,memoryMB,portPID,restartCount,configValid,logErrors,bonjourIssue,warnings';
 
-// Init CSV
 if (!fs.existsSync(CSV_FILE)) {
   fs.writeFileSync(CSV_FILE, CSV_HEADER + '\n', 'utf8');
 }
 
-// Get last incident_id from CSV
 function getLastIncidentId() {
   try {
     const lines = fs.readFileSync(CSV_FILE, 'utf8').trim().split('\n');
     if (lines.length <= 1) return null;
     const last = lines[lines.length - 1].split(',');
-    return last[1] || null; // incident_id is column 1
+    return last[1] || null;
   } catch { return null; }
 }
 
-// Generate new incident_id
 function genIncidentId(lastId) {
   const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
   if (!lastId) return 'INC-' + today + '-001';
@@ -35,7 +31,6 @@ function genIncidentId(lastId) {
   return 'INC-' + today + '-' + String(parseInt(seqPart) + 1).padStart(3, '0');
 }
 
-// Diagnosis
 const result = {
   timestamp: new Date().toISOString(),
   rpcMs: null,
@@ -46,6 +41,7 @@ const result = {
   configValid: false,
   logErrors: 0,
   bonjourIssue: false,
+  warnings: [],
   status: 'unknown',
   issues: []
 };
@@ -84,36 +80,62 @@ try {
   if (fs.existsSync(cfgPath)) { JSON.parse(fs.readFileSync(cfgPath, 'utf8')); result.configValid = true; }
 } catch {}
 
-// 5. Logs (recent errors only)
+// Helper: parse timestamps in PM2 log lines (may have prefix like "0|openclaw  | ")
+function parseLogTimestamp(line) {
+  const m = line.match(/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})/);
+  if (!m) return null;
+  return new Date(m[1] + ':00+08:00');
+}
+
+// Helper: scan a log file for patterns within time window
+function scanLog(fp, patterns) {
+  const content = fs.readFileSync(fp, 'utf8');
+  const lines = content.split('\n');
+  const counts = {};
+  const oneHourAgo = Date.now() - 3600000;
+  for (const line of lines) {
+    const ts = parseLogTimestamp(line);
+    if (ts && ts.getTime() < oneHourAgo) continue;
+    for (const [key, pat] of Object.entries(patterns)) {
+      if (pat.test(line)) { counts[key] = (counts[key] || 0) + 1; }
+    }
+  }
+  return counts;
+}
+
 const logRoots = [
-  path.join(process.env.APPDATA || '', 'npm', 'node_modules', 'openclaw', 'logs'),
-  'C:\\Users\\Administrator\\.pm2\\logs'
+  'C:\\Users\\Administrator\\.pm2\\logs',
+  path.join(process.env.APPDATA || '', 'npm', 'node_modules', 'openclaw', 'logs')
 ];
-const oneHourAgo = Date.now() - 3600000;
+
+// 5. Critical log errors
+const errorPatterns = {
+  errors: /ECONNREFUSED|unhandledRejection|SIGTERM/
+};
+const warningPatterns = {
+  feishu_400: /Create card request failed with HTTP 400|streaming start failed.*400/,
+  skills_skip: /Skipping skill path that resolves outside/,
+
+};
+
 for (const lp of logRoots) {
   if (!fs.existsSync(lp)) continue;
   for (const f of fs.readdirSync(lp)) {
     if (!f.endsWith('.log')) continue;
     const fp = path.join(lp, f);
-    const content = fs.readFileSync(fp, 'utf8');
-    const lines = content.split('\n');
-    for (const line of lines) {
-      const tsMatch = line.match(/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})/);
-      if (!tsMatch) continue;
-      const logTime = new Date(tsMatch[1] + ':00+08:00');
-      if (isNaN(logTime.getTime())) continue;
-      if (logTime.getTime() < oneHourAgo) continue;
-      if (/ECONNREFUSED|unhandledRejection|SIGTERM/.test(line)) { result.logErrors++; break; }
-    }
+    const counts = scanLog(fp, { ...errorPatterns, ...warningPatterns });
+    if (counts.errors) result.logErrors += counts.errors;
+    if (counts.feishu_400) result.warnings.push('feishu_400:' + counts.feishu_400);
+    if (counts.skills_skip) result.warnings.push('skills_skip:' + counts.skills_skip);
   }
 }
 if (result.logErrors > 0) result.issues.push('Log errors found');
 
-// 6. Bonjour (recent only)
+// 6. Bonjour (recent only from pm2 logs)
 try {
   const logs = execSync('pm2 logs --nostream --lines 30 --raw', { encoding: 'utf8', timeout: 5000 });
-  const recent = logs.split('\n').slice(0, 15).join('\n');
-  if (/stuck announcing.*\d{6,}ms/.test(recent)) {
+  const recentLines = logs.split('\n').slice(0, 15).join('\n');
+  if (/stuck announcing.*\d{6,}ms/.test(recentLines)) {
     result.bonjourIssue = true; result.issues.push('Bonjour delay');
   }
 } catch {}
@@ -124,25 +146,21 @@ else if (result.rpcMs > 500 || result.logErrors > 5) result.status = 'critical';
 else if (result.rpcMs > 200 || result.logErrors > 0 || result.bonjourIssue) result.status = 'degraded';
 else result.status = 'healthy';
 
-// Determine incident_id
+// Incident_id
 const lastId = getLastIncidentId();
-const prevStatus = (() => {
-  try {
-    const lines = fs.readFileSync(CSV_FILE, 'utf8').trim().split('\n');
-    if (lines.length <= 1) return null;
-    const last = lines[lines.length - 1].split(',');
-    return last[2] || null; // status is column 2
-  } catch { return null; }
-})();
+let prevStatus = null;
+try {
+  const lines = fs.readFileSync(CSV_FILE, 'utf8').trim().split('\n');
+  if (lines.length > 1) prevStatus = lines[lines.length - 1].split(',')[2] || null;
+} catch {}
 
-// If status changed to unhealthy, generate new incident_id; otherwise reuse last one
 const incidentId = (result.status !== 'healthy' && prevStatus === 'healthy') || !lastId
   ? genIncidentId(lastId)
   : (result.status !== 'healthy' ? lastId : (lastId || genIncidentId(null)));
 
-const issuesStr = result.issues.join('; ');
+const warningsStr = result.warnings.join(';');
+const issuesStr = result.issues.join(';');
 
-// Append CSV row
 const csvRow = [
   result.timestamp,
   incidentId,
@@ -155,12 +173,11 @@ const csvRow = [
   result.configValid,
   result.logErrors,
   result.bonjourIssue,
-  issuesStr
+  warningsStr
 ].join(',');
 
 fs.appendFileSync(CSV_FILE, csvRow + '\n', 'utf8');
 
-// Update state.json
 const state = {
   lastCheck: result.timestamp,
   incidentId: incidentId,
@@ -173,11 +190,12 @@ const state = {
   configValid: result.configValid,
   logErrors: result.logErrors,
   bonjourIssue: result.bonjourIssue,
+  warnings: result.warnings,
   issues: result.issues
 };
 fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
 
-// Clean old rows (>7 days) from CSV (keep header)
+// 7-day clean
 try {
   const lines = fs.readFileSync(CSV_FILE, 'utf8').trim().split('\n');
   const header = lines[0];
@@ -193,5 +211,6 @@ try {
 // Output
 const emoji = { healthy: [206, 157, 162], degraded: [206, 157, 177], critical: [226, 148, 141], unknown: [226, 154, 170] };
 const e = String.fromCodePoint(...emoji[result.status]);
+const warnStr = result.warnings.length ? ' | Warnings: ' + result.warnings.join(', ') : '';
 const iss = result.issues.length ? ' | Issues: ' + result.issues.join(', ') : '';
-console.log(e + ' ' + result.status.toUpperCase() + ' | RPC: ' + result.rpcMs + 'ms | Mem: ' + result.memoryMB + 'MB | Restarts: ' + result.restartCount + ' | INC: ' + incidentId + iss);
+console.log(e + ' ' + result.status.toUpperCase() + ' | RPC: ' + result.rpcMs + 'ms | Mem: ' + result.memoryMB + 'MB | Restarts: ' + result.restartCount + ' | INC: ' + incidentId + warnStr + iss);

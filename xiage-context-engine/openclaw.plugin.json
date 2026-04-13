@@ -1,12 +1,16 @@
 {
+  "id": "xiage-context",
   "name": "Xiage Context Engine",
-  "version": "1.0.0",
   "description": "5层上下文压缩引擎 - 参照Claude Code ContextEngine实现",
+  "version": "1.0.0",
   "author": "xiage",
-  "main": "./index.js",
   "slot": "contextEngine",
+  "main": "./index.js",
   "openclaw": {
     "api": "1.0.0"
   },
-  "type": "module"
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false
+  }
 }

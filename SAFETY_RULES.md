@@ -1,4 +1,4 @@
-# 安全规则 v1.0.4
+# 安全规则 v1.0.6
 
 _虾哥生存保障核心文档_
 
@@ -97,60 +97,70 @@ cmd /c "pm2 save"            # 保存当前进程快照
 
 **完整流程：检查 → 诊断 → 修复 → 记录**
 
-#### 1. 检查（gateway-diagnose.ps1）
+#### 1. 检查（gateway-health.js）
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File C:\Users\Administrator\.openclaw\workspace\scripts\gateway-diagnose.ps1
+node C:\Users\Administrator\.openclaw\workspace\scripts\gateway-health.js
 ```
 
-检查项（7项）：PM2状态 / 端口18789 / RPC健康 / Config有效性 / Bonjour阻塞 / 日志错误 / Codex ACP
+输出：`🟢 HEALTHY | RPC: 2ms | Mem: 700MB | Restarts: 1163 | INC: INC-20260412-001 | Warnings: feishu_400:50, skills_skip:15`
 
-#### 2. 诊断
+**自动运行：** Windows 任务计划程序 `OpenClaw Gateway Health`（每30分钟，执行 `gateway-ops.js all`）
 
-诊断脚本输出：`[OK]` / `[WARN]` / `[ERR]`，并给出 `Recommended fixes` 列表
+**分步命令（可独立运行）：**
+```powershell
+node C:\Users\Administrator\.openclaw\workspace\scripts\gateway-ops.js health    # 只检查
+node C:\Users\Administrator\.openclaw\workspace\scripts\gateway-ops.js diagnose  # 只诊断
+node C:\Users\Administrator\.openclaw\workspace\scripts\gateway-ops.js fix      # 看预案
+node C:\Users\Administrator\.openclaw\workspace\scripts\gateway-ops.js apply    # 执行 [AUTO]
+node C:\Users\Administrator\.openclaw\workspace\scripts\gateway-ops.js all     # 串联全流程
+```
 
-#### 3. 修复（-Fix）
+#### 2. 诊断（gateway-diagnose.js）
 
 ```powershell
-.\gateway-diagnose.ps1 -Fix
+node C:\Users\Administrator\.openclaw\workspace\scripts\gateway-diagnose.js
 ```
 
-4种自动修复：
-- **Config 无效** → 从 `.json.bak` 恢复
-- **端口被旧进程占** → `Stop-Process -Id <pid> -Force` 杀旧进程
-- **Bonjour 延迟** → 在 `dump.pm2` 里写入 `OPENCLAW_DISABLE_BONJOUR=1`
-- **需要重启** → `pm2 restart openclaw`
+输出示例：
+```
+🟡 DEGRADED (2):
+1. 🟠 WARNING FEISHU_400: Feishu streaming 400 errors: 50次
+   Hint: 飞书开放平台 → 权限管理 → 添加 cardkit 权限
+2. 🟠 WARNING SKILLS_SKIP: Skills skipping: 15次
+   Hint: 运行 fix-skill-paths.js 精准修复
+```
+
+#### 3. 修复（gateway-fix.js）
+
+```powershell
+# 查看预案（不执行）
+node C:\Users\Administrator\.openclaw\workspace\scripts\gateway-fix.js
+
+# 执行所有 [AUTO] 预案（自动）
+node C:\Users\Administrator\.openclaw\workspace\scripts\gateway-fix.js --apply
+```
 
 #### 4. 记录（自动，无需手动）
 
-| 文件 | 触发条件 | 内容 | 保留 |
-|------|---------|------|------|
-| `health/health-state.json` | 每次检查 | 当前状态（覆盖） | 最新 |
-| `health/health-events.json` | 状态跳变时 | 跳变事件（from/to/rpcMs/issue） | 7天 |
-| `health/health-daily.json` | 每天首次检查 | 聚合数据（rpcAvg/memAvg/issueCount） | 7天 |
+| 文件 | 触发 | 内容 | 保留 |
+|------|------|------|------|
+| `health/health.csv` | 每次 check/diagnose/fix | 所有操作轨迹，append-only | 7天 |
+| `health/state.json` | 每次 check | 当前状态快照（覆盖） | 最新 |
+| `health/fix-log.json` | 每次 fix | 每个预案的成功/失败计数 + [AUTO]标记 | 永久 |
 
-**设计原则：** 有问题才记录，稳定态不写数据。
+**设计原则：** 有问题才 diagnose，稳定态不产生事件；fix 执行后才记录结果。
 
-**自动运行：** Windows 任务计划程序 `OpenClaw Gateway Health`（每30分钟，独立于 OpenClaw）
-
-#### `/gateway health` 指令
-
-触发词：`/gateway health`
-
-效果：读取 `health-state.json` + `health-events.json`（最近7天）+ `health-daily.json`（最近7天），输出：
-```
-🟢 HEALTHY | RPC: 50ms | Mem: 729MB | Restarts: 1163
-最近：Bonjour延迟 → 已禁用（04-11 22:00）
-趋势：近7天 RPC稳定在40-60ms
-```
-
-#### 状态等级
+#### 状态等级（三层）
 
 | 等级 | 条件 |
 |------|------|
-| 🟢 healthy | 端口监听 + RPC<200ms + 无错误 |
+| 🟢 healthy | 端口监听 + RPC<200ms + 无 critical/degraded 问题 |
 | 🟡 degraded | RPC 200-500ms 或 有日志错误/Bonjour阻塞 |
 | 🔴 critical | 端口未监听 或 RPC>500ms 或 错误>5条 |
+| 🟠 warning | 有异常但不影响 Gateway 运行（第三层，与上面共存） |
+
+**注意：** warnings 不影响 healthy/degraded/critical 判定，但会被 diagnose 输出并进入修复流程。
 
 ---
 
@@ -172,7 +182,9 @@ powershell -ExecutionPolicy Bypass -File C:\Users\Administrator\.openclaw\worksp
 
 | 场景 | 行动 |
 |------|------|
-| 改 openclaw.json 前 | 自动触发 pre-commit hook，本地备份 + git push 到 backup/openclaw 分支 |
+| 改 openclaw.json 前 | beforeWrite.js 存档（坚果「同意变更并升级版本」后执行），由 DOC_RULES 2.1.5 保护 |
+| 改 gateway.cmd 前 | beforeWrite.js 存档（坚果「同意变更并升级版本」后执行），由 DOC_RULES 2.1.5 保护 |
+| 改 dump.pm2 前 | beforeWrite.js 存档（坚果「同意变更并升级版本」后执行），由 DOC_RULES 2.1.5 保护 |
 | 改 Skills 脚本前 | beforeCode.js check；改前 git commit |
 | 装新 npm 包 / 新 Skill 前 | 评估是否影响 gateway 启动；**必须问：会不会让我起不来？** |
 | 执行 openclaw update 前 | 备份当前 openclaw.json；记录版本号 |
@@ -235,12 +247,17 @@ openclaw gateway restart
 ```
 **根因**：子 Agent 和主 Agent 共享同一套 auth-profiles，共享同一个 OAuth Token，并发请求导致 Token 被冲掉。
 
-**Step 4 — 配置损坏，恢复备份**
-```powershell
-cd C:\Users\Administrator\.openclaw\workspace
-git checkout backup/openclaw -- openclaw.json
-openclaw gateway restart
-```
+**Step 4 — 系统文档损坏，恢复备份**
+
+| 文档 | 恢复命令 |
+|------|----------|
+| openclaw.json | 从 `C:\Users\Administrator\.openclaw\openclaw.json.bak.*` 最新备份恢复 |
+| gateway.cmd | 从 `C:\Users\Administrator\.openclaw\gateway.cmd.bak.*` 最新备份恢复 |
+| dump.pm2 | 从 `C:\Users\Administrator\.pm2\dump.pm2.bak.*` 最新备份恢复 |
+
+恢复后 gateway 会自动重启（PM2 watch），无需手动 restart。
+
+存档脚本：`scripts/archive-openclaw-config.ps1` / `archive-gateway-cmd.ps1` / `archive-pm2-dump.ps1`
 
 **Step 5 — Skills 索引损坏**
 症状：所有 cron 任务同时崩溃，SKILLS-INDEX.md 丢失或为空。
@@ -305,6 +322,8 @@ health/
 | Bonjour阻塞 | pm2 logs 有 stuck announcing |
 | 内存MB | PM2 monit.memory |
 | restart次数 | PM2 restart_time |
+| 系统文档基准 | MD5 hash 对比（openclaw.json / gateway.cmd / dump.pm2）|
+| 版本基准 | npm/node 版本对比 |
 
 **状态等级**：
 - 🟢 healthy：端口监听 + RPC<200ms + 无错误
@@ -313,26 +332,43 @@ health/
 
 ### 诊断规则（gateway-diagnose.js）
 
-| 症状 | 诊断结论 |
-|------|---------|
-| portStatus != listening | 端口未监听，Gateway 未运行 |
-| rpcMs > 500 | RPC 严重延迟，检查网络/负载 |
-| logErrors 有 ECONNREFUSED | 某服务拒绝连接 |
-| bonjourIssue 有 stuck | Bonjour 广播阻塞，禁用 |
-| restartCount 突增 | PM2 频繁重启，检查进程稳定性 |
-| configValid = false | Config 文件损坏，需回滚 |
+**三层问题分类：**
 
-### 修复上限规则
+| 严重度 | 代码 | 触发条件 |
+|--------|------|---------|
+| 🔴 critical | PORT_DOWN | 端口未监听 |
+| 🔴 critical | RPC_SLOW | RPC > 500ms |
+| 🔴 critical | CONFIG_INVALID | Config JSON 解析失败 |
+| 🔴 critical | RESTART_SURGE | restart_count 突增≥5 |
+| 🔴 critical | OPENCLAW_JSON_DRIFT | openclaw.json MD5 与基准不符 |
+| 🔴 critical | GATEWAY_CMD_DRIFT | gateway.cmd MD5 与基准不符 |
+| 🔴 critical | PM2_ENV_DRIFT | dump.pm2 MD5 与基准不符 |
+| 🟡 degraded | LOG_ERRORS | 最近1小时有 error 日志 |
+| 🟡 degraded | BONJOUR_STUCK | Bonjour stuck announcing |
+| 🟡 degraded | RPC_MODERATE | RPC 200-500ms |
+| 🟡 degraded | MEM_HIGH | 内存 > 1500MB |
+| 🟠 warning | OPENCLAW_VERSION_DRIFT | npm 全局包版本与基准不符 |
+| 🟠 warning | NODE_VERSION_DRIFT | Node.js 版本与基准不符 |
+| 🟠 warning | NEW_GLOBAL_NPM | 检测到新的全局 npm 包 |
+| 🟠 warning | FEISHU_400 | 飞书 streaming 400 错误（需开通 cardkit 权限） |
+| 🟠 warning | SKILLS_SKIP | skill 路径超出 root（需精准修复特定 skill） |
 
-| 级别 | 问题 | 修复策略 | 上限 |
-|------|------|---------|------|
-| 小 | 端口被占（stale PID） | kill 旧进程 → PM2 restart | 重试2次 |
-| 小 | Bonjour 延迟 | 写入 OPENCLAW_DISABLE_BONJOUR=1 到 dump.pm2 | 一次性 |
-| 小 | 日志错误 | 写记录，等待人工处理 | — |
-| 大 | Config 无效 | 从 .json.bak 回滚 | 直接执行，不重试 |
-| 大 | PM2 errored | pm2 restart | 3次不行进重建 |
+### 修复机制（gateway-fix.js）
 
-超过上限：记录并停用自动修复，等待人工介入。
+**三个 tier 共用同一套 escalation 机制：**
+- 每个问题 code 有独立计数器（successes / failures）
+- `successes >= 2 && failures == 0` → 升级为 `[AUTO]`
+- 任何失败 → 重置计数器，撤销 `[AUTO]`
+- `[AUTO]` 预案在下一次 `gateway-fix.js --apply` 时自动执行，无需确认
+
+**SKILLS_SKIP 精准修复策略：**
+- 不做 blanket 替换（风险太高，会把合法 ~/ 引用也改坏）
+- fix-skill-paths.js 只修改已知有问题的 3 个 skill 的特定路径
+- 未来新增坏路径 → 在 fix-skill-paths.js 的 PREPLANS 里注册新条目即可
+
+**修复预条件：**
+- 必须在有 diagnose 结果的情况下才能执行 fix
+- fix 执行结果写回 health.csv（fix 行），并更新 fix-log.json
 
 ### 运维
 
@@ -347,9 +383,12 @@ health/
 
 ### 当前进度
 
-- ✅ `gateway-health.js` 已上线
-- ⬜ `gateway-diagnose.js` 待实现
-- ⬜ `gateway-fix.js` 待实现
+- ✅ `gateway-health.js` 已上线（warnings 第三层已实现）
+- ✅ `gateway-diagnose.js` 已上线（三层问题分类已实现）
+- ✅ `gateway-fix.js` 已上线（[AUTO] escalation 已实现）
+- ✅ `fix-skill-paths.js` 精准修复脚本已实现
+- ✅ FEISHU_400 real incident 已解决（开通 cardkit 权限）
+- ⚠️ SKILLS_SKIP 已精准修复，待日志过期后 warnings 归零验证
 
 ---
 
@@ -391,4 +430,4 @@ health/
 - v1.0.2 (2026-04-06)：新增 Step 0 Windows 服务状态检查；补充 gateway 服务运行时强制关闭的危害说明；关联 skill: openclaw-gateway-service
 - v1.0.3 (2026-04-11)：新增 Step 0-B PM2 进程守护方案（Gateway 稳定化完整配置）
 - v1.0.4 (2026-04-12)：Step 0-B 更新为 pm2-windows-service 方案；新增 Step 0-C Gateway 健康监控完整流程（检查/诊断/修复/记录三段式）；更新 PM2 fork_mode 已知问题
-- v1.0.5 (2026-04-12)：新增二-A「Gateway 自动运维流程」章节（架构/职责/incident_id/检查项/诊断规则/修复上限/运维）；diagnose.js 和 fix.js 待实现
+- v1.0.6 (2026-04-12)：Step 0-C 全面升级为 JS 脚本体系（gateway-health/diagnose/fix 三件套）；新增 warnings 第三层与 critical/degraded 共用闭环；fix-skill-paths.js 精准修复 SKILLS_SKIP；FEISHU_400 real incident 解决并固化为预案；新增 gateway-ops.js 作为 Task Scheduler 入口，支持分步独立运行

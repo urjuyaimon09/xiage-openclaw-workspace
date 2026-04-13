@@ -115,6 +115,26 @@
 
 **进入归档的条件**：不再使用、已被新版本替代、或临时文件已确认无用。
 
+#### 2.1.5 系统文档
+
+落地：Rule
+
+Gateway 运行时依赖的系统配置文件，与规则文档（2.1.1）共用同一套触发词「同意变更并升级版本」，但使用独立的存档机制。
+
+| 系统文档 | 路径 | 存档脚本 | 恢复路径 |
+|----------|------|----------|----------|
+| Gateway 配置 | `C:\Users\Administrator\.openclaw\openclaw.json` | `scripts/archive-openclaw-config.ps1` | `C:\Users\Administrator\.openclaw\openclaw.json.bak.*` |
+| Gateway 启动脚本 | `C:\Users\Administrator\.openclaw\gateway.cmd` | `scripts/archive-gateway-cmd.ps1` | `C:\Users\Administrator\.openclaw\gateway.cmd.bak.*` |
+| PM2 进程配置 | `C:\Users\Administrator\.pm2\dump.pm2` | `scripts/archive-pm2-dump.ps1` | `C:\Users\Administrator\.pm2\dump.pm2.bak.*` |
+
+**修改流程：**
+1. 坚果确认「同意变更并升级版本」
+2. `beforeWrite.js` 检测到系统文档，自动调用对应存档脚本
+3. 执行 `edit` 修改文件
+4. 系统文档无版本号，不走版本历史
+
+**Health 修复时：** 从对应 `.bak.*` 时间戳文件（最新）恢复，不调 `pm2 restart`。
+
 ---
 
 ### 2.2 文档结构

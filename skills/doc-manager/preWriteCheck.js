@@ -86,12 +86,30 @@ const RULE_DOCS = [
 ];
 
 /**
+ * 系统文档列表
+ */
+const SYSTEM_DOCS = [
+    'openclaw.json',
+    'gateway.cmd',
+    'dump.pm2'
+];
+
+/**
  * 判断文件名是否属于五大规则文档
  * @param {string} fileName
  * @returns {boolean}
  */
 function isRuleDoc(fileName) {
     return RULE_DOCS.includes(fileName);
+}
+
+/**
+ * 判断文件名是否属于系统文档
+ * @param {string} fileName
+ * @returns {boolean}
+ */
+function isSystemDoc(fileName) {
+    return SYSTEM_DOCS.includes(fileName);
 }
 
 // ─────────────────────────────────────────
@@ -237,7 +255,28 @@ function checkNewDocument(content) {
 }
 
 // ─────────────────────────────────────────
-// 9. 已有文档修改检查（格式）
+// 9. 系统文档格式检查（简化版）
+// ─────────────────────────────────────────
+function checkSystemDocFormat(filePath) {
+    const errors = [];
+    const fileName = path.basename(filePath);
+    if (fileName === 'openclaw.json') {
+        try {
+            JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        } catch (e) {
+            errors.push(`❌ openclaw.json JSON 格式错误：${e.message}`);
+        }
+    }
+    // gateway.cmd / dump.pm2 只检查存在性和非空
+    const content = fs.readFileSync(filePath, 'utf8');
+    if (!content || content.trim().length === 0) {
+        errors.push(`❌ ${fileName} 为空`);
+    }
+    return errors;
+}
+
+// ─────────────────────────────────────────
+// 10. 已有文档修改检查（格式）
 // ─────────────────────────────────────────
 function checkExistingDocument(filePath) {
     const errors = [];
@@ -273,7 +312,7 @@ function checkExistingDocument(filePath) {
 }
 
 // ─────────────────────────────────────────
-// 10. 刷新仪表盘
+// 11. 刷新仪表盘
 // ─────────────────────────────────────────
 function refreshDashboard() {
     const { execSync } = require('child_process');
@@ -343,6 +382,25 @@ if (mode === 'delete') {
 console.log(`\n📝 文档修改检查: ${fileName}`);
 console.log('─'.repeat(40));
 
+// 系统文档 → 简化检查（存档在 beforeWrite 坚果同意后执行）
+if (isSystemDoc(fileName)) {
+    if (!fileExists) {
+        console.log(`❌ 系统文档不存在：${fileName}`);
+        process.exit(1);
+    }
+    const sysErrors = checkSystemDocFormat(targetFile);
+    if (sysErrors.length > 0) {
+        sysErrors.forEach(e => console.log('  ' + e));
+        console.log('\n❌ 格式检查未通过');
+        process.exit(1);
+    }
+    console.log('✅ 系统文档格式检查通过');
+    console.log('✅ 存档将在「同意变更并升级版本」后由 beforeWrite 执行');
+    console.log(JSON.stringify({ pass: true, archived: false, isSystemDoc: true, errors: [] }, null, 2));
+    process.exit(0);
+}
+
+// 规则文档 → 完整检查（原有逻辑）
 // 路径合规（针对已有文件重新确认）
 if (pathErrors.length > 0) {
     pathErrors.forEach(e => console.log('  ' + e));

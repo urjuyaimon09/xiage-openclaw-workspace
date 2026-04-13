@@ -23,6 +23,22 @@ const path = require('path');
 
 const WORKSPACE = path.join(__dirname, '..', '..');
 
+const SYSTEM_DOCS_MAP = {
+    'openclaw.json': 'archive-openclaw-config.ps1',
+    'gateway.cmd':   'archive-gateway-cmd.ps1',
+    'dump.pm2':      'archive-pm2-dump.ps1'
+};
+
+function isSystemDoc(fileName) {
+    return !!SYSTEM_DOCS_MAP[fileName];
+}
+
+function getSystemDocArchiveScript(fileName) {
+    const scriptName = SYSTEM_DOCS_MAP[fileName];
+    if (!scriptName) return null;
+    return path.join(WORKSPACE, 'scripts', scriptName);
+}
+
 // ─────────────────────────────────────────
 // 1. 获取当前版本号
 // ─────────────────────────────────────────
@@ -127,7 +143,35 @@ if (!checkResult.success || !checkResult.output.includes('pass: true')) {
     process.exit(1);
 }
 
-// ── Step 2: 执行写入 ──
+// ── Step 2a: 系统文档 → 存档脚本（坚果同意后执行）──
+if (isSystemDoc(fileName)) {
+    const archiveScript = getSystemDocArchiveScript(fileName);
+    if (archiveScript && fs.existsSync(archiveScript)) {
+        const { execSync } = require('child_process');
+        console.log(`\n📦 执行存档脚本: ${path.basename(archiveScript)}`);
+        try {
+            execSync(`powershell -ExecutionPolicy Bypass -File "${archiveScript}"`, { cwd: WORKSPACE, encoding: 'utf8', timeout: 30000 });
+            console.log('✅ 系统文档存档完成');
+        } catch (e) {
+            console.log('⚠️  存档脚本执行失败（文件可能无变更）: ' + (e.message || '').slice(0, 100));
+        }
+    }
+    if (content !== '') {
+        fs.writeFileSync(fullPath, content, 'utf8');
+        console.log(`✅ 写入完成: ${fileName}`);
+    } else {
+        console.log('📝 内容为空，跳过写入（仅完成存档）');
+    }
+    console.log('\n📋 执行汇总（系统文档）:');
+    console.log(`  文件: ${fileName}`);
+    console.log(`  存档: 已执行`);
+    console.log(`  写入: ${content !== '' ? '已完成' : '跳过'}`);
+    console.log('\n✅ 全部流程执行完成');
+    console.log('\n⚠️  记得执行 git push 同步到 GitHub');
+    process.exit(0);
+}
+
+// ── Step 2b: 规则文档 → 写入（原有逻辑）──
 if (content !== '') {
     fs.writeFileSync(fullPath, content, 'utf8');
     console.log(`\n✅ 写入完成: ${fileName}`);

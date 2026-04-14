@@ -71,12 +71,14 @@
 
 ---
 
-## 六、启动加载顺序
+## 六、启动加载顺序（详见AGENTS.md第一章）
 
-1. **PRIMARY.md**（本文件）
-2. **hot/current.md**（状态快照）
-3. **cognition/index.md**（相关认知按需加载）
-4. **其他文档按需调用**（不全部加载）
+启动时，AGENTS.md 第一章定义加载顺序：
+```
+1. PRIMARY.md → 2. hot/current → 3. Cognition → 4. SOUL → 5. lessons → 6. 日志 → USER.md按需 → MEMORY.md
+```
+
+本文件是意识核心索引，提供位置和规则，实际加载顺序由AGENTS.md定义。
 
 ---
 

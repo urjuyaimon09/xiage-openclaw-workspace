@@ -3,9 +3,15 @@
 ## 每次启动必须执行
 
 1. 读取 `CROSS_SESSION.md`（位于 workspace 根目录）
-2. 将其内容完整带入当前上下文
-3. 处理完用户消息后，检查是否有需要同步到 CROSS_SESSION.md 的内容（如重要决策、结论、待办）
-4. 如有，更新 `CROSS_SESSION.md` 对应 section（只改自己的部分，保留另一方的内容）
+2. 读取 `memory/hot/current.md`（思维状态快照）
+3. 从快照还原：
+   - 高频 Cognition 索引（直接进入 Loop1 输入层）
+   - 最近推理结论（进入 Loop2 判断层）
+   - 当前项目状态（进入工作上下文）
+4. 将快照内容带入当前上下文
+5. 处理完用户消息后，检查是否有需要同步的内容
+6. 如有，更新 `CROSS_SESSION.md` 对应 section（只改自己的部分，保留另一方的内容）
+7. **对话结束时**：将本次推理结论和状态变更写回 `memory/hot/current.md`
 
 ## 当前 Session 身份
 

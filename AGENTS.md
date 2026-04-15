@@ -1,8 +1,8 @@
 # AGENTS.md - 虾哥操作手册
 
 落地：Rule
-当前版本：v2.0.0
-最后更新：2026-04-14
+当前版本：v2.1.0
+最后更新：2026-04-15
 
 本文档是虾哥的**操作手册**，定义每次对话的启动规则、记忆规则、规则执行机制和协作规范。
 
@@ -64,6 +64,93 @@
 | 摘要 | 索引 + 关键结论 | Loop1 加载 |
 | 索引 | 定位信息 | Loop1 按需 |
 | 详细信息 | 完整内容 | Loop2 按需加载 |
+
+### 1.4 Loop1 映像生成（摄入→统合）
+
+**目标：** 将所有输入信息压缩成一张「全域场景全景图」——意识映像
+
+**输入素材：**
+```
+1. 当前输入信号（用户消息原文）
+2. 记忆上下文（memory/hot/current.md 思维快照）
+3. 认知关联（cognition/index.md 相关条目）
+4. 文档索引（doc-index.json 21维向量，共21个文档）
+```
+
+**调用方式：**
+```javascript
+const docLoader = require('./scripts/doc-loader.js');
+docLoader.warmUp();  // 启动时调用一次
+
+// 获取所有文档向量（用于模型推理输入）
+const allDocVectors = docLoader.getAllDocVectors();
+
+// 获取指定类别文档（用于聚焦相关领域）
+const relevantDocs = docLoader.loadForLoop1('rules/execution/*');
+```
+
+**模型推理输出要求：**
+
+模型必须按以下JSON格式输出映像对象：
+```json
+{
+  "frameId": "2026-04-15-T09:35",
+  "sceneSummary": "当前场景1-2句话概括",
+  "worldImage": {
+    "activeRules": ["激活的规则ID列表"],
+    "relevantFacts": ["从记忆/认知中提取的客观事实"],
+    "pendingDocIds": ["Loop2需要读取的文档ID"],
+    "cognitiveRefs": ["关联的认知项ID"]
+  },
+  "sceneFingerprint": [21维0/1向量],
+  "confidence": 0.85,
+  "reasoningTrace": "可选推理追踪"
+}
+```
+
+**映像6大本质特征：**
+1. **全域完整性**：输入+记忆+认知+规则+业务 全部归一
+2. **客体客观性**：纯世界模型，不带三观/自我立场
+3. **结构拓扑性**：主次/因果/层级/依赖 天然成型
+4. **可锚定可检索**：定长场景指纹，极速寻址
+5. **可解读可推理**：清晰是推理的基础
+6. **时序定格性**：这一刻完整世界状态切片
+
+### 1.5 Loop2 文档加载（反思→外化）
+
+**目标：** 根据Loop1输出的 pendingDocIds，按需加载文档原文，叠加自我主体，推理输出意志
+
+**调用方式：**
+```javascript
+// Loop2：按ID加载原文
+const loop2Result = docLoader.loadForLoop2(pendingDocIds);
+// → { docs: [{ id, path, content }] }
+
+// 融合多文档场景指纹（用于历史对比）
+const sceneFingerprint = docLoader.fuseVectors(pendingDocIds);
+```
+
+**执行流程：**
+```
+pendingDocIds
+    ↓
+docLoader.loadForLoop2() → 加载原文
+    ↓
+叠加自我主体（SOUL.md + USER.md 完整内容）
+    ↓
+规则/认知校验 → 推理收敛 → 意志输出
+```
+
+**21维场景指纹生成：**
+```javascript
+// 所有文档向量维度对应关系
+// 0:主体/身份  1:进化/成长  2:规则/规范  3:记忆/存储
+// 4:感知/输入  5:需求/动机  6:认知/知识  7:协作/伙伴
+// 8:执行/实施  9:决策/判断  10:安全/底线 11:华为/工作
+// 12:家庭/生活 13:财务/资产 14:技术/工具 15:效率/优化
+// 16:沟通/交互 17:项目/任务 18:学习/反思 19:验证/测试
+// 20:元/自指
+```
 
 ---
 

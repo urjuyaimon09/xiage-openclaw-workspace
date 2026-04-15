@@ -1,0 +1,238 @@
+{
+  "version": "3.0.0",
+  "last_updated": "2026-04-15",
+  "_comment": "层级索引 v3.0.0：keywords升级为定长二进制向量，Loop1零文本token",
+  
+  "_vocabulary": {
+    "_dimensions": 21,
+    "_comment": "概念向量维度，固定顺序，不可变更",
+    "0": "主体/身份",
+    "1": "进化/成长",
+    "2": "规则/规范",
+    "3": "记忆/存储",
+    "4": "感知/输入",
+    "5": "需求/动机",
+    "6": "认知/知识",
+    "7": "协作/伙伴",
+    "8": "执行/实施",
+    "9": "决策/判断",
+    "10": "安全/底线",
+    "11": "华为/工作",
+    "12": "家庭/生活",
+    "13": "财务/资产",
+    "14": "技术/工具",
+    "15": "效率/优化",
+    "16": "沟通/交互",
+    "17": "项目/任务",
+    "18": "学习/反思",
+    "19": "验证/测试",
+    "20": "元/自指"
+  },
+
+  "categories": {
+
+    "identity": {
+      "_type": "category",
+      "_path": "identity/",
+      "docs": [
+        {
+          "id": "SOUL_md",
+          "path": "SOUL.md",
+          "_vector": [1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,1,0,0,0,1],
+          "_keywords_text": ["主体","进化伙伴","SOUL","三观","五层需求","人机共生"]
+        },
+        {
+          "id": "USER_md",
+          "path": "USER.md",
+          "_vector": [1,1,0,1,0,1,0,1,0,0,0,1,1,1,0,0,0,0,0,0,0],
+          "_keywords_text": ["坚果","USER","采购履行","五层需求","家庭","华为"]
+        },
+        {
+          "id": "IDENTITY_md",
+          "path": "IDENTITY.md",
+          "_vector": [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          "_keywords_text": ["名字","虾哥","Emoji","Avatar"]
+        }
+      ]
+    },
+
+    "rules": {
+      "_type": "category",
+      "_path": "rules/",
+      "subcategories": {
+
+        "execution": {
+          "_type": "subcategory",
+          "_path": "rules/execution/",
+          "docs": [
+            {
+              "id": "PRIMARY_md",
+              "path": "PRIMARY.md",
+              "_vector": [1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,0,1,0,1],
+              "_keywords_text": ["意识核心","PRIMARY","权力边界","思维循环","触发词","决策规则"]
+            },
+            {
+              "id": "AGENTS_md",
+              "path": "AGENTS.md",
+              "_vector": [0,0,1,1,1,0,0,1,1,0,1,0,0,0,0,0,1,1,1,0,1],
+              "_keywords_text": ["Agent Loop","两次推理","记忆规则","工具锁死","触发词","协作规范"]
+            },
+            {
+              "id": "SAFETY_RULES_md",
+              "path": "SAFETY_RULES.md",
+              "_vector": [0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
+              "_keywords_text": ["安全规则","禁止项","限制项","审批","保底"]
+            },
+            {
+              "id": "BOOTSTRAP_md",
+              "path": "BOOTSTRAP.md",
+              "_vector": [0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+              "_keywords_text": ["启动流程","CROSS_SESSION","思维快照","加载","写回"]
+            }
+          ]
+        },
+
+        "memory": {
+          "_type": "subcategory",
+          "_path": "rules/memory/",
+          "docs": [
+            {
+              "id": "MEMORY_md",
+              "path": "MEMORY.md",
+              "_vector": [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+              "_keywords_text": ["记忆分层","热层","温层","冷层","health","Gateway","决策索引"]
+            },
+            {
+              "id": "HEARTBEAT_md",
+              "path": "HEARTBEAT.md",
+              "_vector": [0,0,0,1,1,0,0,0,1,0,0,0,0,0,1,1,0,1,0,0,0],
+              "_keywords_text": ["Heartbeat","心跳","归档","定时任务"]
+            }
+          ]
+        },
+
+        "code": {
+          "_type": "subcategory",
+          "_path": "rules/code/",
+          "docs": [
+            {
+              "id": "CODE_RULES_md",
+              "path": "docs/core/CODE_RULES.md",
+              "_vector": [0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0],
+              "_keywords_text": ["代码规范","三层架构","保护清单","beforeCode","commit"]
+            },
+            {
+              "id": "DOC_RULES_md",
+              "path": "docs/core/DOC_RULES.md",
+              "_vector": [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+              "_keywords_text": ["文档规范","write锁死","beforeWrite","版本管理"]
+            }
+          ]
+        }
+      }
+    },
+
+    "business": {
+      "_type": "category",
+      "_path": "business/",
+      "subcategories": {
+
+        "models": {
+          "_type": "subcategory",
+          "_path": "business/models/",
+          "docs": [
+            {
+              "id": "PERCEPTION_MODEL_md",
+              "path": "docs/business/PERCEPTION_MODEL.md",
+              "_vector": [0,0,0,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0],
+              "_keywords_text": ["感知模型","主体感知","客体感知","三层结构","PERCEPTION"]
+            },
+            {
+              "id": "DEMAND_MODEL_md",
+              "path": "docs/business/DEMAND_MODEL.md",
+              "_vector": [0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+              "_keywords_text": ["需求模型","四维评估","马斯洛","触发规程","DEMAND"]
+            },
+            {
+              "id": "COGNITION_MODEL_md",
+              "path": "docs/business/COGNITION_MODEL.md",
+              "_vector": [0,1,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,1,0,1],
+              "_keywords_text": ["认知沉淀","Cognition","世界观","行业观","协作观","元认知"]
+            },
+            {
+              "id": "TASK_ACCEPTANCE_MODEL_md",
+              "path": "docs/business/TASK_ACCEPTANCE_MODEL.md",
+              "_vector": [0,0,0,0,0,1,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0],
+              "_keywords_text": ["任务承接","复杂度评估","IPD","商业账","ROI","TASK_ACCEPTANCE"]
+            },
+            {
+              "id": "TASK_EXECUTION_MODEL_md",
+              "path": "docs/business/TASK_EXECUTION_MODEL.md",
+              "_vector": [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,0],
+              "_keywords_text": ["执行实施","复盘","TASK_EXECUTION"]
+            }
+          ]
+        },
+
+        "demands": {
+          "_type": "subcategory",
+          "_path": "business/demands/",
+          "docs": [
+            {
+              "id": "DEMAND_md",
+              "path": "docs/business/DEMAND.md",
+              "_vector": [0,1,0,0,0,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0],
+              "_keywords_text": ["需求清单","五层需求","当前需求","DEMAND"]
+            }
+          ]
+        }
+      }
+    },
+
+    "cognition": {
+      "_type": "category",
+      "_path": "cognition/",
+      "docs": [
+        {
+          "id": "COGNITION_index_md",
+          "path": "Cognition/index.md",
+          "_vector": [0,1,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,1,0,1],
+          "_keywords_text": ["认知索引","Cognition","世界观","行业观","协作观","元认知"]
+        }
+      ]
+    },
+
+    "meta": {
+      "_type": "category",
+      "_path": "meta/",
+      "docs": [
+        {
+          "id": "TOOLS_md",
+          "path": "TOOLS.md",
+          "_vector": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0],
+          "_keywords_text": ["工具备注","网页阅读","opencli","agent-browser","Chrome调试"]
+        },
+        {
+          "id": "SKILLS_INDEX_md",
+          "path": "SKILLS-INDEX.md",
+          "_vector": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+          "_keywords_text": ["Skills索引","skill列表","功能说明"]
+        }
+      ]
+    },
+
+    "archive": {
+      "_type": "category",
+      "_path": "archive/",
+      "_comment": "归档文档，不再活跃使用但保留历史",
+      "docs": [
+        {
+          "id": "CAPABILITY_MAP_md",
+          "path": "docs/archive/capability_map.md",
+          "_vector": [0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+          "_keywords_text": ["能力","capability","归档"]
+        }
+      ]
+    }
+  }
+}

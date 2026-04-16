@@ -173,17 +173,16 @@ function 执行单步思维(阶段) {
   console.log(`聚焦方向: ${方向.方向}`);
   console.log(`聚焦差值: ${(方向.聚焦差值 * 100).toFixed(0)}%\n`);
   
-  // 这里调用对应的Prompt模板渲染
-  const 意识主体 = require('./意识主体');
-  const 渲染结果 = 意识主体.渲染Prompt(阶段列表[阶段-1]);
-  
-  console.log('渲染的Prompt:');
-  console.log(渲染结果?.slice(0, 500) || '(无渲染结果)');
+  // 方案A：LLM直接读取Prompt文件执行，这里只输出指令
+  const Prompt路径 = `docs/思维模式层/6模型/${阶段列表[阶段-1]}-prompt.md`;
+  console.log(`应加载Prompt: ${Prompt路径}`);
+  console.log(`\n请LLM读取该Prompt并按规则执行。`);
   
   return {
     阶段,
     阶段名称: 阶段列表[阶段-1],
-    聚焦方向: 方向.方向
+    聚焦方向: 方向.方向,
+    Prompt路径
   };
 }
 

@@ -19,6 +19,24 @@ const LOOP_STATE_FILE = path.join(WORKSPACE, 'memory', 'hot', 'loop-state.json')
 const MEMORY_HOT_FILE = path.join(WORKSPACE, 'memory', 'hot', 'current.md');
 
 // ─────────────────────────────────────────
+// 模型记忆读写权限（三层记忆按需加载）
+// ─────────────────────────────────────────
+
+const MODEL_READ_PERMISSIONS = {
+  perception: ['perceptionLog', 'majorEvents', 'recentMemory'],
+  demand: ['demandPool', 'goalState', 'recentMemory'],
+  acceptance: ['capabilityBoundary', 'acceptanceHistory', 'recentMemory'],
+  plan: ['wbsTemplates', 'milestoneHistory', 'longTermMemory'],
+  execution: ['executionState', 'implicitMemory'],
+  feedback: ['all']
+};
+
+function canReadMemory(model, memoryType) {
+  const allowed = MODEL_READ_PERMISSIONS[model] || [];
+  return allowed.includes('all') || allowed.includes(memoryType);
+}
+
+// ─────────────────────────────────────────
 // 记忆加载
 // ─────────────────────────────────────────
 function loadImplicitMemory() {
@@ -90,11 +108,11 @@ function renderPrompt(model, context) {
     throw new Error(`Template not found: ${model}`);
   }
   
-  // 构建渲染上下文
-  const implicitMemory = loadImplicitMemory();
+  // 按权限加载记忆
+  const implicitMemory = canReadMemory(model, 'implicitMemory') ? loadImplicitMemory() : null;
   const loopState = loadLoopState();
-  const recentMemory = loadRecentMemory(context.recentMemoryLimit || 5);
-  const longTermMemory = loadLongTermMemory(context.scene, context.longTermMemoryLimit || 3);
+  const recentMemory = canReadMemory(model, 'recentMemory') ? loadRecentMemory(context.recentMemoryLimit || 5) : [];
+  const longTermMemory = canReadMemory(model, 'longTermMemory') ? loadLongTermMemory(context.scene, context.longTermMemoryLimit || 3) : [];
   
   const fullContext = {
     ...context,
@@ -102,7 +120,8 @@ function renderPrompt(model, context) {
     loopState,
     recentMemory,
     longTermMemory,
-    renderTime: new Date().toISOString()
+    renderTime: new Date().toISOString(),
+    memoryPermissions: MODEL_READ_PERMISSIONS[model] || []
   };
   
   // 渲染
@@ -161,4 +180,4 @@ Examples:
 `);
 }
 
-module.exports = { renderPrompt, loadTemplate };
+module.exports = { renderPrompt, loadTemplate, MODEL_READ_PERMISSIONS, canReadMemory };

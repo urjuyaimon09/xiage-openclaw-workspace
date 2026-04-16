@@ -128,6 +128,65 @@ function getPhaseOutput(phase) {
 }
 
 // ─────────────────────────────────────────
+// 快速恢复通道（断点跳转）
+// ─────────────────────────────────────────
+function skipToPhase(targetPhase) {
+  const state = loadState();
+  if (!state.active) {
+    console.log('[Loop] No active loop to skip');
+    return null;
+  }
+  
+  if (targetPhase < 1 || targetPhase > 6) {
+    console.log(`[Loop] Invalid phase: ${targetPhase}`);
+    return null;
+  }
+  
+  console.log(`[Loop ${state.loopId}] Skipping to phase ${targetPhase}: ${PHASE_NAMES[targetPhase]}`);
+  state.currentPhase = targetPhase;
+  saveState(state);
+  return state;
+}
+
+function autoResume() {
+  const state = loadState();
+  if (!state.active) {
+    console.log('[Loop] No active loop to resume');
+    return null;
+  }
+  
+  const triggerType = state.triggerType;
+  let targetPhase;
+  
+  // 根据触发类型和卡点状态自动判断恢复点
+  if (triggerType === 'executionBlock') {
+    // 执行卡住 → 检查卡住信息判断恢复点
+    const execOutput = state.phaseOutputs['execution'];
+    if (execOutput?.执行结果?.卡住信息) {
+      // 有卡住信息 → 从执行继续
+      targetPhase = 5;
+      console.log(`[Loop ${state.loopId}] Auto-resume: execution block detected, resuming at execution`);
+    } else {
+      // 无卡住信息 → 从执行开始重新评估
+      targetPhase = 5;
+      console.log(`[Loop ${state.loopId}] Auto-resume: no block info, resuming at execution`);
+    }
+  } else if (triggerType === 'demandChange') {
+    // 需求变化 → 从承接重新评估
+    targetPhase = 3;
+    console.log(`[Loop ${state.loopId}] Auto-resume: demand changed, resuming at acceptance`);
+  } else {
+    // 默认继续当前阶段
+    targetPhase = state.currentPhase;
+    console.log(`[Loop ${state.loopId}] Auto-resume: continuing at phase ${targetPhase}`);
+  }
+  
+  state.currentPhase = targetPhase;
+  saveState(state);
+  return state;
+}
+
+// ─────────────────────────────────────────
 // 辅助
 // ─────────────────────────────────────────
 function generateLoopId() {
@@ -193,6 +252,15 @@ if (command === 'trigger') {
 } else if (command === 'implicit-memory') {
   const mem = loadImplicitMemory();
   console.log(JSON.stringify(mem, null, 2));
+} else if (command === 'skip') {
+  const phase = parseInt(arg1);
+  if (!phase) {
+    console.error('Usage: node consciousness-loop.js skip <phaseNum>');
+    process.exit(1);
+  }
+  skipToPhase(phase);
+} else if (command === 'resume') {
+  autoResume();
 } else {
   console.log(`
 Consciousness Loop Controller
@@ -211,6 +279,10 @@ Trigger types:
   cronPerception  - Cron trigger → starts at perception (1)
   executionBlock  - Execution blocked → resumes at execution (5)
   demandChange    - Demand changed → resumes at demand (2)
+
+Quick Recovery:
+  node consciousness-loop.js skip <phase>   Jump to specific phase
+  node consciousness-loop.js resume         Auto-detect recovery point
 `);
 }
 
@@ -219,6 +291,8 @@ module.exports = {
   advancePhase,
   savePhaseOutput,
   getPhaseOutput,
+  skipToPhase,
+  autoResume,
   loadState,
   PHASES,
   PHASE_NAMES

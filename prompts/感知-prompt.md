@@ -5,17 +5,17 @@
 
 ## 输入数据
 
-1. **客观事物上下文**：`{{objective.context}}`
-2. **触发类型**：`{{triggerType}}`（userInput/cronPerception/executionBlock/demandChange）
+1. **客观事物上下文**：`{{目标.上下文}}`
+2. **触发类型**：`{{触发类型}}`（用户输入/定时感知/执行卡住/需求变化）
 3. **记忆快照**：
-{{#if recentMemory}}
-{{#each recentMemory}}
+{{#if 最近记忆}}
+{{#each 最近记忆}}
    - {{this}}
 {{/each}}
 {{/if}}
 4. **内隐记忆**：
-{{#if implicitMemory}}
-   - 马斯洛权重：L1={{implicitMemory.maslowWeights.L1_physiological}} L2={{implicitMemory.maslowWeights.L2_safety}} L3={{implicitMemory.maslowWeights.L3_social}} L4={{implicitMemory.maslowWeights.L4_respect}} L5={{implicitMemory.maslowWeights.L5_selfActualization}}
+{{#if 内隐记忆}}
+   - 马斯洛权重：L1={{内隐记忆.maslowWeights.L1_physiological}} L2={{内隐记忆.maslowWeights.L2_safety}} L3={{内隐记忆.maslowWeights.L3_social}} L4={{内隐记忆.maslowWeights.L4_respect}} L5={{内隐记忆.maslowWeights.L5_selfActualization}}
 {{/if}}
 
 ## 本次任务
@@ -41,7 +41,7 @@
     }
   },
   "进入下一轮": {
-    "模型": "demand",
+    "模型": "需求",
     "输入数据": {}
   }
 }

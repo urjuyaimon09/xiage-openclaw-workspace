@@ -5,15 +5,15 @@
 
 ## 输入数据
 
-1. **上一轮感知结果**：`{{phaseOutputs.perception.感知结果}}`
-2. **当前需求池**：`{{demandPool}}`
+1. **上一轮感知结果**：`{{阶段输出.感知.感知结果}}`
+2. **当前需求池**：`{{需求池}}`
 3. **内隐记忆（马斯洛权重）**：
-   - L1={{implicitMemory.maslowWeights.L1_physiological}}
-   - L2={{implicitMemory.maslowWeights.L2_safety}}
-   - L3={{implicitMemory.maslowWeights.L3_social}}
-   - L4={{implicitMemory.maslowWeights.L4_respect}}
-   - L5={{implicitMemory.maslowWeights.L5_selfActualization}}
-4. **目标分解状态**：`{{goalState}}`
+   - L1={{内隐记忆.maslowWeights.L1_physiological}}
+   - L2={{内隐记忆.maslowWeights.L2_safety}}
+   - L3={{内隐记忆.maslowWeights.L3_social}}
+   - L4={{内隐记忆.maslowWeights.L4_respect}}
+   - L5={{内隐记忆.maslowWeights.L5_selfActualization}}
+4. **目标分解状态**：`{{目标状态}}`
 
 ## 本次任务
 
@@ -43,7 +43,7 @@
     }
   },
   "进入下一轮": {
-    "模型": "acceptance",
+    "模型": "承接",
     "输入数据": {
       "感知结果": {},
       "需求结果": {},

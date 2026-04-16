@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * memory-manager.js - 记忆管理模块
+ * 记忆模块.js - 记忆管理模块
  * 
  * 职责：
  * - 全类型记忆存储/读取/更新/遗忘
@@ -8,346 +8,343 @@
  * - 遗忘机制（30天衰减/内隐记忆固化）
  * 
  * 用法：
- *   node memory-manager.js read <type> [scene]
- *   node memory-manager.js write <type> <content>
- *   node memory-manager.js forget [dry-run]
- *   node memory-manager.js固化 <patternId>
+ *   node 记忆模块.js 读 <类型> [场景]
+ *   node 记忆模块.js 写 <类型> <内容>
+ *   node 记忆模块.js 遗忘 [dry-run]
+ *   node 记忆模块.js 固化 <模式ID>
  */
 
 const fs = require('fs');
 const path = require('path');
 
 const WORKSPACE = path.join(__dirname, '..');
-const MEMORY_DIR = path.join(WORKSPACE, 'memory');
-const HOT_DIR = path.join(MEMORY_DIR, 'hot');
-const LONGTERM_DIR = path.join(MEMORY_DIR, 'longterm');
-const IMPLICIT_CONFIG = path.join(WORKSPACE, 'config', 'implicit-memory.json');
+const 记忆目录 = path.join(WORKSPACE, 'memory');
+const 热记忆目录 = path.join(记忆目录, 'hot');
+const 长时记忆目录 = path.join(记忆目录, 'longterm');
+const 内隐配置 = path.join(WORKSPACE, 'config', 'implicit-memory.json');
 
-const FORGET_THRESHOLD_DAYS = 30;
-const FORGET_WEIGHT_THRESHOLD = 0.1;
+const 遗忘天数阈值 = 30;
+const 遗忘权重阈值 = 0.1;
 
 // ─────────────────────────────────────────
 // 三层记忆读写权限
 // ─────────────────────────────────────────
-const MODEL_READ_PERMISSIONS = {
-  perception: ['perceptionLog', 'majorEvents'],
-  demand: ['demandPool', 'goalState'],
-  acceptance: ['capabilityBoundary', 'acceptanceHistory'],
-  plan: ['wbsTemplates', 'milestoneHistory'],
-  execution: ['executionState'],
-  feedback: ['all']
+const 模型读权限 = {
+  感知: ['感知日志', '重大事件'],
+  需求: ['需求池', '目标状态'],
+  承接: ['能力边界', '承接历史'],
+  计划: ['计划模板', '里程碑历史'],
+  执行: ['执行状态'],
+  反馈: ['全部']
 };
 
-const MODEL_WRITE_PERMISSIONS = {
-  perception: [],
-  demand: ['demandPool'],
-  acceptance: [],
-  plan: [],
-  execution: ['executionState'],
-  feedback: ['longterm', 'implicit', 'current']
+const 模型写权限 = {
+  感知: [],
+  需求: ['需求池'],
+  承接: [],
+  计划: [],
+  执行: ['执行状态'],
+  反馈: ['长时记忆', '内隐记忆', '当前状态']
 };
 
 // ─────────────────────────────────────────
 // 短时工作记忆（内存缓存）
 // ─────────────────────────────────────────
-let shortTermCache = null;
+let 短时缓存 = null;
 
-function writeShortTerm(key, value) {
-  shortTermCache = shortTermCache || {};
-  shortTermCache[key] = {
-    value,
-    timestamp: Date.now()
+function 写短时(键, 值) {
+  短时缓存 = 短时缓存 || {};
+  短时缓存[键] = {
+    值,
+    时间戳: Date.now()
   };
 }
 
-function readShortTerm(key) {
-  if (!shortTermCache) return null;
-  return shortTermCache[key]?.value || null;
+function 读短时(键) {
+  if (!短时缓存) return null;
+  return 短时缓存[键]?.值 || null;
 }
 
-function clearShortTerm() {
-  shortTermCache = null;
+function 清空短时() {
+  短时缓存 = null;
 }
 
 // ─────────────────────────────────────────
 // 长时显性记忆
 // ─────────────────────────────────────────
-function ensureLongtermDir() {
-  if (!fs.existsSync(LONGTERM_DIR)) {
-    fs.mkdirSync(LONGTERM_DIR, { recursive: true });
+function 确保长时目录() {
+  if (!fs.existsSync(长时记忆目录)) {
+    fs.mkdirSync(长时记忆目录, { recursive: true });
   }
 }
 
-function writeLongTerm(scene, content, metadata = {}) {
-  ensureLongtermDir();
+function 写长时(场景, 内容, 元数据 = {}) {
+  确保长时目录();
   const id = `lt-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
-  const record = {
+  const 记录 = {
     id,
-    scene,
-    content,
-    metadata,
-    weight: 1.0,
-    createdAt: new Date().toISOString(),
-    lastAccessed: new Date().toISOString(),
-    accessCount: 0
+    场景,
+    内容,
+    元数据,
+    权重: 1.0,
+    创建时间: new Date().toISOString(),
+    最后访问: new Date().toISOString(),
+    访问次数: 0
   };
-  const filePath = path.join(LONGTERM_DIR, `${id}.json`);
-  fs.writeFileSync(filePath, JSON.stringify(record, null, 2), 'utf8');
+  const 文件路径 = path.join(长时记忆目录, `${id}.json`);
+  fs.writeFileSync(文件路径, JSON.stringify(记录, null, 2), 'utf8');
   return id;
 }
 
-function readLongTerm(scene, limit = 10) {
-  ensureLongtermDir();
-  if (!fs.existsSync(LONGTERM_DIR)) return [];
+function 读长时(场景, 限制 = 10) {
+  确保长时目录();
+  if (!fs.existsSync(长时记忆目录)) return [];
   
-  const files = fs.readdirSync(LONGTERM_DIR).filter(f => f.endsWith('.json'));
-  const records = files.map(f => {
-    const content = fs.readFileSync(path.join(LONGTERM_DIR, f), 'utf8');
-    return JSON.parse(content);
+  const 文件列表 = fs.readdirSync(长时记忆目录).filter(f => f.endsWith('.json'));
+  const 记录列表 = 文件列表.map(f => {
+    const 内容 = fs.readFileSync(path.join(长时记忆目录, f), 'utf8');
+    return JSON.parse(内容);
   });
   
   // 按场景过滤 + 按权重/时间排序
-  const filtered = records
-    .filter(r => !scene || r.scene === scene)
-    .sort((a, b) => b.weight - a.weight || new Date(b.lastAccessed) - new Date(a.lastAccessed));
+  const 过滤 = 记录列表
+    .filter(r => !场景 || r.场景 === 场景)
+    .sort((a, b) => b.权重 - a.权重 || new Date(b.最后访问) - new Date(a.最后访问));
   
   // 更新访问记录
-  filtered.slice(0, limit).forEach(r => {
-    r.accessCount++;
-    r.lastAccessed = new Date().toISOString();
-    fs.writeFileSync(path.join(LONGTERM_DIR, `${r.id}.json`), JSON.stringify(r, null, 2), 'utf8');
+  过滤.slice(0, 限制).forEach(r => {
+    r.访问次数++;
+    r.最后访问 = new Date().toISOString();
+    fs.writeFileSync(path.join(长时记忆目录, `${r.id}.json`), JSON.stringify(r, null, 2), 'utf8');
   });
   
-  return filtered.slice(0, limit);
+  return 过滤.slice(0, 限制);
 }
 
-function retrieveLongTerm(query, limit = 5) {
-  // 简单关键词检索
-  // 未来：对接向量数据库做语义检索
-  ensureLongtermDir();
-  if (!fs.existsSync(LONGTERM_DIR)) return [];
+function 检索长时(查询, 限制 = 5) {
+  确保长时目录();
+  if (!fs.existsSync(长时记忆目录)) return [];
   
-  const files = fs.readdirSync(LONGTERM_DIR).filter(f => f.endsWith('.json'));
-  const records = files.map(f => {
-    const content = fs.readFileSync(path.join(LONGTERM_DIR, f), 'utf8');
-    return JSON.parse(content);
+  const 文件列表 = fs.readdirSync(长时记忆目录).filter(f => f.endsWith('.json'));
+  const 记录列表 = 文件列表.map(f => {
+    const 内容 = fs.readFileSync(path.join(长时记忆目录, f), 'utf8');
+    return JSON.parse(内容);
   });
   
-  const keywords = query.toLowerCase().split(/\s+/);
-  const scored = records.map(r => {
-    const text = (r.scene + ' ' + r.content).toLowerCase();
-    const score = keywords.filter(k => text.includes(k)).length;
-    return { ...r, searchScore: score };
+  const 关键词 = 查询.toLowerCase().split(/\s+/);
+  const 评分列表 = 记录列表.map(r => {
+    const 文本 = (r.场景 + ' ' + r.内容).toLowerCase();
+    const 得分 = 关键词.filter(k => 文本.includes(k)).length;
+    return { ...r, 检索得分: 得分 };
   });
   
-  return scored
-    .filter(r => r.searchScore > 0)
-    .sort((a, b) => b.searchScore - a.searchScore)
-    .slice(0, limit);
+  return 评分列表
+    .filter(r => r.检索得分 > 0)
+    .sort((a, b) => b.检索得分 - a.检索得分)
+    .slice(0, 限制);
 }
 
 // ─────────────────────────────────────────
 // 内隐潜意识记忆
 // ─────────────────────────────────────────
-function loadImplicitMemory() {
-  if (fs.existsSync(IMPLICIT_CONFIG)) {
-    return JSON.parse(fs.readFileSync(IMPLICIT_CONFIG, 'utf8'));
+function 加载内隐记忆() {
+  if (fs.existsSync(内隐配置)) {
+    return JSON.parse(fs.readFileSync(内隐配置, 'utf8'));
   }
-  return { behaviorPatterns: { autoExec: [], habitLoops: [] }, automationRules: { rules: [] } };
+  return { 行为模式: { 自动执行: [], 习惯循环: [] }, 自动化规则: { 规则: [] } };
 }
 
-function writeImplicitMemory(data) {
-  fs.writeFileSync(IMPLICIT_CONFIG, JSON.stringify(data, null, 2), 'utf8');
+function 写内隐记忆(数据) {
+  fs.writeFileSync(内隐配置, JSON.stringify(数据, null, 2), 'utf8');
 }
 
-function solidifyPattern(patternId, executionCount) {
-  const mem = loadImplicitMemory();
-  const threshold = mem.forgetPolicy?.patternMinExecCount || 3;
+function 固化模式(模式ID, 执行次数) {
+  const 记忆 = 加载内隐记忆();
+  const 阈值 = 记忆.遗忘策略?.模式最小执行次数 || 3;
   
-  if (executionCount >= threshold) {
-    if (!mem.behaviorPatterns.habitLoops.find(p => p.id === patternId)) {
-      mem.behaviorPatterns.habitLoops.push({
-        id: patternId,
-        solidifiedAt: new Date().toISOString(),
-        executionCount
+  if (执行次数 >= 阈值) {
+    if (!记忆.行为模式.习惯循环.find(p => p.id === 模式ID)) {
+      记忆.行为模式.习惯循环.push({
+        id: 模式ID,
+        固化时间: new Date().toISOString(),
+        执行次数
       });
-      writeImplicitMemory(mem);
-      console.log(`[Memory] Pattern ${patternId} solidified (exec count: ${executionCount})`);
+      写内隐记忆(记忆);
+      console.log(`[记忆] 模式 ${模式ID} 已固化（执行次数: ${执行次数}）`);
     }
   }
 }
 
-function removeImplicitPattern(patternId) {
-  const mem = loadImplicitMemory();
-  mem.behaviorPatterns.habitLoops = mem.behaviorPatterns.habitLoops.filter(p => p.id !== patternId);
-  writeImplicitMemory(mem);
-  console.log(`[Memory] Pattern ${patternId} removed from implicit memory`);
+function 移除内隐模式(模式ID) {
+  const 记忆 = 加载内隐记忆();
+  记忆.行为模式.习惯循环 = 记忆.行为模式.习惯循环.filter(p => p.id !== 模式ID);
+  写内隐记忆(记忆);
+  console.log(`[记忆] 模式 ${模式ID} 已从内隐记忆移除`);
 }
 
 // ─────────────────────────────────────────
 // 遗忘机制
 // ─────────────────────────────────────────
-function decayLongTerm(daysThreshold = FORGET_THRESHOLD_DAYS, weightThreshold = FORGET_WEIGHT_THRESHOLD) {
-  ensureLongtermDir();
-  if (!fs.existsSync(LONGTERM_DIR)) return { decayed: 0, removed: 0 };
+function 衰减长时(天数阈值 = 遗忘天数阈值, 权重阈值 = 遗忘权重阈值) {
+  确保长时目录();
+  if (!fs.existsSync(长时记忆目录)) return { 衰减: 0, 移除: 0 };
   
-  const files = fs.readdirSync(LONGTERM_DIR).filter(f => f.endsWith('.json'));
-  let decayed = 0;
-  let removed = 0;
-  const now = Date.now();
-  const msPerDay = 24 * 60 * 60 * 1000;
+  const 文件列表 = fs.readdirSync(长时记忆目录).filter(f => f.endsWith('.json'));
+  let 衰减数 = 0;
+  let 移除数 = 0;
+  const 现在 = Date.now();
+  const 每天毫秒 = 24 * 60 * 60 * 1000;
   
-  files.forEach(f => {
-    const filePath = path.join(LONGTERM_DIR, f);
-    const record = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  文件列表.forEach(f => {
+    const 文件路径 = path.join(长时记忆目录, f);
+    const 记录 = JSON.parse(fs.readFileSync(文件路径, 'utf8'));
     
-    const daysSinceAccess = (now - new Date(record.lastAccessed).getTime()) / msPerDay;
+    const 自上次访问天数 = (现在 - new Date(记录.最后访问).getTime()) / 每天毫秒;
     
-    if (daysSinceAccess > daysThreshold) {
-      // 衰减权重
-      record.weight = Math.max(0, record.weight - 0.1);
-      fs.writeFileSync(filePath, JSON.stringify(record, null, 2), 'utf8');
-      decayed++;
+    if (自上次访问天数 > 天数阈值) {
+      记录.权重 = Math.max(0, 记录.权重 - 0.1);
+      fs.writeFileSync(文件路径, JSON.stringify(记录, null, 2), 'utf8');
+      衰减数++;
       
-      if (record.weight <= weightThreshold) {
-        fs.unlinkSync(filePath);
-        removed++;
+      if (记录.权重 <= 权重阈值) {
+        fs.unlinkSync(文件路径);
+        移除数++;
       }
     }
   });
   
-  return { decayed, removed };
+  return { 衰减: 衰减数, 移除: 移除数 };
 }
 
-function forgetImplicit(daysThreshold = 90) {
-  const mem = loadImplicitMemory();
-  const now = Date.now();
-  const msPerDay = 24 * 60 * 60 * 1000;
+function 遗忘内隐(天数阈值 = 90) {
+  const 记忆 = 加载内隐记忆();
+  const 现在 = Date.now();
+  const 每天毫秒 = 24 * 60 * 60 * 1000;
   
-  const before = mem.behaviorPatterns.habitLoops.length;
-  mem.behaviorPatterns.habitLoops = mem.behaviorPatterns.habitLoops.filter(p => {
-    const daysSinceSolidify = (now - new Date(p.solidifiedAt).getTime()) / msPerDay;
-    return daysSinceSolidify <= daysThreshold;
+  const 操作前 = 记忆.行为模式.习惯循环.length;
+  记忆.行为模式.习惯循环 = 记忆.行为模式.习惯循环.filter(p => {
+    const 自固化天数 = (现在 - new Date(p.固化时间).getTime()) / 每天毫秒;
+    return 自固化天数 <= 天数阈值;
   });
   
-  const removed = before - mem.behaviorPatterns.habitLoops.length;
-  if (removed > 0) {
-    writeImplicitMemory(mem);
+  const 移除数 = 操作前 - 记忆.行为模式.习惯循环.length;
+  if (移除数 > 0) {
+    写内隐记忆(记忆);
   }
   
-  return { removed };
+  return { 移除: 移除数 };
 }
 
-function runForgetMechanism(dryRun = false) {
-  console.log('[Memory] Running forget mechanism...');
-  const ltResult = dryRun ? { decayed: 0, removed: 0 } : decayLongTerm();
-  const implicitResult = dryRun ? { removed: 0 } : forgetImplicit();
-  console.log(`[Memory] Long-term decayed: ${ltResult.decayed}, removed: ${ltResult.removed}`);
-  console.log(`[Memory] Implicit removed: ${implicitResult.removed}`);
-  return { ...ltResult, ...implicitResult };
+function 运行遗忘机制(干运行 = false) {
+  console.log('[记忆] 运行遗忘机制...');
+  const 长时结果 = 干运行 ? { 衰减: 0, 移除: 0 } : 衰减长时();
+  const 内隐结果 = 干运行 ? { 移除: 0 } : 遗忘内隐();
+  console.log(`[记忆] 长时记忆衰减: ${长时结果.衰减}, 移除: ${长时结果.移除}`);
+  console.log(`[记忆] 内隐记忆移除: ${内隐结果.移除}`);
+  return { ...长时结果, ...内隐结果 };
 }
 
 // ─────────────────────────────────────────
 // 模型读写权限检查
 // ─────────────────────────────────────────
-function canRead(model, memoryType) {
-  const allowed = MODEL_READ_PERMISSIONS[model] || [];
-  return allowed.includes('all') || allowed.includes(memoryType);
+function 可读(模型, 记忆类型) {
+  const 允许列表 = 模型读权限[模型] || [];
+  return 允许列表.includes('全部') || 允许列表.includes(记忆类型);
 }
 
-function canWrite(model, memoryType) {
-  const allowed = MODEL_WRITE_PERMISSIONS[model] || [];
-  return allowed.includes('all') || allowed.includes(memoryType);
+function 可写(模型, 记忆类型) {
+  const 允许列表 = 模型写权限[模型] || [];
+  return 允许列表.includes('全部') || 允许列表.includes(记忆类型);
 }
 
 // ─────────────────────────────────────────
 // CLI 入口
 // ─────────────────────────────────────────
-const [,, command, arg1, arg2] = process.argv;
+const [,, 命令, 参数1, 参数2] = process.argv;
 
-if (command === 'read') {
-  const [type, scene] = [arg1, arg2];
-  if (!type) {
-    console.error('Usage: node memory-manager.js read <type> [scene]');
+if (命令 === '读') {
+  const [类型, 场景] = [参数1, 参数2];
+  if (!类型) {
+    console.error('用法: node 记忆模块.js 读 <类型> [场景]');
     process.exit(1);
   }
-  if (type === 'short') {
-    console.log(JSON.stringify(readShortTerm(scene || 'default'), null, 2));
-  } else if (type === 'long') {
-    console.log(JSON.stringify(readLongTerm(scene, 10), null, 2));
-  } else if (type === 'implicit') {
-    console.log(JSON.stringify(loadImplicitMemory(), null, 2));
+  if (类型 === '短时') {
+    console.log(JSON.stringify(读短时(场景 || '默认'), null, 2));
+  } else if (类型 === '长时') {
+    console.log(JSON.stringify(读长时(场景, 10), null, 2));
+  } else if (类型 === '内隐') {
+    console.log(JSON.stringify(加载内隐记忆(), null, 2));
   } else {
-    console.error('Unknown type. Use: short, long, implicit');
+    console.error('未知类型。可用: 短时, 长时, 内隐');
     process.exit(1);
   }
-} else if (command === 'write') {
-  const [type, ...contentParts] = [arg1, ...(arg2 || '').split(' ')];
-  const content = contentParts.join(' ');
-  if (!type || !content) {
-    console.error('Usage: node memory-manager.js write <type> <content>');
+} else if (命令 === '写') {
+  const [类型, ...内容列表] = [参数1, ...(参数2 || '').split(' ')];
+  const 内容 = 内容列表.join(' ');
+  if (!类型 || !内容) {
+    console.error('用法: node 记忆模块.js 写 <类型> <内容>');
     process.exit(1);
   }
-  if (type === 'short') {
-    writeShortTerm('default', content);
-    console.log('Short-term memory written');
-  } else if (type === 'long') {
-    const id = writeLongTerm('general', content);
-    console.log(`Long-term memory written: ${id}`);
+  if (类型 === '短时') {
+    写短时('默认', 内容);
+    console.log('短时记忆已写');
+  } else if (类型 === '长时') {
+    const id = 写长时('通用', 内容);
+    console.log(`长时记忆已写: ${id}`);
   } else {
-    console.error('Unknown type. Use: short, long');
+    console.error('未知类型。可用: 短时, 长时');
     process.exit(1);
   }
-} else if (command === 'clear') {
-  clearShortTerm();
-  console.log('Short-term memory cleared');
-} else if (command === 'forget') {
-  const dryRun = arg1 === 'dry-run';
-  const result = runForgetMechanism(dryRun);
-  console.log(JSON.stringify(result, null, 2));
-} else if (command === 'solidify') {
-  const patternId = arg1;
-  const count = parseInt(arg2) || 3;
-  if (!patternId) {
-    console.error('Usage: node memory-manager.js solidify <patternId> [count]');
+} else if (命令 === '清空') {
+  清空短时();
+  console.log('短时记忆已清空');
+} else if (命令 === '遗忘') {
+  const 干运行 = 参数1 === 'dry-run';
+  const 结果 = 运行遗忘机制(干运行);
+  console.log(JSON.stringify(结果, null, 2));
+} else if (命令 === '固化') {
+  const 模式ID = 参数1;
+  const 次数 = parseInt(参数2) || 3;
+  if (!模式ID) {
+    console.error('用法: node 记忆模块.js 固化 <模式ID> [次数]');
     process.exit(1);
   }
-  solidifyPattern(patternId, count);
-} else if (command === 'retrieve') {
-  const query = arg1 || '';
-  const results = retrieveLongTerm(query, 5);
-  console.log(JSON.stringify(results, null, 2));
-} else if (command === 'permissions') {
-  console.log('Model Read Permissions:', JSON.stringify(MODEL_READ_PERMISSIONS, null, 2));
-  console.log('Model Write Permissions:', JSON.stringify(MODEL_WRITE_PERMISSIONS, null, 2));
+  固化模式(模式ID, 次数);
+} else if (命令 === '检索') {
+  const 查询 = 参数1 || '';
+  const 结果 = 检索长时(查询, 5);
+  console.log(JSON.stringify(结果, null, 2));
+} else if (命令 === '权限') {
+  console.log('模型读权限:', JSON.stringify(模型读权限, null, 2));
+  console.log('模型写权限:', JSON.stringify(模型写权限, null, 2));
 } else {
   console.log(`
-Memory Manager
+记忆模块 - 三层记忆管理系统
 
-Usage:
-  node memory-manager.js read <type> [scene]   Read memory (short/long/implicit)
-  node memory-manager.js write <type> <content> Write memory (short/long)
-  node memory-manager.js clear                  Clear short-term memory
-  node memory-manager.js forget [dry-run]       Run forget mechanism
-  node memory-manager.js solidify <id> [count]  Solidify pattern to implicit
-  node memory-manager.js retrieve <query>      Search long-term memory
-  node memory-manager.js permissions            Show model permissions
+用法:
+  node 记忆模块.js 读 <类型> [场景]         读记忆 (短时/长时/内隐)
+  node 记忆模块.js 写 <类型> <内容>         写记忆 (短时/长时)
+  node 记忆模块.js 清空                       清空短时记忆
+  node 记忆模块.js 遗忘 [dry-run]           运行遗忘机制
+  node 记忆模块.js 固化 <ID> [次数]        固化模式到内隐记忆
+  node 记忆模块.js 检索 <查询>              检索长时记忆
+  node 记忆模块.js 权限                     显示模型权限配置
 `);
 }
 
 module.exports = {
-  readShortTerm,
-  writeShortTerm,
-  clearShortTerm,
-  readLongTerm,
-  writeLongTerm,
-  retrieveLongTerm,
-  loadImplicitMemory,
-  writeImplicitMemory,
-  solidifyPattern,
-  runForgetMechanism,
-  canRead,
-  canWrite,
-  MODEL_READ_PERMISSIONS,
-  MODEL_WRITE_PERMISSIONS
+  读短时,
+  写短时,
+  清空短时,
+  读长时,
+  写长时,
+  检索长时,
+  加载内隐记忆,
+  写内隐记忆,
+  固化模式,
+  运行遗忘机制,
+  可读,
+  可写,
+  模型读权限,
+  模型写权限
 };

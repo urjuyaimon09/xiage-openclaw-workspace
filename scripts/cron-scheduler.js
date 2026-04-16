@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * cron-scheduler.js - Cron调度器
+ * Cron调度器.js - Cron调度器
  * 
  * 职责：
  * - 感知数据分类调度（高频繁/中频繁/低频繁）
@@ -18,347 +18,331 @@ const path = require('path');
 const fs = require('fs');
 
 const WORKSPACE = path.join(__dirname, '..');
-const STATE_FILE = path.join(WORKSPACE, 'memory', 'hot', 'cron-scheduler-state.json');
+const 状态文件 = path.join(WORKSPACE, 'memory', 'hot', 'cron-scheduler-state.json');
 
 // 感知频率配置
-const PERCEPTION_CRON_CONFIG = {
-  high: { // 小时级 - 系统/坚果状态
-    name: 'high-frequency',
-    cronExpr: '0 * * * *', // 每小时
-    perceptionType: 'system坚果Status',
-    description: '系统健康 + 坚果状态'
+const 感知调度配置 = {
+  高频繁: {
+    名称: 'high-frequency',
+    cron表达式: '0 * * * *',
+    感知类型: '系统坚果状态',
+    描述: '系统健康 + 坚果状态'
   },
-  medium: { // 日级 - AI趋势/行业动态
-    name: 'medium-frequency',
-    cronExpr: '0 9 * * *', // 每天早上9点
-    perceptionType: 'aiTrendIndustry',
-    description: 'AI趋势 + 行业动态'
+  中频繁: {
+    名称: 'medium-frequency',
+    cron表达式: '0 9 * * *',
+    感知类型: 'AI趋势行业动态',
+    描述: 'AI趋势 + 行业动态'
   },
-  low: { // 周级 - 社会脉络/长期风险
-    name: 'low-frequency',
-    cronExpr: '0 10 * * 1', // 每周一早上10点
-    perceptionType: 'socialContext',
-    description: '社会脉络 + 长期风险'
+  低频繁: {
+    名称: 'low-frequency',
+    cron表达式: '0 10 * * 1',
+    感知类型: '社会脉络长期风险',
+    描述: '社会脉络 + 长期风险'
   }
 };
 
 // 紧急任务配置
-const EMERGENCY_TASKS = {
-  systemCritical: {
-    name: 'system-critical',
-    priority: 1,
-    description: '系统崩溃/数据泄露等生死事件'
+const 紧急任务配置 = {
+  系统危急: {
+    名称: 'system-critical',
+    优先级: 1,
+    描述: '系统崩溃/数据泄露等生死事件'
   },
-  urgentDemand: {
-    name: 'urgent-demand',
-    priority: 2,
-    description: '坚果紧急需求'
+  紧急需求: {
+    名称: 'urgent-demand',
+    优先级: 2,
+    描述: '坚果紧急需求'
   },
-  executionBlock: {
-    name: 'execution-block',
-    priority: 3,
-    description: '执行卡住需要恢复'
+  执行卡住: {
+    名称: 'execution-block',
+    优先级: 3,
+    描述: '执行卡住需要恢复'
   }
 };
 
 // ─────────────────────────────────────────
 // 状态管理
 // ─────────────────────────────────────────
-function loadState() {
-  if (fs.existsSync(STATE_FILE)) {
-    return JSON.parse(fs.readFileSync(STATE_FILE, 'utf8'));
+function 加载状态() {
+  if (fs.existsSync(状态文件)) {
+    return JSON.parse(fs.readFileSync(状态文件, 'utf8'));
   }
   return {
-    active: false,
-    jobs: {},
-    emergencyQueue: [],
-    currentRates: { high: true, medium: true, low: true }
+    运行中: false,
+    任务列表: {},
+    紧急队列: [],
+    当前频率: { 高频繁: true, 中频繁: true, 低频繁: true }
   };
 }
 
-function saveState(state) {
-  const dir = path.dirname(STATE_FILE);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+function 保存状态(状态) {
+  const 目录 = path.dirname(状态文件);
+  if (!fs.existsSync(目录)) {
+    fs.mkdirSync(目录, { recursive: true });
   }
-  fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
+  fs.writeFileSync(状态文件, JSON.stringify(状态, null, 2), 'utf8');
 }
 
 // ─────────────────────────────────────────
 // Cron任务管理
 // ─────────────────────────────────────────
-const jobs = {};
-let state = null;
+const 任务集合 = {};
+let 状态 = null;
 
-function startCronJob(key, config, onTick) {
-  // 将cron表达式转换为毫秒间隔
-  const intervalMs = cronExprToMs(config.cronExpr);
+function 启动Cron任务(键, 配置, 触发回调) {
+  const 间隔毫秒 = cron表达式转毫秒(配置.cron表达式);
   
-  const job = setInterval(() => {
-    console.log(`[CronScheduler] ${key} tick: ${config.description}`);
-    onTick(key, config);
-  }, intervalMs);
+  const 任务 = setInterval(() => {
+    console.log(`[Cron调度器] ${键} tick: ${配置.描述}`);
+    触发回调(键, 配置);
+  }, 间隔毫秒);
   
-  jobs[key] = { interval: job, config };
-  console.log(`[CronScheduler] Started: ${key} (${config.cronExpr} = ${intervalMs}ms) - ${config.description}`);
-  return job;
+  任务集合[键] = { 间隔: 任务, 配置 };
+  console.log(`[Cron调度器] 启动: ${键} (${配置.cron表达式} = ${间隔毫秒}ms) - ${配置.描述}`);
+  return 任务;
 }
 
-function cronExprToMs(cronExpr) {
-  // 简化版：将常见cron表达式转为毫秒
-  // 格式：分 时 日 月 周
-  const parts = cronExpr.split(' ');
-  if (parts.length !== 5) return 3600000; // 默认1小时
+function cron表达式转毫秒(cron表达式) {
+  const parts = cron表达式.split(' ');
+  if (parts.length !== 5) return 3600000;
   
-  const [minute, hour, , , dayOfWeek] = parts;
+  const [分钟, 小时, , , 周几] = parts;
   
-  // 每小时：0 * * * *
-  if (minute === '0' && hour === '*' && dayOfWeek === '*') {
-    return 60 * 60 * 1000; // 1小时
+  if (分钟 === '0' && 小时 === '*' && 周几 === '*') {
+    return 60 * 60 * 1000;
   }
   
-  // 每天早上9点：0 9 * * *
-  if (minute === '0' && hour === '9') {
-    return 24 * 60 * 60 * 1000; // 24小时
+  if (分钟 === '0' && 小时 === '9') {
+    return 24 * 60 * 60 * 1000;
   }
   
-  // 每周一早上10点：0 10 * * 1
-  if (minute === '0' && hour === '10' && dayOfWeek === '1') {
-    return 7 * 24 * 60 * 60 * 1000; // 7天
+  if (分钟 === '0' && 小时 === '10' && 周几 === '1') {
+    return 7 * 24 * 60 * 60 * 1000;
   }
   
-  return 3600000; // 默认1小时
+  return 3600000;
 }
 
-function stopCronJob(key) {
-  if (jobs[key]) {
-    clearInterval(jobs[key].interval);
-    delete jobs[key];
-    console.log(`[CronScheduler] Stopped: ${key}`);
+function 停止Cron任务(键) {
+  if (任务集合[键]) {
+    clearInterval(任务集合[键].间隔);
+    delete 任务集合[键];
+    console.log(`[Cron调度器] 停止: ${键}`);
   }
 }
 
-function startAllJobs() {
-  state = loadState();
-  state.active = true;
-  saveState(state);
+function 启动全部任务() {
+  状态 = 加载状态();
+  状态.运行中 = true;
+  保存状态(状态);
   
-  // 启动高频任务
-  if (state.currentRates.high) {
-    startCronJob('high', PERCEPTION_CRON_CONFIG.high, triggerPerceptionLoop);
+  if (状态.当前频率.高频繁) {
+    启动Cron任务('高频繁', 感知调度配置.高频繁, 触发感知循环);
   }
-  
-  // 启动中频任务
-  if (state.currentRates.medium) {
-    startCronJob('medium', PERCEPTION_CRON_CONFIG.medium, triggerPerceptionLoop);
+  if (状态.当前频率.中频繁) {
+    启动Cron任务('中频繁', 感知调度配置.中频繁, 触发感知循环);
   }
-  
-  // 启动低频任务
-  if (state.currentRates.low) {
-    startCronJob('low', PERCEPTION_CRON_CONFIG.low, triggerPerceptionLoop);
+  if (状态.当前频率.低频繁) {
+    启动Cron任务('低频繁', 感知调度配置.低频繁, 触发感知循环);
   }
 }
 
-function stopAllJobs() {
-  Object.keys(jobs).forEach(key => stopCronJob(key));
-  state = loadState();
-  state.active = false;
-  saveState(state);
+function 停止全部任务() {
+  Object.keys(任务集合).forEach(键 => 停止Cron任务(键));
+  状态 = 加载状态();
+  状态.运行中 = false;
+  保存状态(状态);
 }
 
 // ─────────────────────────────────────────
 // 触发意识循环
 // ─────────────────────────────────────────
-function triggerPerceptionLoop(frequencyKey, config) {
-  console.log(`[CronScheduler] Triggering perception loop: ${config.perceptionType}`);
+function 触发感知循环(频率键, 配置) {
+  console.log(`[Cron调度器] 触发感知循环: ${配置.感知类型}`);
   
-  const consciousnessLoop = require('./consciousness-loop');
-  consciousnessLoop.startLoop('cronPerception', {
-    perceptionType: config.perceptionType,
-    frequency: frequencyKey,
-    timestamp: new Date().toISOString()
+  const 意识循环 = require('./consciousness-loop');
+  意识循环.启动循环('定时感知', {
+    感知类型: 配置.感知类型,
+    频率: 频率键,
+    时间戳: new Date().toISOString()
   });
-  
-  // 触发后立即推进到下一个阶段
-  // 实际推进由 awareness-agent 处理
 }
 
-function triggerEmergencyLoop(emergencyType, data) {
-  const config = EMERGENCY_TASKS[emergencyType];
-  if (!config) {
-    console.error(`[CronScheduler] Unknown emergency type: ${emergencyType}`);
+function 触发紧急循环(紧急类型, 数据) {
+  const 配置 = 紧急任务配置[紧急类型];
+  if (!配置) {
+    console.error(`[Cron调度器] 未知紧急类型: ${紧急类型}`);
     return;
   }
   
-  console.log(`[CronScheduler] Triggering emergency loop: ${config.name}`);
+  console.log(`[Cron调度器] 触发紧急循环: ${配置.名称}`);
   
-  const consciousnessLoop = require('./consciousness-loop');
-  
-  // 根据紧急类型决定从哪个阶段开始
-  let triggerType = 'userInput';
-  if (emergencyType === 'executionBlock') {
-    triggerType = 'executionBlock';
+  const 意识循环 = require('./consciousness-loop');
+  let 触发类型 = '用户输入';
+  if (紧急类型 === '执行卡住') {
+    触发类型 = '执行卡住';
   }
   
-  consciousnessLoop.startLoop(triggerType, {
-    emergencyType,
-    data,
-    priority: config.priority,
-    timestamp: new Date().toISOString()
+  意识循环.启动循环(触发类型, {
+    紧急类型,
+    数据,
+    优先级: 配置.优先级,
+    时间戳: new Date().toISOString()
   });
 }
 
 // ─────────────────────────────────────────
 // 频率控制
 // ─────────────────────────────────────────
-function enableFrequency(frequencyKey) {
-  if (!PERCEPTION_CRON_CONFIG[frequencyKey]) {
-    console.error(`[CronScheduler] Unknown frequency: ${frequencyKey}`);
+function 启用频率(频率键) {
+  if (!感知调度配置[频率键]) {
+    console.error(`[Cron调度器] 未知频率: ${频率键}`);
     return;
   }
   
-  state = loadState();
-  state.currentRates[frequencyKey] = true;
-  saveState(state);
+  状态 = 加载状态();
+  状态.当前频率[频率键] = true;
+  保存状态(状态);
   
-  if (!jobs[frequencyKey]) {
-    startCronJob(frequencyKey, PERCEPTION_CRON_CONFIG[frequencyKey], triggerPerceptionLoop);
+  if (!任务集合[频率键]) {
+    启动Cron任务(频率键, 感知调度配置[频率键], 触发感知循环);
   }
   
-  console.log(`[CronScheduler] Enabled: ${frequencyKey}`);
+  console.log(`[Cron调度器] 已启用: ${频率键}`);
 }
 
-function disableFrequency(frequencyKey) {
-  if (!PERCEPTION_CRON_CONFIG[frequencyKey]) {
-    console.error(`[CronScheduler] Unknown frequency: ${frequencyKey}`);
+function 禁用频率(频率键) {
+  if (!感知调度配置[频率键]) {
+    console.error(`[Cron调度器] 未知频率: ${频率键}`);
     return;
   }
   
-  state = loadState();
-  state.currentRates[frequencyKey] = false;
-  saveState(state);
+  状态 = 加载状态();
+  状态.当前频率[频率键] = false;
+  保存状态(状态);
   
-  stopCronJob(frequencyKey);
+  停止Cron任务(频率键);
   
-  console.log(`[CronScheduler] Disabled: ${frequencyKey}`);
+  console.log(`[Cron调度器] 已禁用: ${频率键}`);
 }
 
-function changeFrequency(frequencyKey, cronExpr) {
-  state = loadState();
+function 修改频率(频率键, cron表达式) {
+  状态 = 加载状态();
   
-  // 更新配置
-  if (PERCEPTION_CRON_CONFIG[frequencyKey]) {
-    PERCEPTION_CRON_CONFIG[frequencyKey].cronExpr = cronExpr;
+  if (感知调度配置[频率键]) {
+    感知调度配置[频率键].cron表达式 = cron表达式;
   }
   
-  // 重启任务
-  stopCronJob(frequencyKey);
-  if (state.currentRates[frequencyKey]) {
-    startCronJob(frequencyKey, PERCEPTION_CRON_CONFIG[frequencyKey], triggerPerceptionLoop);
+  停止Cron任务(频率键);
+  if (状态.当前频率[频率键]) {
+    启动Cron任务(频率键, 感知调度配置[频率键], 触发感知循环);
   }
   
-  console.log(`[CronScheduler] Changed frequency ${frequencyKey}: ${cronExpr}`);
+  console.log(`[Cron调度器] 已修改频率 ${频率键}: ${cron表达式}`);
 }
 
 // ─────────────────────────────────────────
 // 紧急任务队列
 // ─────────────────────────────────────────
-function enqueueEmergency(emergencyType, data) {
-  const config = EMERGENCY_TASKS[emergencyType];
-  if (!config) {
-    console.error(`[CronScheduler] Unknown emergency type: ${emergencyType}`);
+function 加入紧急队列(紧急类型, 数据) {
+  const 配置 = 紧急任务配置[紧急类型];
+  if (!配置) {
+    console.error(`[Cron调度器] 未知紧急类型: ${紧急类型}`);
     return;
   }
   
-  state = loadState();
-  state.emergencyQueue.push({
-    type: emergencyType,
-    data,
-    priority: config.priority,
-    enqueuedAt: new Date().toISOString()
+  状态 = 加载状态();
+  状态.紧急队列.push({
+    类型: 紧急类型,
+    数据,
+    优先级: 配置.优先级,
+    入队时间: new Date().toISOString()
   });
   
-  // 按优先级排序
-  state.emergencyQueue.sort((a, b) => a.priority - b.priority);
-  saveState(state);
+  状态.紧急队列.sort((a, b) => a.优先级 - b.优先级);
+  保存状态(状态);
   
-  console.log(`[CronScheduler] Emergency enqueued: ${config.name}`);
-  triggerEmergencyLoop(emergencyType, data);
+  console.log(`[Cron调度器] 紧急任务已入队: ${配置.名称}`);
+  触发紧急循环(紧急类型, 数据);
 }
 
-function processEmergencyQueue() {
-  state = loadState();
-  if (state.emergencyQueue.length === 0) return;
+function 处理紧急队列() {
+  状态 = 加载状态();
+  if (状态.紧急队列.length === 0) return;
   
-  const task = state.emergencyQueue.shift();
-  saveState(state);
+  const 任务 = 状态.紧急队列.shift();
+  保存状态(状态);
   
-  triggerEmergencyLoop(task.type, task.data);
+  触发紧急循环(任务.类型, 任务.数据);
 }
 
 // ─────────────────────────────────────────
 // CLI 入口
 // ─────────────────────────────────────────
-const [,, command, arg1, arg2] = process.argv;
+const [,, 命令, 参数1, 参数2] = process.argv;
 
-if (command === 'start') {
-  startAllJobs();
-} else if (command === 'stop') {
-  stopAllJobs();
-} else if (command === 'status') {
-  state = loadState();
-  console.log(JSON.stringify(state, null, 2));
-} else if (command === 'enable') {
-  enableFrequency(arg1);
-} else if (command === 'disable') {
-  disableFrequency(arg1);
-} else if (command === 'change') {
-  if (!arg1 || !arg2) {
-    console.error('Usage: node cron-scheduler.js change <frequencyKey> <cronExpr>');
+if (命令 === '启动') {
+  启动全部任务();
+} else if (命令 === '停止') {
+  停止全部任务();
+} else if (命令 === '状态') {
+  状态 = 加载状态();
+  console.log(JSON.stringify(状态, null, 2));
+} else if (命令 === '启用') {
+  启用频率(参数1);
+} else if (命令 === '禁用') {
+  禁用频率(参数1);
+} else if (命令 === '修改') {
+  if (!参数1 || !参数2) {
+    console.error('用法: node Cron调度器.js 修改 <频率键> <cron表达式>');
     process.exit(1);
   }
-  changeFrequency(arg1, arg2);
-} else if (command === 'emergency') {
-  if (!arg1) {
-    console.error('Usage: node cron-scheduler.js emergency <type> [data]');
-    console.error('Types:', Object.keys(EMERGENCY_TASKS).join(', '));
+  修改频率(参数1, 参数2);
+} else if (命令 === '紧急') {
+  if (!参数1) {
+    console.error('用法: node Cron调度器.js 紧急 <类型> [数据]');
+    console.error('类型:', Object.keys(紧急任务配置).join(', '));
     process.exit(1);
   }
-  enqueueEmergency(arg1, arg2 || {});
-} else if (command === 'list') {
-  console.log('Perception Cron Config:');
-  Object.entries(PERCEPTION_CRON_CONFIG).forEach(([key, config]) => {
-    console.log(`  ${key}: ${config.cronExpr} - ${config.description}`);
+  加入紧急队列(参数1, 参数2 || {});
+} else if (命令 === '列表') {
+  console.log('感知调度配置:');
+  Object.entries(感知调度配置).forEach(([键, 配置]) => {
+    console.log(`  ${键}: ${配置.cron表达式} - ${配置.描述}`);
   });
-  console.log('\nEmergency Types:');
-  Object.entries(EMERGENCY_TASKS).forEach(([key, config]) => {
-    console.log(`  ${key}: P${config.priority} - ${config.description}`);
+  console.log('\n紧急任务类型:');
+  Object.entries(紧急任务配置).forEach(([键, 配置]) => {
+    console.log(`  ${键}: P${配置.优先级} - ${配置.描述}`);
   });
 } else {
   console.log(`
-Cron Scheduler
+Cron调度器
 
-Usage:
-  node cron-scheduler.js start                   Start all cron jobs
-  node cron-scheduler.js stop                    Stop all cron jobs
-  node cron-scheduler.js status                 Show current state
-  node cron-scheduler.js enable <frequency>     Enable frequency (high/medium/low)
-  node cron-scheduler.js disable <frequency>     Disable frequency
-  node cron-scheduler.js change <key> <expr>    Change cron expression
-  node cron-scheduler.js emergency <type> [data] Enqueue emergency task
-  node cron-scheduler.js list                   List all configs
+用法:
+  node Cron调度器.js 启动                启动所有Cron任务
+  node Cron调度器.js 停止               停止所有Cron任务
+  node Cron调度器.js 状态              显示当前状态
+  node Cron调度器.js 启用 <频率>       启用频率 (高频繁/中频繁/低频繁)
+  node Cron调度器.js 禁用 <频率>       禁用频率
+  node Cron调度器.js 修改 <键> <表达式> 修改cron表达式
+  node Cron调度器.js 紧急 <类型> [数据] 入队紧急任务
+  node Cron调度器.js 列表              列出所有配置
+
+频率键: 高频繁, 中频繁, 低频繁
+紧急类型: 系统危急, 紧急需求, 执行卡住
 `);
 }
 
 module.exports = {
-  startAllJobs,
-  stopAllJobs,
-  enableFrequency,
-  disableFrequency,
-  changeFrequency,
-  enqueueEmergency,
-  triggerPerceptionLoop,
-  triggerEmergencyLoop,
-  PERCEPTION_CRON_CONFIG,
-  EMERGENCY_TASKS
+  启动全部任务,
+  停止全部任务,
+  启用频率,
+  禁用频率,
+  修改频率,
+  加入紧急队列,
+  触发感知循环,
+  触发紧急循环,
+  感知调度配置,
+  紧急任务配置
 };

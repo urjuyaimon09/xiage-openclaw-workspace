@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * awareness-agent.js - 意识循环状态控制器
+ * 意识主体.js - 意识循环状态控制器
  * 
  * 职责（纯数据管理，不执行任何 Prompt）：
  * - 意识循环状态维护（当前阶段/触发类型/阶段输出）
- * - 阶段流转控制（跳进/恢复/推进）
+ * - 阶段流转控制（跳转/恢复/推进）
  * - 状态查询和展示
  * 
  * 设计原则：
@@ -13,13 +13,13 @@
  * - Prompt 执行由 OpenClaw Agent Loop 本身处理
  * 
  * 用法：
- *   node awareness-agent.js status                    查看当前状态
- *   node awareness-agent.js current                  查看当前阶段
- *   node awareness-agent.js next                    推进到下一阶段
- *   node awareness-agent.js jump <phase>           跳转到指定阶段
- *   node awareness-agent.js resume                自动恢复（断点续执）
- *   node awareness-agent.js clear                  清理循环状态
- *   node awareness-agent.js render <model>        渲染指定模型 Prompt（调用 prompt-renderer）
+ *   node 意识主体.js 状态                    查看当前状态
+ *   node 意识主体.js 当前                    查看当前阶段
+ *   node 意识主体.js 下一                  推进到下一阶段
+ *   node 意识主体.js 跳转 <阶段>           跳转到指定阶段
+ *   node 意识主体.js 恢复                自动恢复（断点续执）
+ *   node 意识主体.js 清理                  清理循环状态
+ *   node 意识主体.js 渲染 <模型>          渲染指定模型 Prompt
  */
 
 const path = require('path');
@@ -27,179 +27,191 @@ const fs = require('fs');
 const { execSync } = require('child_process');
 
 const WORKSPACE = path.join(__dirname, '..');
-const LOOP_STATE_FILE = path.join(WORKSPACE, 'memory', 'hot', 'loop-state.json');
+const 循环状态文件 = path.join(WORKSPACE, 'memory', 'hot', 'loop-state.json');
 
 // 阶段映射
-const PHASES = {
-  1: 'perception',
-  2: 'demand',
-  3: 'acceptance',
-  4: 'plan',
-  5: 'execution',
-  6: 'feedback'
+const 阶段映射 = {
+  1: '感知',
+  2: '需求',
+  3: '承接',
+  4: '计划',
+  5: '执行',
+  6: '反馈'
 };
 
-const NEXT_PHASE = {
+const 下一阶段映射 = {
   1: 2, 2: 3, 3: 4, 4: 5, 5: 6, 6: null
 };
 
 // ─────────────────────────────────────────
 // 状态读写
 // ─────────────────────────────────────────
-function loadState() {
-  if (fs.existsSync(LOOP_STATE_FILE)) {
-    return JSON.parse(fs.readFileSync(LOOP_STATE_FILE, 'utf8'));
+function 加载状态() {
+  if (fs.existsSync(循环状态文件)) {
+    return JSON.parse(fs.readFileSync(循环状态文件, 'utf8'));
   }
   return null;
 }
 
-function saveState(state) {
-  const dir = path.dirname(LOOP_STATE_FILE);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+function 保存状态(状态) {
+  const 目录 = path.dirname(循环状态文件);
+  if (!fs.existsSync(目录)) {
+    fs.mkdirSync(目录, { recursive: true });
   }
-  fs.writeFileSync(LOOP_STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
+  fs.writeFileSync(循环状态文件, JSON.stringify(状态, null, 2), 'utf8');
 }
 
-function clearState() {
-  if (fs.existsSync(LOOP_STATE_FILE)) {
-    fs.unlinkSync(LOOP_STATE_FILE);
+function 清理状态() {
+  if (fs.existsSync(循环状态文件)) {
+    fs.unlinkSync(循环状态文件);
   }
 }
 
 // ─────────────────────────────────────────
 // 状态查询
 // ─────────────────────────────────────────
-function showStatus() {
-  const state = loadState();
-  if (!state) {
-    console.log('No active loop');
+function 显示状态() {
+  const 状态 = 加载状态();
+  if (!状态) {
+    console.log('无运行中的循环');
     return;
   }
-  console.log(JSON.stringify(state, null, 2));
+  console.log(JSON.stringify(状态, null, 2));
 }
 
-function showCurrent() {
-  const state = loadState();
-  if (!state) {
-    console.log('No active loop');
+function 显示当前() {
+  const 状态 = 加载状态();
+  if (!状态) {
+    console.log('无运行中的循环');
     return;
   }
-  console.log(`Loop: ${state.loopId}`);
-  console.log(`Phase: ${state.currentPhase} (${PHASES[state.currentPhase]})`);
-  console.log(`Trigger: ${state.triggerType}`);
-  console.log(`Started: ${state.startTime}`);
-  console.log('\nPhase outputs:');
-  Object.keys(state.phaseOutputs || {}).forEach(key => {
-    const output = state.phaseOutputs[key];
-    const summary = typeof output === 'object' 
-      ? JSON.stringify(output).slice(0, 100) + '...'
-      : output;
-    console.log(`  ${key}: ${summary}`);
+  console.log(`循环ID: ${状态.循环ID}`);
+  console.log(`当前阶段: ${状态.当前阶段} (${阶段映射[状态.当前阶段]})`);
+  console.log(`触发类型: ${状态.触发类型}`);
+  console.log(`开始时间: ${状态.开始时间}`);
+  console.log('\n阶段输出:');
+  Object.keys(状态.阶段输出 || {}).forEach(键 => {
+    const 输出 = 状态.阶段输出[键];
+    const 摘要 = typeof 输出 === 'object' 
+      ? JSON.stringify(输出).slice(0, 100) + '...'
+      : 输出;
+    console.log(`  ${键}: ${摘要}`);
   });
 }
 
 // ─────────────────────────────────────────
 // 阶段流转
 // ─────────────────────────────────────────
-function nextPhase() {
-  const state = loadState();
-  if (!state) {
-    console.log('No active loop');
+function 下一阶段() {
+  const 状态 = 加载状态();
+  if (!状态) {
+    console.log('无运行中的循环');
     return;
   }
   
-  const current = state.currentPhase;
-  const next = NEXT_PHASE[current];
+  const 当前 = 状态.当前阶段;
+  const 下一 = 下一阶段映射[当前];
   
-  if (!next) {
-    console.log(`Phase ${current} (${PHASES[current]}) is final - loop complete`);
-    clearState();
-    console.log('Loop state cleared');
+  if (!下一) {
+    console.log(`阶段 ${当前} (${阶段映射[当前]}) 是最后阶段 - 循环完成`);
+    清理状态();
+    console.log('循环状态已清理');
     return;
   }
   
-  state.currentPhase = next;
-  saveState(state);
-  console.log(`Advanced: ${current} → ${next} (${PHASES[next]})`);
+  状态.当前阶段 = 下一;
+  保存状态(状态);
+  console.log(`已推进: ${当前} → ${下一} (${阶段映射[下一]})`);
 }
 
-function jumpToPhase(targetPhase) {
-  const state = loadState();
-  if (!state) {
-    console.log('No active loop');
+function 跳转至阶段(目标阶段) {
+  const 状态 = 加载状态();
+  if (!状态) {
+    console.log('无运行中的循环');
     return;
   }
   
-  if (!PHASES[targetPhase]) {
-    console.log(`Invalid phase: ${targetPhase}. Valid: 1-6`);
+  if (!阶段映射[目标阶段]) {
+    console.log(`无效阶段: ${目标阶段}。有效值: 1-6`);
     return;
   }
   
-  state.currentPhase = targetPhase;
-  saveState(state);
-  console.log(`Jumped to phase ${targetPhase} (${PHASES[targetPhase]})`);
+  状态.当前阶段 = 目标阶段;
+  保存状态(状态);
+  console.log(`已跳转至阶段 ${目标阶段} (${阶段映射[目标阶段]})`);
 }
 
-function autoResume() {
-  const state = loadState();
-  if (!state) {
-    console.log('No active loop');
+function 自动恢复() {
+  const 状态 = 加载状态();
+  if (!状态) {
+    console.log('无运行中的循环');
     return;
   }
   
-  const trigger = state.triggerType;
-  let targetPhase;
+  const 触发 = 状态.触发类型;
+  let 目标阶段;
   
-  if (trigger === 'executionBlock') {
-    // 执行卡住 → 从执行恢复
-    targetPhase = 5;
-    console.log(`Auto-resume: execution block → phase ${targetPhase}`);
-  } else if (trigger === 'demandChange') {
-    // 需求变化 → 从承接恢复
-    targetPhase = 3;
-    console.log(`Auto-resume: demand changed → phase ${targetPhase}`);
+  if (触发 === '执行卡住') {
+    目标阶段 = 5;
+    console.log(`自动恢复: 执行卡住 → 阶段 ${目标阶段}`);
+  } else if (触发 === '需求变化') {
+    目标阶段 = 3;
+    console.log(`自动恢复: 需求变化 → 阶段 ${目标阶段}`);
   } else {
-    // 默认推进到下一阶段
-    targetPhase = NEXT_PHASE[state.currentPhase];
-    if (!targetPhase) {
-      console.log('Already at final phase');
+    目标阶段 = 下一阶段映射[状态.当前阶段];
+    if (!目标阶段) {
+      console.log('已处于最后阶段');
       return;
     }
-    console.log(`Auto-resume: continue → phase ${targetPhase}`);
+    console.log(`自动恢复: 继续 → 阶段 ${目标阶段}`);
   }
   
-  state.currentPhase = targetPhase;
-  saveState(state);
-  console.log(`Resumed at phase ${targetPhase} (${PHASES[targetPhase]})`);
+  状态.当前阶段 = 目标阶段;
+  保存状态(状态);
+  console.log(`已从阶段 ${阶段映射[目标阶段]} 恢复`);
 }
 
 // ─────────────────────────────────────────
 // Prompt 渲染（仅渲染，不执行）
 // ─────────────────────────────────────────
-function renderPrompt(model) {
-  const rendererPath = path.join(WORKSPACE, 'scripts', 'prompt-renderer.js');
+function 渲染Prompt(模型) {
+  const 渲染器路径 = path.join(WORKSPACE, 'scripts', 'prompt-renderer.js');
   
   try {
-    const state = loadState();
-    const context = {
-      objective: { context: state?.objective || {} },
-      triggerType: state?.triggerType || 'userInput',
-      phaseOutputs: state?.phaseOutputs || {},
-      recentMemoryLimit: 5,
-      longTermMemoryLimit: 3,
-      scene: state?.objective?.perceptionType || 'general'
+    const 状态 = 加载状态();
+    
+    // 中文键名上下文（渲染器模板用）
+    const 上下文中文 = {
+      目标: { 上下文: 状态?.目标 || {} },
+      触发类型: 状态?.触发类型 || '用户输入',
+      阶段输出: 状态?.阶段输出 || {},
+      最近记忆限制: 5,
+      长时记忆限制: 3,
+      场景: 状态?.目标?.感知类型 || '通用'
     };
     
-    const rendered = execSync(
-      `node "${rendererPath}" render ${model} '${JSON.stringify(context).replace(/'/g, "'\"'\"'")}'`,
+    // 英文键名上下文（兼容模板变量）
+    const 上下文 = {
+      objective: { context: 状态?.目标 || {} },
+      triggerType: 状态?.触发类型 || '用户输入',
+      phaseOutputs: 状态?.阶段输出 || {},
+      recentMemoryLimit: 5,
+      longTermMemoryLimit: 3,
+      scene: 状态?.目标?.感知类型 || '通用'
+    };
+    
+    // 合并中英文键
+    const 完整上下文 = { ...上下文中文, ...上下文 };
+    
+    const 渲染结果 = execSync(
+      `node "${渲染器路径}" 渲染 ${模型} '${JSON.stringify(完整上下文).replace(/'/g, "'\"'\"'")}'`,
       { cwd: WORKSPACE, encoding: 'utf8', timeout: 10000 }
     );
     
-    console.log(rendered);
-    return rendered;
+    console.log(渲染结果);
+    return 渲染结果;
   } catch (e) {
-    console.error(`Render failed: ${e.message}`);
+    console.error(`渲染失败: ${e.message}`);
     return null;
   }
 }
@@ -207,70 +219,70 @@ function renderPrompt(model) {
 // ─────────────────────────────────────────
 // CLI
 // ─────────────────────────────────────────
-const [,, command, arg1] = process.argv;
+const [,, 命令, 参数1] = process.argv;
 
-if (command === 'status') {
-  showStatus();
-} else if (command === 'current') {
-  showCurrent();
-} else if (command === 'next') {
-  nextPhase();
-} else if (command === 'jump') {
-  const phase = parseInt(arg1);
-  if (!phase) {
-    console.error('Usage: node awareness-agent.js jump <phase(1-6)>');
+if (命令 === '状态') {
+  显示状态();
+} else if (命令 === '当前') {
+  显示当前();
+} else if (命令 === '下一') {
+  下一阶段();
+} else if (命令 === '跳转') {
+  const 阶段 = parseInt(参数1);
+  if (!阶段) {
+    console.error('用法: node 意识主体.js 跳转 <阶段(1-6)>');
     process.exit(1);
   }
-  jumpToPhase(phase);
-} else if (command === 'resume') {
-  autoResume();
-} else if (command === 'clear') {
-  clearState();
-  console.log('Loop state cleared');
-} else if (command === 'render') {
-  const model = arg1 || 'perception';
-  if (!['perception', 'demand', 'acceptance', 'plan', 'execution', 'feedback'].includes(model)) {
-    console.error(`Invalid model: ${model}`);
+  跳转至阶段(阶段);
+} else if (命令 === '恢复') {
+  自动恢复();
+} else if (命令 === '清理') {
+  清理状态();
+  console.log('循环状态已清理');
+} else if (命令 === '渲染') {
+  const 模型 = 参数1 || '感知';
+  if (!['感知', '需求', '承接', '计划', '执行', '反馈'].includes(模型)) {
+    console.error(`无效模型: ${模型}`);
     process.exit(1);
   }
-  renderPrompt(model);
+  渲染Prompt(模型);
 } else {
   console.log(`
-Awareness Agent - 意识循环状态控制器
+意识主体 - 意识循环状态控制器
 
 职责：纯数据管理，不执行 Prompt
 
-Usage:
-  node awareness-agent.js status    # 查看完整状态
-  node awareness-agent.js current   # 查看当前阶段
-  node awareness-agent.js next      # 推进到下一阶段
-  node awareness-agent.js jump <n>  # 跳转到指定阶段(1-6)
-  node awareness-agent.js resume    # 自动恢复（根据触发类型）
-  node awareness-agent.js clear    # 清理循环状态
-  node awareness-agent.js render <model>  # 渲染 Prompt（不执行）
+用法:
+  node 意识主体.js 状态    查看完整状态
+  node 意识主体.js 当前   查看当前阶段
+  node 意识主体.js 下一   推进到下一阶段
+  node 意识主体.js 跳转 <n> 跳转到指定阶段(1-6)
+  node 意识主体.js 恢复   自动恢复（根据触发类型）
+  node 意识主体.js 清理  清理循环状态
+  node 意识主体.js 渲染 <模型> 渲染 Prompt（不执行）
 
-Phase mapping:
-  1: perception
-  2: demand
-  3: acceptance
-  4: plan
-  5: execution
-  6: feedback
+阶段映射:
+  1: 感知
+  2: 需求
+  3: 承接
+  4: 计划
+  5: 执行
+  6: 反馈
 
-Note: Prompt 执行由 OpenClaw Agent Loop 本身处理
+注意: Prompt 执行由 OpenClaw Agent Loop 本身处理
 `);
 }
 
 module.exports = {
-  loadState,
-  saveState,
-  clearState,
-  showStatus,
-  showCurrent,
-  nextPhase,
-  jumpToPhase,
-  autoResume,
-  renderPrompt,
-  PHASES,
-  NEXT_PHASE
+  加载状态,
+  保存状态,
+  清理状态,
+  显示状态,
+  显示当前,
+  下一阶段,
+  跳转至阶段,
+  自动恢复,
+  渲染Prompt,
+  阶段映射,
+  下一阶段映射
 };

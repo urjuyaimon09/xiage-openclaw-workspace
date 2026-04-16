@@ -1,183 +1,174 @@
 #!/usr/bin/env node
 /**
- * prompt-renderer.js - Prompt模板渲染器
+ * Prompt渲染器.js - Prompt模板渲染器
  * 
  * 功能：模板 + 上下文 → 完整Prompt字符串
- * 模板位置：prompts/<model>-prompt.md
+ * 模板位置：prompts/<模型>-prompt.md
  * 
  * 用法：
- *   node prompt-renderer.js render <model> <contextJSON>
+ *   node Prompt渲染器.js 渲染 <模型> <上下文JSON>
  */
 
 const fs = require('fs');
 const path = require('path');
 
 const WORKSPACE = path.join(__dirname, '..');
-const PROMPTS_DIR = path.join(WORKSPACE, 'prompts');
-const IMPLICIT_MEMORY_FILE = path.join(WORKSPACE, 'config', 'implicit-memory.json');
-const LOOP_STATE_FILE = path.join(WORKSPACE, 'memory', 'hot', 'loop-state.json');
-const MEMORY_HOT_FILE = path.join(WORKSPACE, 'memory', 'hot', 'current.md');
+const 模板目录 = path.join(WORKSPACE, 'prompts');
+const 内隐记忆文件 = path.join(WORKSPACE, 'config', 'implicit-memory.json');
+const 循环状态文件 = path.join(WORKSPACE, 'memory', 'hot', 'loop-state.json');
+const 热记忆文件 = path.join(WORKSPACE, 'memory', 'hot', 'current.md');
 
 // ─────────────────────────────────────────
 // 模型记忆读写权限（三层记忆按需加载）
 // ─────────────────────────────────────────
-
-const MODEL_READ_PERMISSIONS = {
-  perception: ['perceptionLog', 'majorEvents', 'recentMemory'],
-  demand: ['demandPool', 'goalState', 'recentMemory'],
-  acceptance: ['capabilityBoundary', 'acceptanceHistory', 'recentMemory'],
-  plan: ['wbsTemplates', 'milestoneHistory', 'longTermMemory'],
-  execution: ['executionState', 'implicitMemory'],
-  feedback: ['all']
+const 模型读权限 = {
+  感知: ['感知日志', '重大事件', '最近记忆'],
+  需求: ['需求池', '目标状态', '最近记忆'],
+  承接: ['能力边界', '承接历史', '最近记忆'],
+  计划: ['计划模板', '里程碑历史', '长时记忆'],
+  执行: ['执行状态', '内隐记忆'],
+  反馈: ['全部']
 };
 
-function canReadMemory(model, memoryType) {
-  const allowed = MODEL_READ_PERMISSIONS[model] || [];
-  return allowed.includes('all') || allowed.includes(memoryType);
+function 可读记忆(模型, 记忆类型) {
+  const 允许列表 = 模型读权限[模型] || [];
+  return 允许列表.includes('全部') || 允许列表.includes(记忆类型);
 }
 
 // ─────────────────────────────────────────
 // 记忆加载
 // ─────────────────────────────────────────
-function loadImplicitMemory() {
-  if (fs.existsSync(IMPLICIT_MEMORY_FILE)) {
-    return JSON.parse(fs.readFileSync(IMPLICIT_MEMORY_FILE, 'utf8'));
+function 加载内隐记忆() {
+  if (fs.existsSync(内隐记忆文件)) {
+    return JSON.parse(fs.readFileSync(内隐记忆文件, 'utf8'));
   }
   return null;
 }
 
-function loadLoopState() {
-  if (fs.existsSync(LOOP_STATE_FILE)) {
-    return JSON.parse(fs.readFileSync(LOOP_STATE_FILE, 'utf8'));
+function 加载循环状态() {
+  if (fs.existsSync(循环状态文件)) {
+    return JSON.parse(fs.readFileSync(循环状态文件, 'utf8'));
   }
   return null;
 }
 
-function loadRecentMemory(limit = 5) {
-  // 加载记忆快照（轻量化，仅取关键信息）
-  if (!fs.existsSync(MEMORY_HOT_FILE)) {
+function 加载最近记忆(限制 = 5) {
+  if (!fs.existsSync(热记忆文件)) {
     return [];
   }
-  const content = fs.readFileSync(MEMORY_HOT_FILE, 'utf8');
-  // 提取关键结论（简化处理）
-  const lines = content.split('\n').filter(l => l.startsWith('- '));
-  return lines.slice(-limit);
+  const 内容 = fs.readFileSync(热记忆文件, 'utf8');
+  const 行列表 = 内容.split('\n').filter(l => l.startsWith('- '));
+  return 行列表.slice(-限制);
 }
 
-function loadLongTermMemory(scene, limit = 3) {
-  // 按场景检索长时记忆（未来对接向量数据库）
-  // 当前版本：扫描memory目录，返回相关条目
-  const memoryDir = path.join(WORKSPACE, 'memory');
-  if (!fs.existsSync(memoryDir)) return [];
+function 加载长时记忆(场景, 限制 = 3) {
+  const 记忆目录 = path.join(WORKSPACE, 'memory');
+  if (!fs.existsSync(记忆目录)) return [];
   
-  // 简化：返回最近的记忆文件摘要
-  const memFiles = fs.readdirSync(memoryDir).filter(f => f.endsWith('.md'));
-  const recent = memFiles.slice(-limit);
-  return recent.map(f => {
-    const content = fs.readFileSync(path.join(memoryDir, f), 'utf8');
-    return { file: f, preview: content.slice(0, 200) };
+  const 记忆文件 = fs.readdirSync(记忆目录).filter(f => f.endsWith('.md'));
+  const 最近 = 记忆文件.slice(-限制);
+  return 最近.map(f => {
+    const 内容 = fs.readFileSync(path.join(记忆目录, f), 'utf8');
+    return { 文件: f, 预览: 内容.slice(0, 200) };
   });
 }
 
 // ─────────────────────────────────────────
 // 模板渲染
 // ─────────────────────────────────────────
-function loadTemplate(model) {
-  const templatePath = path.join(PROMPTS_DIR, `${model}-prompt.md`);
-  if (!fs.existsSync(templatePath)) {
+function 加载模板(模型) {
+  const 模板路径 = path.join(模板目录, `${模型}-prompt.md`);
+  if (!fs.existsSync(模板路径)) {
     return null;
   }
-  return fs.readFileSync(templatePath, 'utf8');
+  return fs.readFileSync(模板路径, 'utf8');
 }
 
-function interpolate(template, context) {
-  // 简单变量替换：{{variable}} → context.value
-  return template.replace(/\{\{(\w+(?:\.\w+)*)\}\}/g, (match, key) => {
-    const keys = key.split('.');
-    let value = context;
-    for (const k of keys) {
-      value = value?.[k];
+function 替换变量(模板, 上下文) {
+  return 模板.replace(/\{\{(\w+(?:\.\w+)*)\}\}/g, (匹配, 键) => {
+    const 键列表 = 键.split('.');
+    let 值 = 上下文;
+    for (const k of 键列表) {
+      值 = 值?.[k];
     }
-    return value !== undefined ? String(value) : match;
+    return 值 !== undefined ? String(值) : 匹配;
   });
 }
 
-function renderPrompt(model, context) {
-  const template = loadTemplate(model);
-  if (!template) {
-    throw new Error(`Template not found: ${model}`);
+function 渲染Prompt(模型, 上下文) {
+  const 模板 = 加载模板(模型);
+  if (!模板) {
+    throw new Error(`模板不存在: ${模型}`);
   }
   
   // 按权限加载记忆
-  const implicitMemory = canReadMemory(model, 'implicitMemory') ? loadImplicitMemory() : null;
-  const loopState = loadLoopState();
-  const recentMemory = canReadMemory(model, 'recentMemory') ? loadRecentMemory(context.recentMemoryLimit || 5) : [];
-  const longTermMemory = canReadMemory(model, 'longTermMemory') ? loadLongTermMemory(context.scene, context.longTermMemoryLimit || 3) : [];
+  const 内隐记忆 = 可读记忆(模型, '内隐记忆') ? 加载内隐记忆() : null;
+  const 循环状态 = 加载循环状态();
+  const 最近记忆 = 可读记忆(模型, '最近记忆') ? 加载最近记忆(上下文.最近记忆限制 || 5) : [];
+  const 长时记忆 = 可读记忆(模型, '长时记忆') ? 加载长时记忆(上下文.场景, 上下文.长时记忆限制 || 3) : [];
   
-  const fullContext = {
-    ...context,
-    implicitMemory,
-    loopState,
-    recentMemory,
-    longTermMemory,
-    renderTime: new Date().toISOString(),
-    memoryPermissions: MODEL_READ_PERMISSIONS[model] || []
+  const 完整上下文 = {
+    ...上下文,
+    内隐记忆,
+    循环状态,
+    最近记忆,
+    长时记忆,
+    渲染时间: new Date().toISOString()
   };
   
   // 渲染
-  let rendered = interpolate(template, fullContext);
+  let 结果 = 替换变量(模板, 完整上下文);
   
-  // 处理条件区块：{{#if condition}}...{{/if}}
-  rendered = rendered.replace(/\{\{#if (\w+)\}\}([\s\S]*?)\{\{\/if\}\}/g, (match, key, content) => {
-    const keys = key.split('.');
-    let value = fullContext;
-    for (const k of keys) {
-      value = value?.[k];
+  // 处理条件区块：{{#if 条件}}...{{/if}}
+  结果 = 结果.replace(/\{\{#if (\w+)\}\}([\s\S]*?)\{\{\/if\}\}/g, (匹配, 键, 内容) => {
+    const 键列表 = 键.split('.');
+    let 值 = 完整上下文;
+    for (const k of 键列表) {
+      值 = 值?.[k];
     }
-    return value ? content : '';
+    return 值 ? 内容 : '';
   });
   
-  return rendered;
+  return 结果;
 }
 
 // ─────────────────────────────────────────
 // CLI 入口
 // ─────────────────────────────────────────
-const [,, command, arg1, arg2] = process.argv;
+const [,, 命令, 参数1, 参数2] = process.argv;
 
-if (command === 'render') {
-  const model = arg1;
-  const contextJSON = arg2 || '{}';
+if (命令 === '渲染') {
+  const 模型 = 参数1;
+  const 上下文JSON = 参数2 || '{}';
   
   try {
-    const context = JSON.parse(contextJSON);
-    const rendered = renderPrompt(model, context);
-    console.log(rendered);
+    const 上下文 = JSON.parse(上下文JSON);
+    const 结果 = 渲染Prompt(模型, 上下文);
+    console.log(结果);
   } catch (e) {
-    console.error('Error:', e.message);
+    console.error('错误:', e.message);
     process.exit(1);
   }
-} else if (command === 'list') {
-  // 列出所有可用模板
-  if (!fs.existsSync(PROMPTS_DIR)) {
-    console.log('No prompts directory found');
+} else if (命令 === '列表') {
+  if (!fs.existsSync(模板目录)) {
+    console.log('无模板目录');
     return;
   }
-  const files = fs.readdirSync(PROMPTS_DIR).filter(f => f.endsWith('-prompt.md'));
-  console.log('Available templates:');
-  files.forEach(f => console.log(`  - ${f.replace('-prompt.md', '')}`));
+  const 文件列表 = fs.readdirSync(模板目录).filter(f => f.endsWith('-prompt.md'));
+  console.log('可用模板:');
+  文件列表.forEach(f => console.log(`  - ${f.replace('-prompt.md', '')}`));
 } else {
   console.log(`
-Prompt Renderer
+Prompt渲染器
 
-Usage:
-  node prompt-renderer.js render <model> <contextJSON>
-  node prompt-renderer.js list
+用法:
+  node Prompt渲染器.js 渲染 <模型> <上下文JSON>
+  node Prompt渲染器.js 列表
 
-Examples:
-  node prompt-renderer.js render perception '{"rawData": "用户输入"}'
-  node prompt-renderer.js list
+示例:
+  node Prompt渲染器.js 渲染 感知 '{"原始数据": "用户输入"}'
+  node Prompt渲染器.js 列表
 `);
 }
 
-module.exports = { renderPrompt, loadTemplate, MODEL_READ_PERMISSIONS, canReadMemory };
+module.exports = { 渲染Prompt, 加载模板, 模型读权限, 可读记忆 };

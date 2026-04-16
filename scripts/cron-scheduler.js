@@ -115,6 +115,12 @@ function cron表达式转毫秒(cron表达式) {
   
   const [分钟, 小时, , , 周几] = parts;
   
+  // 每10分钟
+  if (分钟.startsWith('*/')) {
+    const 间隔 = parseInt(分钟.substring(2));
+    return 间隔 * 60 * 1000;
+  }
+  
   if (分钟 === '0' && 小时 === '*' && 周几 === '*') {
     return 60 * 60 * 1000;
   }

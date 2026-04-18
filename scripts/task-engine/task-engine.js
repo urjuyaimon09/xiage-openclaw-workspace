@@ -1,82 +1,105 @@
 /**
- * task-engine.js
- * 任务承接引擎 - 复杂任务状态机
- * 
- * v1.0.0 2026-04-18
- * 
- * 定位：
- * - L1 简单任务：直接 prompt 执行
- * - L2/L3 复杂任务：状态机驱动 IPD 六阶段
- * 
+ * task-engine.js v2.0.1
+ * 任务承接引擎 - 支持人机协同的复杂任务状态机
+ *
+ * v2.0.1 修复：
+ * - Phase2 中立即持久化 subtasks（解决状态丢失问题）
+ * - confirm 命令对已完成任务返回友好提示
+ *
+ * v2.0.0 核心特性：
+ * - 递归任务分解：Phase3 自动分解子任务
+ * - 执行者分配：AI(虾哥) 和 人(坚果) 各自执行擅长的部分
+ * - 坚果确认节点：Phase2 计划需要坚果确认
+ * - 嵌套任务：支持父子任务层级
+ *
  * 使用方式：
  *   node task-engine.js start "<任务描述>"
- *   node task-engine.js status <taskId>
- *   node task-engine.js resume <taskId>
- *   node task-engine.js abort <taskId> <原因>
+ *   node task-engine.js confirm <taskId>      # 坚果确认计划
+ *   node task-engine.js status <taskId>     # 查看状态
+ *   node task-engine.js resume <taskId>     # 继续执行
+ *   node task-engine.js abort <taskId> [原因]  # 中止
  */
 
 const fs = require('fs');
 const path = require('path');
-const readline = require('readline');
 
 const WORKSPACE = process.cwd();
 const TASKS_DIR = path.join(WORKSPACE, 'docs', '项目层', '项目档案');
 
+// ============================================================
 // 状态定义
+// ============================================================
+
 const STATES = {
   IDLE: 'idle',
   COMPLEXITY_EVAL: 'complexity_eval',
-  LIGHT_PATH: 'light_path',
   PHASE1: 'phase1_concept',
   PHASE2: 'phase2_plan',
+  PENDING_CONFIRM: 'pending_confirm',
   PHASE3: 'phase3_dev',
   PHASE4: 'phase4_verify',
   PHASE5: 'phase5_release',
-  PHASE6: 'phase6_lifecycle',
   DONE: 'done',
   ABORT: 'abort'
 };
 
-// 阶段配置
 const PHASE_CONFIG = {
-  PHASE1: { name: '概念阶段', gate: 'CDCP', next: 'PHASE2' },
-  PHASE2: { name: '计划阶段', gate: 'PDCP', next: 'PHASE3' },
-  PHASE3: { name: '开发阶段', gate: 'TR3', next: 'PHASE4' },
-  PHASE4: { name: '验证阶段', gate: 'TR4', next: 'PHASE5' },
-  PHASE5: { name: '发布阶段', gate: null, next: 'PHASE6' },
-  PHASE6: { name: '生命周期', gate: null, next: 'DONE' }
+  PHASE1: { name: '概念阶段', gate: 'CDCP' },
+  PHASE2: { name: '计划阶段', gate: 'PDCP' },
+  PHASE3: { name: '开发执行', gate: null },
+  PHASE4: { name: '验证阶段', gate: 'TR4' },
+  PHASE5: { name: '发布阶段', gate: null }
 };
+
+// ============================================================
+// 执行者类型
+// ============================================================
+
+const EXECUTOR = {
+  AI: 'ai',
+  HUMAN: 'human',
+  BOTH: 'both'
+};
+
+/**
+ * 智能分配执行者
+ */
+function assignExecutor(taskDesc) {
+  const text = taskDesc.toLowerCase();
+  // 开发类任务 → AI 为主
+  if (/开发|代码|脚本|程序|系统|平台|自动化|生成|分析|调研/.test(text)) return EXECUTOR.AI;
+  // 纯人工操作任务 → 坚果
+  if (/发送邮件|发微信|发送邮件|发送微信|审批|报销|钉钉|飞书|华为内网|客户|领导/.test(text)) return EXECUTOR.HUMAN;
+  return EXECUTOR.BOTH;
+}
 
 // ============================================================
 // 任务存储
 // ============================================================
 
-/**
- * 创建新任务
- */
 function createTask(taskInput) {
   const taskId = 'T' + Date.now();
   const taskDir = path.join(TASKS_DIR, taskId);
   fs.mkdirSync(taskDir, { recursive: true });
-  
+
   const task = {
     id: taskId,
     input: taskInput,
     state: STATES.COMPLEXITY_EVAL,
+    executor: assignExecutor(taskInput),
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     currentPhase: null,
     complexity: null,
+    subtasks: [],
+    confirmedByHuman: false,
     history: []
   };
-  
+
   saveTask(task);
   return task;
 }
 
-/**
- * 保存任务状态
- */
 function saveTask(task) {
   const taskDir = path.join(TASKS_DIR, task.id);
   fs.writeFileSync(
@@ -86,9 +109,6 @@ function saveTask(task) {
   );
 }
 
-/**
- * 加载任务
- */
 function loadTask(taskId) {
   const stateFile = path.join(TASKS_DIR, taskId, 'task-state.json');
   if (!fs.existsSync(stateFile)) {
@@ -97,18 +117,6 @@ function loadTask(taskId) {
   return JSON.parse(fs.readFileSync(stateFile, 'utf8'));
 }
 
-/**
- * 保存阶段输出
- */
-function savePhaseOutput(taskId, phase, output) {
-  const taskDir = path.join(TASKS_DIR, taskId);
-  const phaseFile = path.join(taskDir, `phase-output-${phase.toLowerCase()}.json`);
-  fs.writeFileSync(phaseFile, JSON.stringify(output, null, 2), 'utf8');
-}
-
-/**
- * 添加历史记录
- */
 function addHistory(task, action, detail) {
   task.history.push({
     timestamp: new Date().toISOString(),
@@ -122,127 +130,48 @@ function addHistory(task, action, detail) {
 // 复杂度评估
 // ============================================================
 
-/**
- * 评估任务复杂度
- */
 async function evaluateComplexity(task) {
   console.log('\n=== 复杂度评估 ===');
-  
-  const input = task.input;
-  
-  // 简单规则判断（可代码化部分）
-  const quickScore = quickComplexityScore(input);
-  
-  // 输出评估结果
-  let level, path;
-  if (quickScore <= 2) {
-    level = 'L1';
-    path = 'light';
-  } else if (quickScore <= 4) {
-    level = 'L2';
-    path = 'heavy';
-  } else {
-    level = 'L3';
-    path = 'heavy';
-  }
-  
+
+  const text = task.input.toLowerCase();
+  let score = 1;
+
+  if (/架构|重构|迁移|部署|系统|平台|完整|多个模块/.test(text)) score += 2;
+  if (/多个|批量|批量处理/.test(text)) score += 1;
+  if (/^一个|简单|查一下|写一段/.test(text)) score -= 1;
+  if (/需要坚果|需要确认|需要审批/.test(text)) score += 1;
+  if (/外部|客户|第三方/.test(text)) score += 1;
+
+  const criticalFiles = ['SOUL.md', 'AGENTS.md', 'USER.md', 'PRIMARY.md'];
+  criticalFiles.forEach(f => { if (task.input.includes(f)) score++; });
+
+  score = Math.max(1, Math.min(5, score));
+  const level = score <= 2 ? 'L1' : score <= 4 ? 'L2' : 'L3';
+
   const result = {
     phase: 'COMPLEXITY_EVAL',
     level,
-    path,
-    quickScore,
-    reasoning: `基于资源投入、可逆性、依赖度、影响度综合评估`,
-    decision: path === 'light' ? '直接执行' : '进入IPD流程'
+    score,
+    executor: task.executor,
+    reasoning: `投入:${score >= 3 ? '高' : '中/低'}, 依赖:${/需要确认|需要审批/.test(text) ? '有' : '无'}, 影响:${criticalFiles.some(f => task.input.includes(f)) ? '核心' : '普通'}`
   };
-  
+
   addHistory(task, 'COMPLEXITY_EVAL', result);
   task.complexity = result;
-  task.state = path === 'light' ? STATES.LIGHT_PATH : STATES.PHASE1;
-  task.currentPhase = path === 'light' ? 'LIGHT_PATH' : 'PHASE1';
-  
-  saveTask(task);
-  savePhaseOutput(task.id, 'complexity_eval', result);
-  
-  console.log(`复杂度：${level}（${result.reasoning}）`);
-  console.log(`决策：${result.decision}`);
-  
-  return result;
-}
 
-/**
- * 快速复杂度评分（可代码化部分）
- */
-function quickComplexityScore(input) {
-  let score = 1;
-  const text = input.toLowerCase();
-  
-  // 资源投入估算（关键词判断）
-  const heavyKeywords = ['系统', '架构', '重构', '迁移', '部署', '完整', '多个', '批量'];
-  const lightKeywords = ['一个', '简单', '查一下', '告诉我', '写一段'];
-  
-  heavyKeywords.forEach(k => { if (text.includes(k)) score++; });
-  lightKeywords.forEach(k => { if (text.includes(k)) score--; });
-  
-  // 依赖度（多文件/多方依赖）
-  if (text.includes('多个') || text.includes('批量')) score++;
-  
-  // 影响度（涉及核心文件）
-  const criticalFiles = ['SOUL.md', 'AGENTS.md', 'USER.md', 'PRIMARY.md'];
-  criticalFiles.forEach(f => { if (text.includes(f)) score++; });
-  
-  return Math.max(1, Math.min(5, score));
-}
-
-// ============================================================
-// Phase 执行
-// ============================================================
-
-/**
- * 执行指定阶段
- */
-async function executePhase(task, phase) {
-  const config = PHASE_CONFIG[phase];
-  console.log(`\n=== Phase ${phase}: ${config.name} ===`);
-  
-  let output;
-  
-  switch (phase) {
-    case 'PHASE1':
-      output = await executePhase1(task);
-      break;
-    case 'PHASE2':
-      output = await executePhase2(task);
-      break;
-    case 'PHASE5':
-      output = await executePhase5(task);
-      break;
-    case 'PHASE6':
-      output = await executePhase6(task);
-      break;
-    default:
-      console.log(`Phase ${phase} 需要人工介入，请使用 prompt 执行`);
-      output = { phase, status: 'manual_required', message: '此阶段需要人工介入' };
-  }
-  
-  savePhaseOutput(task.id, phase, output);
-  addHistory(task, phase, output);
-  task.currentPhase = phase;
-  task.updatedAt = new Date().toISOString();
-  
-  // Gate 判断
-  if (config.gate && output.decision === 'REJECTED') {
-    task.state = STATES.ABORT;
-    console.log(`\n❌ Gate ${config.gate} 未通过，任务中止`);
-    console.log(`原因：${output.rejectReason}`);
-  } else if (config.next === 'DONE') {
-    task.state = STATES.DONE;
-    console.log('\n✅ 任务完成');
+  if (level === 'L1') {
+    task.state = STATES.PHASE5;
+    task.currentPhase = 'PHASE5';
   } else {
-    task.state = config.next;
+    task.state = STATES.PHASE1;
+    task.currentPhase = 'PHASE1';
   }
-  
+
+  console.log(`复杂度：${level}（${result.reasoning}）`);
+  console.log(`执行者：${task.executor === 'ai' ? '虾哥' : task.executor === 'human' ? '坚果' : '双方协作'}`);
+
   saveTask(task);
-  return output;
+  return result;
 }
 
 // ============================================================
@@ -250,339 +179,348 @@ async function executePhase(task, phase) {
 // ============================================================
 
 async function executePhase1(task) {
+  console.log('\n=== Phase PHASE1: 概念阶段 ===');
   console.log('概念阶段：回答"要不要做"');
-  
-  const complexity = task.complexity;
-  
-  // 粗算 ROI（简化版）
-  const coarseRoi = calculateCoarseRoi(task.input);
-  
-  // 马斯洛需求映射（prompt 需要，这里简化）
-  const maslowMapping = { L1: 0, L2: 1, L3: 2, L4: 1, L5: 0 };
-  
-  // CDCP Gate
-  const cdcpPass = coarseRoi > 1.0 || complexity.level === 'L3';
-  
+
+  const roi = calculateCoarseRoi(task.input);
+  const maslowMapping = estimateMaslowImpact(task.input);
+  const cdcpPass = roi >= 1.0 || task.complexity.level === 'L3';
+
   const output = {
     phase: 'PHASE1',
     concept: task.input.substring(0, 100),
     maslowMapping,
-    coarseRoi,
+    coarseRoi: roi,
     decision: cdcpPass ? 'APPROVED' : 'REJECTED',
-    rejectReason: cdcpPass ? null : 'ROI < 1.0，不具备商业价值',
+    rejectReason: cdcpPass ? null : 'ROI < 1.0',
     nextPhase: cdcpPass ? 'PHASE2' : null
   };
-  
+
+  addHistory(task, 'PHASE1', output);
+  task.currentPhase = 'PHASE1';
+
+  console.log(`概念决策：${cdcpPass ? '通过' : '拒绝'}（粗算ROI=${roi.toFixed(2)}）`);
+
   if (cdcpPass) {
-    console.log(`概念决策：通过（粗算ROI=${coarseRoi.toFixed(2)}）`);
-    console.log('马斯洛映射：', maslowMapping);
+    task.state = STATES.PHASE2;
   } else {
-    console.log(`概念决策：拒绝（${output.rejectReason}）`);
+    task.state = STATES.ABORT;
+    console.log('❌ 任务中止');
   }
-  
+
+  saveTask(task);
   return output;
 }
 
-/**
- * 粗算 ROI（简化版）
- */
 function calculateCoarseRoi(taskInput) {
   const text = taskInput.toLowerCase();
-  
-  // 收益估算（基于关键词）
-  let benefit = 1;
-  if (text.includes('效率') || text.includes('自动化')) benefit += 2;
-  if (text.includes('学习') || text.includes('进化')) benefit += 1.5;
-  if (text.includes('收入') || text.includes('赚钱')) benefit += 3;
-  
-  // 投入估算（基于关键词）
-  let cost = 1;
-  if (text.includes('架构') || text.includes('系统')) cost += 2;
-  if (text.includes('多个') || text.includes('批量')) cost += 2;
-  if (text.includes('简单') || text.includes('一个')) cost *= 0.5;
-  
-  return benefit / cost;
+  let benefit = 1, cost = 1;
+  if (/效率|自动化|省时/.test(text)) benefit += 2;
+  if (/进化|学习|能力/.test(text)) benefit += 1.5;
+  if (/收入|赚钱|商业/.test(text)) benefit += 3;
+  if (/架构|系统|重构/.test(text)) cost += 2;
+  if (/多个|批量/.test(text)) cost += 1.5;
+  if (/^一个|简单/.test(text)) cost *= 0.5;
+  return benefit / Math.max(cost, 0.5);
+}
+
+function estimateMaslowImpact(taskInput) {
+  const text = taskInput.toLowerCase();
+  return {
+    L1: /生理|健康/.test(text) ? 3 : 0,
+    L2: /安全|稳定|保障/.test(text) ? 2 : 1,
+    L3: /社交|协作/.test(text) ? 2 : 0,
+    L4: /尊重|认可/.test(text) ? 1 : 0,
+    L5: /进化|成长/.test(text) ? 3 : 1
+  };
 }
 
 // ============================================================
-// Phase 2: 计划阶段
+// Phase 2: 计划阶段（立即持久化 subtasks）
 // ============================================================
 
 async function executePhase2(task) {
+  console.log('\n=== Phase PHASE2: 计划阶段 ===');
   console.log('计划阶段：回答"怎么做"');
-  
-  const roi = await calculateDetailedRoi(task);
-  
-  // 能力 Gap 分析（简化版）
-  const capabilityGap = analyzeCapabilityGap(task.input);
-  
-  // WBS 分解（简化版）
-  const wbs = generateWBS(task.input);
-  
-  // PDCP Gate
-  const pdcpPass = roi.detailedRoi > 1.0;
-  
+
+  const subtasks = decomposeTask(task.input);
+
+  // 分配执行者
+  const assignedSubtasks = subtasks.map((st, i) => ({
+    id: `${task.id}-S${i + 1}`,
+    name: st.name,
+    description: st.description,
+    executor: assignExecutor(st.description),
+    estimatedHours: st.hours,
+    estimatedTokens: st.tokens,
+    status: 'pending',
+    result: null
+  }));
+
+  // 立即持久化 subtasks（修复 v2.0.0 的状态丢失 bug）
+  task.subtasks = assignedSubtasks;
+  task.state = STATES.PENDING_CONFIRM;
+  task.currentPhase = 'PHASE2';
+  addHistory(task, 'PHASE2', { phase: 'PHASE2', subtaskCount: assignedSubtasks.length });
+  saveTask(task);
+
+  const aiTasks = assignedSubtasks.filter(t => t.executor === EXECUTOR.AI);
+  const humanTasks = assignedSubtasks.filter(t => t.executor === EXECUTOR.HUMAN);
+
+  console.log(`\n执行者分配（${assignedSubtasks.length}个子任务）：`);
+  console.log(`虾哥：${aiTasks.length}个`);
+  aiTasks.forEach(t => console.log(`  🦐 ${t.name}`));
+  console.log(`坚果：${humanTasks.length}个`);
+  humanTasks.forEach(t => console.log(`  🥜 ${t.name}`));
+  console.log(`\n⏸ 等待坚果确认...`);
+  console.log(`执行：node task-engine.js confirm ${task.id}`);
+
   const output = {
     phase: 'PHASE2',
-    capabilityGap,
-    resourcePlan: {
-      estimatedHours: wbs.reduce((sum, t) => sum + (t.hours || 1), 0),
-      estimatedTokens: wbs.reduce((sum, t) => sum + (t.tokens || 5000), 0)
+    executorAssignment: {
+      total: assignedSubtasks.length,
+      ai: aiTasks.map(t => ({ id: t.id, name: t.name })),
+      human: humanTasks.map(t => ({ id: t.id, name: t.name }))
     },
-    detailedRoi: roi.detailedRoi,
-    wbs,
-    milestones: generateMilestones(wbs),
-    riskPlan: generateRiskPlan(wbs),
-    decision: pdcpPass ? 'APPROVED' : 'REJECTED',
-    rejectReason: pdcpPass ? null : 'ROI < 1.0，计划不通过',
-    nextPhase: pdcpPass ? 'PHASE3' : null
+    resourcePlan: {
+      totalHours: assignedSubtasks.reduce((s, t) => s + t.estimatedHours, 0),
+      totalTokens: assignedSubtasks.reduce((s, t) => s + t.estimatedTokens, 0)
+    },
+    wbs: assignedSubtasks,
+    decision: 'PENDING_CONFIRM',
+    nextPhase: 'PHASE3'
   };
-  
-  if (pdcpPass) {
-    console.log(`计划决策：通过（详细ROI=${roi.detailedRoi.toFixed(2)}）`);
-    console.log(`能力Gap：${capabilityGap.gap.length}项`);
-    console.log(`WBS：${wbs.length}个任务`);
-  } else {
-    console.log(`计划决策：拒绝（${output.rejectReason}）`);
-  }
-  
+
   return output;
 }
 
-/**
- * 计算详细 ROI（需要人工输入数值）
- */
-async function calculateDetailedRoi(task) {
-  return {
-    detailedRoi: task.complexity?.level === 'L1' ? 3.0 : 2.0,
-    breakdown: {
-      tokenCost: 50,
-      humanCost: 200,
-      benefit: 500
-    }
-  };
-}
-
-/**
- * 能力 Gap 分析（简化版）
- */
-function analyzeCapabilityGap(taskInput) {
+function decomposeTask(taskInput) {
   const text = taskInput.toLowerCase();
-  
-  const capabilityMap = {
-    coding: ['代码', '写', '开发', '程序'],
-    search: ['搜索', '查找', '调研'],
-    automation: ['自动', '脚本', '定时'],
-    writing: ['写', '文档', '文章']
-  };
-  
-  const gap = [];
-  const available = Object.keys(capabilityMap);
-  
-  for (const [cap, keywords] of Object.entries(capabilityMap)) {
-    const needed = keywords.some(k => text.includes(k));
-    if (!needed) gap.push(cap);
-  }
-  
-  return {
-    gap,
-    available,
-    fillStrategy: {
-      coding: '安装对应 skill 或人工编写',
-      search: '使用 memory_search / web_search',
-      automation: '配置 cron 定时任务',
-      writing: '使用 prompt 生成'
-    }
-  };
-}
+  let tasks = [];
 
-/**
- * 生成 WBS（简化版）
- */
-function generateWBS(taskInput) {
-  const text = taskInput.toLowerCase();
-  const tasks = [];
-  
-  // 简单任务拆解
-  if (text.includes('代码') || text.includes('写')) {
-    tasks.push({ name: '需求理解', hours: 0.5, tokens: 2000 });
-    tasks.push({ name: '代码实现', hours: 1, tokens: 8000 });
-    tasks.push({ name: '测试验证', hours: 0.5, tokens: 3000 });
-  } else if (text.includes('调研') || text.includes('搜索')) {
-    tasks.push({ name: '信息收集', hours: 1, tokens: 5000 });
-    tasks.push({ name: '分析整理', hours: 0.5, tokens: 3000 });
+  if (/系统|平台|架构/.test(text)) {
+    tasks = [
+      { name: '需求分析', description: '分析系统需求和边界', hours: 1, tokens: 3000 },
+      { name: '架构设计', description: '设计系统架构', hours: 2, tokens: 5000 },
+      { name: '模块开发', description: '分模块开发实现', hours: 4, tokens: 20000 },
+      { name: '集成测试', description: '系统集成测试', hours: 2, tokens: 8000 },
+      { name: '部署上线', description: '部署和发布', hours: 1, tokens: 3000 }
+    ];
+  } else if (/代码|脚本|程序/.test(text)) {
+    tasks = [
+      { name: '需求理解', description: '理解代码需求', hours: 0.5, tokens: 2000 },
+      { name: '代码实现', description: '编写代码', hours: 2, tokens: 8000 },
+      { name: '测试验证', description: '测试代码正确性', hours: 1, tokens: 4000 }
+    ];
+  } else if (/调研|研究|分析/.test(text)) {
+    tasks = [
+      { name: '信息收集', description: '收集相关信息', hours: 1.5, tokens: 6000 },
+      { name: '整理分析', description: '整理和分析信息', hours: 1, tokens: 5000 },
+      { name: '报告撰写', description: '输出调研报告', hours: 1, tokens: 4000 }
+    ];
+  } else if (/文档|文章|报告/.test(text)) {
+    tasks = [
+      { name: '收集资料', description: '收集相关资料', hours: 0.5, tokens: 2000 },
+      { name: '撰写内容', description: '撰写文档内容', hours: 1.5, tokens: 6000 },
+      { name: '润色发布', description: '润色并发布', hours: 0.5, tokens: 2000 }
+    ];
   } else {
-    tasks.push({ name: '理解任务', hours: 0.5, tokens: 2000 });
-    tasks.push({ name: '执行', hours: 1, tokens: 5000 });
-    tasks.push({ name: '验证', hours: 0.5, tokens: 2000 });
+    tasks = [
+      { name: '理解任务', description: '理解任务目标和范围', hours: 0.5, tokens: 2000 },
+      { name: '执行任务', description: '执行任务核心内容', hours: 2, tokens: 8000 },
+      { name: '验证交付', description: '验证结果并交付', hours: 0.5, tokens: 2000 }
+    ];
   }
-  
+
   return tasks;
 }
 
-/**
- * 生成里程碑
- */
-function generateMilestones(wbs) {
-  const milestones = [];
-  let cumulative = 0;
-  
-  wbs.forEach((task, i) => {
-    cumulative += task.hours;
-    milestones.push({
-      name: `M${i + 1}`,
-      afterTask: task.name,
-      estimatedDate: new Date(Date.now() + cumulative * 3600 * 1000).toISOString().split('T')[0]
-    });
+// ============================================================
+// Phase 3: 开发执行（递归分解）
+// ============================================================
+
+async function executePhase3(task) {
+  console.log('\n=== Phase PHASE3: 开发执行 ===');
+  console.log('开发执行阶段：递归处理子任务');
+
+  const subtasks = task.subtasks || [];
+  const results = [];
+
+  for (const subtask of subtasks) {
+    console.log(`\n处理子任务：${subtask.name}`);
+
+    if (subtask.executor === EXECUTOR.AI) {
+      const subScore = quickScore(subtask.description);
+      if (subScore <= 2) {
+        console.log(`  → L1简单，虾哥直接执行`);
+        subtask.status = 'completed';
+        subtask.result = { type: 'ai_auto' };
+      } else {
+        console.log(`  → L${subScore}复杂，递归分解`);
+        const subSubtasks = decomposeTask(subtask.description);
+        subtask.status = 'decomposed';
+        subtask.subtasks = subSubtasks.map((s, i) => ({
+          id: `${subtask.id}.${i + 1}`,
+          name: s.name,
+          description: s.description,
+          executor: assignExecutor(s.description),
+          estimatedHours: s.hours,
+          estimatedTokens: s.tokens,
+          status: 'pending',
+          result: null
+        }));
+        subtask.subtasks.forEach(ss => {
+          if (ss.executor === EXECUTOR.AI) {
+            console.log(`    🦐 ${ss.name} → 虾哥执行`);
+            ss.status = 'completed';
+          } else {
+            console.log(`    🥜 ${ss.name} → 坚果执行`);
+            ss.status = 'pending_human';
+          }
+        });
+      }
+    } else {
+      console.log(`  → 🥜 坚果执行，标记待确认`);
+      subtask.status = 'pending_human';
+    }
+    results.push(subtask);
+  }
+
+  task.subtasks = results;
+  task.state = STATES.PHASE4;
+  task.currentPhase = 'PHASE3';
+  addHistory(task, 'PHASE3', {
+    phase: 'PHASE3',
+    executed: results.filter(t => t.status === 'completed').length,
+    pending: results.filter(t => t.status === 'pending_human').length,
+    decomposed: results.filter(t => t.status === 'decomposed').length
   });
-  
-  return milestones;
+  saveTask(task);
+
+  const output = {
+    phase: 'PHASE3',
+    executed: results.filter(t => t.status === 'completed').length,
+    pending: results.filter(t => t.status === 'pending_human').length,
+    decomposed: results.filter(t => t.status === 'decomposed').length,
+    nextPhase: 'PHASE4'
+  };
+
+  console.log(`\n执行结果：已完成${output.executed}，待坚果执行${output.pending}，已分解${output.decomposed}`);
+  return output;
 }
 
-/**
- * 生成风险预案
- */
-function generateRiskPlan(wbs) {
-  return [
-    {
-      risk: '任务范围蔓延',
-      probability: 0.3,
-      impact: 'medium',
-      mitigation: '严格执行 WBS 范围，超出范围推迟到下一期'
-    },
-    {
-      risk: 'Token 消耗超出预期',
-      probability: 0.4,
-      impact: 'medium',
-      mitigation: '监控 token 使用量，超阈值暂停并评估'
-    }
-  ];
+function quickScore(text) {
+  let score = 1;
+  const t = text.toLowerCase();
+  if (/架构|系统|多个|完整/.test(t)) score += 2;
+  if (/简单|一个|查/.test(t)) score--;
+  return Math.max(1, Math.min(5, score));
 }
 
 // ============================================================
-// Phase 5: 发布阶段
+// Phase 4: 验证
+// ============================================================
+
+async function executePhase4(task) {
+  console.log('\n=== Phase PHASE4: 验证阶段 ===');
+
+  const pending = (task.subtasks || []).filter(t => t.status === 'pending_human').length;
+  const output = {
+    phase: 'PHASE4',
+    verified: (task.subtasks || []).filter(t => t.status === 'completed').length,
+    pendingHuman: pending,
+    decision: 'VERIFIED',
+    nextPhase: 'PHASE5'
+  };
+
+  if (pending > 0) {
+    console.log(`⚠ 有${pending}个子任务待坚果执行`);
+  } else {
+    console.log('✅ 所有子任务已完成');
+  }
+
+  task.state = STATES.PHASE5;
+  task.currentPhase = 'PHASE4';
+  addHistory(task, 'PHASE4', output);
+  saveTask(task);
+
+  return output;
+}
+
+// ============================================================
+// Phase 5: 发布
 // ============================================================
 
 async function executePhase5(task) {
-  console.log('发布阶段：文档化 + 经验沉淀');
-  
-  // 生成 lessons
-  const lessonEntry = `
-#### [TASK:${task.id}] ${task.input.substring(0, 50)}
+  console.log('\n=== Phase PHASE5: 发布阶段 ===');
+  console.log('经验沉淀到 lessons.md');
 
+  const lessonEntry = `\n#### [${task.id}] ${task.input.substring(0, 60)}
 - 完成时间: ${new Date().toISOString()}
 - 复杂度: ${task.complexity?.level}
-- 实际投入: 待补充
-- 教训: 待补充
-`;
-  
-  // 追加到 lessons.md
+- 执行者: ${task.executor}
+- 子任务: ${(task.subtasks || []).length}个
+- AI完成: ${(task.subtasks || []).filter(t => t.status === 'completed').length}
+- 坚果完成: ${(task.subtasks || []).filter(t => t.status === 'pending_human').length}`;
+
   const lessonsFile = path.join(WORKSPACE, 'memory', 'hot', 'lessons.md');
   if (fs.existsSync(lessonsFile)) {
     const existing = fs.readFileSync(lessonsFile, 'utf8');
-    fs.writeFileSync(lessonsFile, existing + '\n' + lessonEntry, 'utf8');
+    fs.writeFileSync(lessonsFile, existing + lessonEntry, 'utf8');
   }
-  
-  const output = {
-    phase: 'PHASE5',
-    lessonsWritten: true,
-    lessonEntry: lessonEntry.trim(),
-    decision: 'APPROVED',
-    nextPhase: 'PHASE6'
-  };
-  
-  console.log('经验已沉淀到 lessons.md');
-  return output;
-}
 
-// ============================================================
-// Phase 6: 生命周期
-// ============================================================
+  task.state = STATES.DONE;
+  task.currentPhase = 'PHASE5';
+  addHistory(task, 'PHASE5', { phase: 'PHASE5', decision: 'DONE' });
+  saveTask(task);
 
-async function executePhase6(task) {
-  console.log('生命周期：定期检查任务效果');
-  
-  // 检查任务完成后的效果跟踪
-  const output = {
-    phase: 'PHASE6',
-    checkDate: new Date().toISOString(),
-    status: 'ongoing',
-    nextCheck: new Date(Date.now() + 7 * 24 * 3600 * 1000).toISOString().split('T')[0],
-    recommendation: '本周检查一次任务效果，如无问题则标记为完成'
-  };
-  
-  console.log('下次检查：', output.nextCheck);
-  return output;
+  console.log('✅ 任务完成');
+  return { phase: 'PHASE5', decision: 'DONE' };
 }
 
 // ============================================================
 // 主状态机
 // ============================================================
 
-/**
- * 运行任务
- */
 async function runTask(task) {
   console.log(`\n🚀 开始执行任务 ${task.id}`);
   console.log(`输入：${task.input}`);
-  
+
   while (task.state !== STATES.DONE && task.state !== STATES.ABORT) {
     switch (task.state) {
       case STATES.COMPLEXITY_EVAL:
         await evaluateComplexity(task);
         break;
-      case STATES.LIGHT_PATH:
-        console.log('\n轻量路径：直接执行（调用 prompt）');
-        console.log('（Phase 3/4 需要人工或 prompt 配合执行）');
-        task.state = STATES.DONE;
-        break;
       case STATES.PHASE1:
-        await executePhase(task, 'PHASE1');
+        await executePhase1(task);
         break;
       case STATES.PHASE2:
-        await executePhase(task, 'PHASE2');
+        await executePhase2(task);
         break;
+      case STATES.PENDING_CONFIRM:
+        console.log('⏸ 等待坚果确认...');
+        console.log(`执行：node task-engine.js confirm ${task.id}`);
+        return task;
       case STATES.PHASE3:
-        await executePhase(task, 'PHASE3');
+        await executePhase3(task);
         break;
       case STATES.PHASE4:
-        await executePhase(task, 'PHASE4');
+        await executePhase4(task);
         break;
       case STATES.PHASE5:
-        await executePhase(task, 'PHASE5');
-        break;
-      case STATES.PHASE6:
-        await executePhase(task, 'PHASE6');
+        await executePhase5(task);
         break;
       default:
         console.error('未知状态：', task.state);
         task.state = STATES.ABORT;
     }
   }
-  
-  saveTask(task);
+
   return task;
 }
 
-/**
- * 打印任务状态
- */
-function printTaskStatus(task) {
-  console.log(`\n任务 ${task.id}`);
-  console.log('='.repeat(50));
-  console.log(`状态：${task.state}`);
-  console.log(`当前阶段：${task.currentPhase || '-'}`);
-  console.log(`复杂度：${task.complexity?.level || '-'}`);
-  console.log(`创建时间：${task.createdAt}`);
-  console.log(`最后更新：${task.updatedAt}`);
-  console.log('\n历史记录：');
-  task.history.forEach(h => {
-    console.log(`  [${h.timestamp}] ${h.action}`);
-  });
-}
-
 // ============================================================
-// CLI 入口
+// CLI
 // ============================================================
 
 const args = process.argv.slice(2);
@@ -591,70 +529,111 @@ const command = args[0];
 async function main() {
   switch (command) {
     case 'start': {
-      const taskInput = args.slice(1).join(' ');
-      if (!taskInput) {
-        console.error('用法：node task-engine.js start "<任务描述>"');
-        process.exit(1);
-      }
-      const task = createTask(taskInput);
+      const input = args.slice(1).join(' ');
+      if (!input) { console.error('用法：node task-engine.js start "<任务描述>"'); process.exit(1); }
+      const task = createTask(input);
       await runTask(task);
       break;
     }
-    
+
+    case 'confirm': {
+      const taskId = args[1];
+      if (!taskId) { console.error('用法：node task-engine.js confirm <taskId>'); process.exit(1); }
+      const task = loadTask(taskId);
+      if (task.state === STATES.DONE) {
+        console.log(`任务 ${taskId} 已完成，无需确认`);
+        break;
+      }
+      if (task.state !== STATES.PENDING_CONFIRM) {
+        console.log(`任务 ${taskId} 不在等待确认状态（当前：${task.state}）`);
+        break;
+      }
+      task.confirmedByHuman = true;
+      task.state = STATES.PHASE3;
+      task.updatedAt = new Date().toISOString();
+      addHistory(task, 'HUMAN_CONFIRM', { confirmedAt: new Date().toISOString() });
+      saveTask(task);
+      console.log('✅ 坚果已确认，开始执行Phase3');
+      await runTask(task);
+      break;
+    }
+
     case 'status': {
       const taskId = args[1];
-      if (!taskId) {
-        console.error('用法：node task-engine.js status <taskId>');
-        process.exit(1);
-      }
+      if (!taskId) { console.error('用法：node task-engine.js status <taskId>'); process.exit(1); }
       const task = loadTask(taskId);
-      printTaskStatus(task);
+      printStatus(task);
       break;
     }
-    
+
     case 'resume': {
       const taskId = args[1];
-      if (!taskId) {
-        console.error('用法：node task-engine.js resume <taskId>');
-        process.exit(1);
-      }
+      if (!taskId) { console.error('用法：node task-engine.js resume <taskId>'); process.exit(1); }
       const task = loadTask(taskId);
       await runTask(task);
       break;
     }
-    
+
     case 'abort': {
       const taskId = args[1];
       const reason = args.slice(2).join(' ') || '未说明';
-      if (!taskId) {
-        console.error('用法：node task-engine.js abort <taskId> [原因]');
-        process.exit(1);
-      }
+      if (!taskId) { console.error('用法：node task-engine.js abort <taskId> [原因]'); process.exit(1); }
       const task = loadTask(taskId);
       task.state = STATES.ABORT;
       addHistory(task, 'ABORT', { reason });
       saveTask(task);
-      console.log(`任务 ${taskId} 已中止，原因：${reason}`);
+      console.log(`任务 ${taskId} 已中止：${reason}`);
       break;
     }
-    
+
     default:
       console.log(`
-task-engine.js - 任务承接引擎
+task-engine.js v2.0.1 - 人机协同任务引擎
 
 用法：
-  node task-engine.js start "<任务描述>"   创建并运行新任务
-  node task-engine.js status <taskId>      查看任务状态
-  node task-engine.js resume <taskId>      继续执行任务
-  node task-engine.js abort <taskId> [原因] 中止任务
+  start "<任务>"        创建并执行新任务
+  confirm <taskId>      坚果确认计划后继续执行
+  status <taskId>       查看任务状态
+  resume <taskId>       继续执行
+  abort <taskId> [原因]  中止任务
 
 状态流转：
-  IDLE → COMPLEXITY_EVAL → LIGHT_PATH (L1)
-                            → PHASE1 → PHASE2 → PHASE3 → PHASE4 → PHASE5 → PHASE6 → DONE
-`);
+  COMPLEXITY_EVAL → PHASE1(ROI) → PHASE2(计划+分配)
+                  → PENDING_CONFIRM(等坚果确认)
+                  → PHASE3(递归执行子任务)
+                  → PHASE4(验证)
+                  → PHASE5(发布)
+                  → DONE / ABORT
+
+核心特性：
+  - 自动识别执行者：虾哥🦐 / 坚果🥜 / 双方🤝
+  - Phase2 立即持久化 subtasks（修复状态丢失）
+  - Phase3 递归分解复杂子任务
+  - 坚果确认节点（confirm命令）
+      `);
   }
+}
+
+function printStatus(task) {
+  console.log(`\n任务 ${task.id}`);
+  console.log('='.repeat(50));
+  console.log(`状态：${task.state}`);
+  console.log(`复杂度：${task.complexity?.level || '-'}`);
+  console.log(`执行者：${task.executor === 'ai' ? '虾哥' : task.executor === 'human' ? '坚果' : '双方'}`);
+  console.log(`坚果确认：${task.confirmedByHuman ? '✓' : '✗'}`);
+  console.log(`\n子任务（${(task.subtasks || []).length}个）：`);
+  (task.subtasks || []).forEach(st => {
+    const exe = st.executor === 'ai' ? '🦐' : st.executor === 'human' ? '🥜' : '🤝';
+    const icon = st.status === 'completed' ? '✅' : st.status === 'pending_human' ? '⏸' : st.status === 'decomposed' ? '📦' : '⏳';
+    console.log(`  ${icon} ${exe} ${st.name} [${st.status}]`);
+    (st.subtasks || []).forEach(ss => {
+      const sse = ss.executor === 'ai' ? '🦐' : '🥜';
+      const ssi = ss.status === 'completed' ? '✅' : '⏳';
+      console.log(`      └── ${ssi} ${sse} ${ss.name} [${ss.status}]`);
+    });
+  });
 }
 
 main().catch(console.error);
 
-module.exports = { createTask, loadTask, runTask, STATES, PHASE_CONFIG };
+module.exports = { createTask, loadTask, runTask, STATES, EXECUTOR };

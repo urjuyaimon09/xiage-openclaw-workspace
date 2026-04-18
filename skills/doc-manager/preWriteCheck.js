@@ -113,11 +113,11 @@ function isSystemDoc(fileName) {
 }
 
 // ─────────────────────────────────────────
-// 4. 路径合规检查（Workspace 2.3 + 四层架构 2.5）
+// 4. 路径合规检查（Workspace 2.3 + 六层架构 2.5）
 // ─────────────────────────────────────────
 
 /**
- * 四层层级归属决策树（DOC_RULES 2.5.2）
+ * 六层层级归属决策树（DOC_RULES 2.5.2）
  * @param {string} filePath
  * @returns {{ expectedDir: string, reason: string } | null} null=无需判断
  */
@@ -126,34 +126,34 @@ function getLayerDecision(filePath) {
     const relative = filePath.replace(WORKSPACE, '').replace(/\\/g, '/').replace(/^\//, '');
     const text = (fileName + ' ' + relative).toLowerCase();
 
-    // 1. 核心配置文件 → 系统文档
+    // 1. 系统配置文件 → 绕过层级检查
     if (['openclaw.json', 'gateway.cmd', 'dump.pm2'].includes(fileName)) {
-        return null; // 绕过层级检查
+        return null;
     }
-    // 2. 身份定义文档 → workspace 根目录
-    if (['soul.md', 'user.md', 'identity.md', 'agents.md', 'heartbeat.md', 'bootstrap.md', 'memory.md', 'skills-index.md'].includes(fileName.toLowerCase())) {
-        if (relative.includes('/')) return null; // already in subdir, skip
-        return { expectedDir: 'workspace root', reason: '身份定义文档在根目录白名单' };
+    // 2. 规则层 → docs/规则层/
+    if (fileName.match(/^(DOC_RULES|CODE_RULES|LEGISLATION|SUPERVISION|CAPABILITY_LIFE|WORKING_PRINCIPLE|OPENCLAW_ARCHITECTURE|SKILL_LIFE|VISION|SYSTEM-BACKUP).*\.md$/i)
+        || ['rules-dashboard', 'system-backup'].some(k => fileName.toLowerCase().includes(k))) {
+        return { expectedDir: 'docs/规则层/', reason: '规则体系文档' };
     }
     // 3. 项目文档 → docs/项目层/
-    if (text.includes('项目') || text.includes('project')) {
+    if (text.includes('项目') || text.includes('project') || fileName.match(/^P\d+/)) {
         return { expectedDir: 'docs/项目层/<项目名>/', reason: '项目文档' };
     }
     // 4. 思维执行工具 → docs/思维模式层/承接/
     if (text.includes('task-engine') || text.includes('工作流模板') || text.includes('workflow template')) {
         return { expectedDir: 'docs/思维模式层/承接/', reason: '思维执行工具' };
     }
-    // 5. 认知/驱动机制 → docs/心智层/
+    // 5. 6模型/思维模式文件 → docs/思维模式层/6模型/
+    if (text.includes('model') || text.includes('模型') || text.includes('6模型') || text.includes('prompt')) {
+        return { expectedDir: 'docs/思维模式层/6模型/', reason: '6模型/思维模式文件' };
+    }
+    // 6. 认知/驱动机制 → docs/心智层/
     if (text.includes('认知') || text.includes('驱动') || text.includes('心智') || text.includes('状态采集') || text.includes('attention')) {
         return { expectedDir: 'docs/心智层/', reason: '认知/驱动机制' };
     }
-    // 6. 文档索引/加载 → docs/意识层/
+    // 7. 文档索引/加载 → docs/意识层/
     if (text.includes('doc-index') || text.includes('doc-loader') || text.includes('索引') || text.includes('加载')) {
         return { expectedDir: 'docs/意识层/', reason: '文档索引/加载机制' };
-    }
-    // 7. 6模型文件 → docs/思维模式层/6模型/
-    if (text.includes('model') || text.includes('模型') || text.includes('6模型') || text.includes('prompt')) {
-        return { expectedDir: 'docs/思维模式层/6模型/', reason: '6模型/思维模式文件' };
     }
     // 8. 归档文档 → docs/archive/
     if (text.includes('archive') || text.includes('归档') || text.includes('废弃') || text.includes('old-version')) {

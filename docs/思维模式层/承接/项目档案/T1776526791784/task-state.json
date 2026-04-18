@@ -1,0 +1,484 @@
+{
+  "id": "T1776526791784",
+  "input": "开发一个自动化日报系统，包括天气API查询、报告生成、邮件发送、微信通知四个模块",
+  "state": "done",
+  "executor": "human",
+  "createdAt": "2026-04-18T15:39:51.784Z",
+  "updatedAt": "2026-04-18T15:39:58.426Z",
+  "currentPhase": "PHASE5",
+  "complexity": {
+    "phase": "COMPLEXITY_EVAL",
+    "level": "L2",
+    "score": 3,
+    "executor": "human",
+    "reasoning": "投入:高, 依赖:无, 影响:普通"
+  },
+  "subtasks": [
+    {
+      "id": "T1776526791784-S1",
+      "name": "需求分析",
+      "description": "分析系统需求和边界",
+      "executor": "ai",
+      "estimatedHours": 1,
+      "estimatedTokens": 3000,
+      "status": "decomposed",
+      "result": null,
+      "subtasks": [
+        {
+          "id": "T1776526791784-S1.1",
+          "name": "需求分析",
+          "description": "分析系统需求和边界",
+          "executor": "ai",
+          "estimatedHours": 1,
+          "estimatedTokens": 3000,
+          "status": "completed",
+          "result": null,
+          "template": "调研工作流",
+          "steps": [
+            {
+              "stepId": "S1",
+              "stepName": "信息收集",
+              "status": "completed"
+            },
+            {
+              "stepId": "S2",
+              "stepName": "整理分析",
+              "status": "completed"
+            },
+            {
+              "stepId": "S3",
+              "stepName": "报告撰写",
+              "status": "completed"
+            },
+            {
+              "stepId": "S4",
+              "stepName": "质量校验",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "id": "T1776526791784-S1.2",
+          "name": "架构设计",
+          "description": "设计系统架构",
+          "executor": "ai",
+          "estimatedHours": 2,
+          "estimatedTokens": 5000,
+          "status": "completed",
+          "result": null
+        },
+        {
+          "id": "T1776526791784-S1.3",
+          "name": "模块开发",
+          "description": "分模块开发实现",
+          "executor": "ai",
+          "estimatedHours": 4,
+          "estimatedTokens": 20000,
+          "status": "completed",
+          "result": null,
+          "template": "代码开发工作流",
+          "steps": [
+            {
+              "stepId": "S1",
+              "stepName": "理解需求",
+              "status": "completed"
+            },
+            {
+              "stepId": "S2",
+              "stepName": "编写代码",
+              "status": "completed"
+            },
+            {
+              "stepId": "S3",
+              "stepName": "语法检查",
+              "status": "completed"
+            },
+            {
+              "stepId": "S4",
+              "stepName": "测试验证",
+              "status": "completed"
+            },
+            {
+              "stepId": "S5",
+              "stepName": "Git提交",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "id": "T1776526791784-S1.4",
+          "name": "集成测试",
+          "description": "系统集成测试",
+          "executor": "ai",
+          "estimatedHours": 2,
+          "estimatedTokens": 8000,
+          "status": "completed",
+          "result": null
+        },
+        {
+          "id": "T1776526791784-S1.5",
+          "name": "部署上线",
+          "description": "部署和发布",
+          "executor": "human",
+          "estimatedHours": 1,
+          "estimatedTokens": 3000,
+          "status": "pending_human",
+          "result": null
+        }
+      ]
+    },
+    {
+      "id": "T1776526791784-S2",
+      "name": "架构设计",
+      "description": "设计系统架构",
+      "executor": "ai",
+      "estimatedHours": 2,
+      "estimatedTokens": 5000,
+      "status": "decomposed",
+      "result": null,
+      "subtasks": [
+        {
+          "id": "T1776526791784-S2.1",
+          "name": "需求分析",
+          "description": "分析系统需求和边界",
+          "executor": "ai",
+          "estimatedHours": 1,
+          "estimatedTokens": 3000,
+          "status": "completed",
+          "result": null,
+          "template": "调研工作流",
+          "steps": [
+            {
+              "stepId": "S1",
+              "stepName": "信息收集",
+              "status": "completed"
+            },
+            {
+              "stepId": "S2",
+              "stepName": "整理分析",
+              "status": "completed"
+            },
+            {
+              "stepId": "S3",
+              "stepName": "报告撰写",
+              "status": "completed"
+            },
+            {
+              "stepId": "S4",
+              "stepName": "质量校验",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "id": "T1776526791784-S2.2",
+          "name": "架构设计",
+          "description": "设计系统架构",
+          "executor": "ai",
+          "estimatedHours": 2,
+          "estimatedTokens": 5000,
+          "status": "completed",
+          "result": null
+        },
+        {
+          "id": "T1776526791784-S2.3",
+          "name": "模块开发",
+          "description": "分模块开发实现",
+          "executor": "ai",
+          "estimatedHours": 4,
+          "estimatedTokens": 20000,
+          "status": "completed",
+          "result": null,
+          "template": "代码开发工作流",
+          "steps": [
+            {
+              "stepId": "S1",
+              "stepName": "理解需求",
+              "status": "completed"
+            },
+            {
+              "stepId": "S2",
+              "stepName": "编写代码",
+              "status": "completed"
+            },
+            {
+              "stepId": "S3",
+              "stepName": "语法检查",
+              "status": "completed"
+            },
+            {
+              "stepId": "S4",
+              "stepName": "测试验证",
+              "status": "completed"
+            },
+            {
+              "stepId": "S5",
+              "stepName": "Git提交",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "id": "T1776526791784-S2.4",
+          "name": "集成测试",
+          "description": "系统集成测试",
+          "executor": "ai",
+          "estimatedHours": 2,
+          "estimatedTokens": 8000,
+          "status": "completed",
+          "result": null
+        },
+        {
+          "id": "T1776526791784-S2.5",
+          "name": "部署上线",
+          "description": "部署和发布",
+          "executor": "human",
+          "estimatedHours": 1,
+          "estimatedTokens": 3000,
+          "status": "pending_human",
+          "result": null
+        }
+      ]
+    },
+    {
+      "id": "T1776526791784-S3",
+      "name": "模块开发",
+      "description": "分模块开发实现",
+      "executor": "ai",
+      "estimatedHours": 4,
+      "estimatedTokens": 20000,
+      "status": "completed",
+      "result": {
+        "type": "template_executed",
+        "completedSteps": 5,
+        "pendingHumanSteps": 0
+      },
+      "template": "代码开发工作流",
+      "steps": [
+        {
+          "stepId": "S1",
+          "stepName": "理解需求",
+          "status": "completed"
+        },
+        {
+          "stepId": "S2",
+          "stepName": "编写代码",
+          "status": "completed"
+        },
+        {
+          "stepId": "S3",
+          "stepName": "语法检查",
+          "status": "completed"
+        },
+        {
+          "stepId": "S4",
+          "stepName": "测试验证",
+          "status": "completed"
+        },
+        {
+          "stepId": "S5",
+          "stepName": "Git提交",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "T1776526791784-S4",
+      "name": "集成测试",
+      "description": "系统集成测试",
+      "executor": "ai",
+      "estimatedHours": 2,
+      "estimatedTokens": 8000,
+      "status": "decomposed",
+      "result": null,
+      "subtasks": [
+        {
+          "id": "T1776526791784-S4.1",
+          "name": "需求分析",
+          "description": "分析系统需求和边界",
+          "executor": "ai",
+          "estimatedHours": 1,
+          "estimatedTokens": 3000,
+          "status": "completed",
+          "result": null,
+          "template": "调研工作流",
+          "steps": [
+            {
+              "stepId": "S1",
+              "stepName": "信息收集",
+              "status": "completed"
+            },
+            {
+              "stepId": "S2",
+              "stepName": "整理分析",
+              "status": "completed"
+            },
+            {
+              "stepId": "S3",
+              "stepName": "报告撰写",
+              "status": "completed"
+            },
+            {
+              "stepId": "S4",
+              "stepName": "质量校验",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "id": "T1776526791784-S4.2",
+          "name": "架构设计",
+          "description": "设计系统架构",
+          "executor": "ai",
+          "estimatedHours": 2,
+          "estimatedTokens": 5000,
+          "status": "completed",
+          "result": null
+        },
+        {
+          "id": "T1776526791784-S4.3",
+          "name": "模块开发",
+          "description": "分模块开发实现",
+          "executor": "ai",
+          "estimatedHours": 4,
+          "estimatedTokens": 20000,
+          "status": "completed",
+          "result": null,
+          "template": "代码开发工作流",
+          "steps": [
+            {
+              "stepId": "S1",
+              "stepName": "理解需求",
+              "status": "completed"
+            },
+            {
+              "stepId": "S2",
+              "stepName": "编写代码",
+              "status": "completed"
+            },
+            {
+              "stepId": "S3",
+              "stepName": "语法检查",
+              "status": "completed"
+            },
+            {
+              "stepId": "S4",
+              "stepName": "测试验证",
+              "status": "completed"
+            },
+            {
+              "stepId": "S5",
+              "stepName": "Git提交",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "id": "T1776526791784-S4.4",
+          "name": "集成测试",
+          "description": "系统集成测试",
+          "executor": "ai",
+          "estimatedHours": 2,
+          "estimatedTokens": 8000,
+          "status": "completed",
+          "result": null
+        },
+        {
+          "id": "T1776526791784-S4.5",
+          "name": "部署上线",
+          "description": "部署和发布",
+          "executor": "human",
+          "estimatedHours": 1,
+          "estimatedTokens": 3000,
+          "status": "pending_human",
+          "result": null
+        }
+      ]
+    },
+    {
+      "id": "T1776526791784-S5",
+      "name": "部署上线",
+      "description": "部署和发布",
+      "executor": "human",
+      "estimatedHours": 1,
+      "estimatedTokens": 3000,
+      "status": "pending_human",
+      "result": null
+    }
+  ],
+  "confirmedByHuman": true,
+  "history": [
+    {
+      "timestamp": "2026-04-18T15:39:51.787Z",
+      "action": "COMPLEXITY_EVAL",
+      "detail": {
+        "phase": "COMPLEXITY_EVAL",
+        "level": "L2",
+        "score": 3,
+        "executor": "human",
+        "reasoning": "投入:高, 依赖:无, 影响:普通"
+      }
+    },
+    {
+      "timestamp": "2026-04-18T15:39:51.787Z",
+      "action": "PHASE1",
+      "detail": {
+        "phase": "PHASE1",
+        "coarseRoi": 1,
+        "maslow": {
+          "L1": 0,
+          "L2": 1,
+          "L3": 0,
+          "L4": 0,
+          "L5": 1
+        },
+        "decision": "APPROVED",
+        "nextPhase": "PHASE2"
+      }
+    },
+    {
+      "timestamp": "2026-04-18T15:39:51.788Z",
+      "action": "PHASE2",
+      "detail": {
+        "phase": "PHASE2",
+        "subtaskCount": 5
+      }
+    },
+    {
+      "timestamp": "2026-04-18T15:39:58.421Z",
+      "action": "HUMAN_CONFIRM",
+      "detail": {
+        "confirmedAt": "2026-04-18T15:39:58.421Z"
+      }
+    },
+    {
+      "timestamp": "2026-04-18T15:39:58.425Z",
+      "action": "PHASE3",
+      "detail": {
+        "phase": "PHASE3",
+        "executed": 1,
+        "pending": 1,
+        "partial": 0
+      }
+    },
+    {
+      "timestamp": "2026-04-18T15:39:58.425Z",
+      "action": "PHASE4",
+      "detail": {
+        "phase": "PHASE4",
+        "verified": 1,
+        "pendingHuman": 1,
+        "decision": "VERIFIED",
+        "nextPhase": "PHASE5"
+      }
+    },
+    {
+      "timestamp": "2026-04-18T15:39:58.426Z",
+      "action": "PHASE5",
+      "detail": {
+        "phase": "PHASE5",
+        "decision": "DONE"
+      }
+    }
+  ]
+}

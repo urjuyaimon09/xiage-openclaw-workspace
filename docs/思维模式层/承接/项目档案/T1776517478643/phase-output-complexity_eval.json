@@ -1,0 +1,8 @@
+{
+  "phase": "COMPLEXITY_EVAL",
+  "level": "L2",
+  "path": "heavy",
+  "quickScore": 3,
+  "reasoning": "基于资源投入、可逆性、依赖度、影响度综合评估",
+  "decision": "进入IPD流程"
+}

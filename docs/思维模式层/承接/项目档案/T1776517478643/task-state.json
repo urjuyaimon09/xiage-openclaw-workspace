@@ -1,0 +1,49 @@
+{
+  "id": "T1776517478643",
+  "input": "重构AGENTS.md的完整流程，加入IPD六阶段",
+  "state": "abort",
+  "createdAt": "2026-04-18T13:04:38.644Z",
+  "updatedAt": "2026-04-18T13:04:38.649Z",
+  "currentPhase": "PHASE1",
+  "complexity": {
+    "phase": "COMPLEXITY_EVAL",
+    "level": "L2",
+    "path": "heavy",
+    "quickScore": 3,
+    "reasoning": "基于资源投入、可逆性、依赖度、影响度综合评估",
+    "decision": "进入IPD流程"
+  },
+  "history": [
+    {
+      "timestamp": "2026-04-18T13:04:38.647Z",
+      "action": "COMPLEXITY_EVAL",
+      "detail": {
+        "phase": "COMPLEXITY_EVAL",
+        "level": "L2",
+        "path": "heavy",
+        "quickScore": 3,
+        "reasoning": "基于资源投入、可逆性、依赖度、影响度综合评估",
+        "decision": "进入IPD流程"
+      }
+    },
+    {
+      "timestamp": "2026-04-18T13:04:38.649Z",
+      "action": "PHASE1",
+      "detail": {
+        "phase": "PHASE1",
+        "concept": "重构AGENTS.md的完整流程，加入IPD六阶段",
+        "maslowMapping": {
+          "L1": 0,
+          "L2": 1,
+          "L3": 2,
+          "L4": 1,
+          "L5": 0
+        },
+        "coarseRoi": 1,
+        "decision": "REJECTED",
+        "rejectReason": "ROI < 1.0，不具备商业价值",
+        "nextPhase": null
+      }
+    }
+  ]
+}

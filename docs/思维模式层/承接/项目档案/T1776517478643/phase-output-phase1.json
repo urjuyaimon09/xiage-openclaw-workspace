@@ -1,0 +1,15 @@
+{
+  "phase": "PHASE1",
+  "concept": "重构AGENTS.md的完整流程，加入IPD六阶段",
+  "maslowMapping": {
+    "L1": 0,
+    "L2": 1,
+    "L3": 2,
+    "L4": 1,
+    "L5": 0
+  },
+  "coarseRoi": 1,
+  "decision": "REJECTED",
+  "rejectReason": "ROI < 1.0，不具备商业价值",
+  "nextPhase": null
+}

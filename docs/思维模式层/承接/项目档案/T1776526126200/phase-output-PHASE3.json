@@ -1,0 +1,7 @@
+{
+  "phase": "PHASE3",
+  "executed": 0,
+  "pending": 0,
+  "decomposed": 0,
+  "nextPhase": "PHASE4"
+}

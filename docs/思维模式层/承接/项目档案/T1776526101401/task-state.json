@@ -1,0 +1,51 @@
+{
+  "id": "T1776526101401",
+  "input": "搭建一套完整的自动化运维监控平台，包含服务器监控、应用监控、日志采集、告警通知",
+  "state": "abort",
+  "executor": "ai",
+  "createdAt": "2026-04-18T15:28:21.402Z",
+  "updatedAt": "2026-04-18T15:28:21.408Z",
+  "currentPhase": "PHASE1",
+  "complexity": {
+    "phase": "COMPLEXITY_EVAL",
+    "level": "L2",
+    "score": 3,
+    "executor": "ai",
+    "reasoning": "投入:高, 依赖:无, 影响:普通"
+  },
+  "subtasks": [],
+  "parentTaskId": null,
+  "confirmedByHuman": false,
+  "history": [
+    {
+      "timestamp": "2026-04-18T15:28:21.406Z",
+      "action": "COMPLEXITY_EVAL",
+      "detail": {
+        "phase": "COMPLEXITY_EVAL",
+        "level": "L2",
+        "score": 3,
+        "executor": "ai",
+        "reasoning": "投入:高, 依赖:无, 影响:普通"
+      }
+    },
+    {
+      "timestamp": "2026-04-18T15:28:21.408Z",
+      "action": "PHASE1",
+      "detail": {
+        "phase": "PHASE1",
+        "concept": "搭建一套完整的自动化运维监控平台，包含服务器监控、应用监控、日志采集、告警通知",
+        "maslowMapping": {
+          "L1": 0,
+          "L2": 1,
+          "L3": 0,
+          "L4": 0,
+          "L5": 0
+        },
+        "coarseRoi": 3,
+        "decision": "APPROVED",
+        "rejectReason": null,
+        "nextPhase": "PHASE2"
+      }
+    }
+  ]
+}

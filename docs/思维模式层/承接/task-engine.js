@@ -16,7 +16,7 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 const WORKSPACE = process.cwd();
-const TASKS_DIR = path.join(WORKSPACE, 'docs', '项目层', '项目档案');
+const TASKS_DIR = path.join(__dirname, '项目档案');
 const TEMPLATES_DIR = path.join(__dirname, 'templates');
 
 // ============================================================

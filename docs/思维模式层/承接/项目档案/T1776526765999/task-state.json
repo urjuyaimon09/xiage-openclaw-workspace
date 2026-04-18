@@ -1,0 +1,107 @@
+{
+  "id": "T1776526765999",
+  "input": "开发一个自动化日报系统，包括天气API查询、报告生成、邮件发送、微信通知四个模块",
+  "state": "pending_confirm",
+  "executor": "ai",
+  "createdAt": "2026-04-18T15:39:26.000Z",
+  "updatedAt": "2026-04-18T15:39:26.004Z",
+  "currentPhase": "PHASE2",
+  "complexity": {
+    "phase": "COMPLEXITY_EVAL",
+    "level": "L2",
+    "score": 3,
+    "executor": "ai",
+    "reasoning": "投入:高, 依赖:无, 影响:普通"
+  },
+  "subtasks": [
+    {
+      "id": "T1776526765999-S1",
+      "name": "需求分析",
+      "description": "分析系统需求和边界",
+      "executor": "ai",
+      "estimatedHours": 1,
+      "estimatedTokens": 3000,
+      "status": "pending",
+      "result": null
+    },
+    {
+      "id": "T1776526765999-S2",
+      "name": "架构设计",
+      "description": "设计系统架构",
+      "executor": "ai",
+      "estimatedHours": 2,
+      "estimatedTokens": 5000,
+      "status": "pending",
+      "result": null
+    },
+    {
+      "id": "T1776526765999-S3",
+      "name": "模块开发",
+      "description": "分模块开发实现",
+      "executor": "ai",
+      "estimatedHours": 4,
+      "estimatedTokens": 20000,
+      "status": "pending",
+      "result": null
+    },
+    {
+      "id": "T1776526765999-S4",
+      "name": "集成测试",
+      "description": "系统集成测试",
+      "executor": "ai",
+      "estimatedHours": 2,
+      "estimatedTokens": 8000,
+      "status": "pending",
+      "result": null
+    },
+    {
+      "id": "T1776526765999-S5",
+      "name": "部署上线",
+      "description": "部署和发布",
+      "executor": "both",
+      "estimatedHours": 1,
+      "estimatedTokens": 3000,
+      "status": "pending",
+      "result": null
+    }
+  ],
+  "confirmedByHuman": false,
+  "history": [
+    {
+      "timestamp": "2026-04-18T15:39:26.003Z",
+      "action": "COMPLEXITY_EVAL",
+      "detail": {
+        "phase": "COMPLEXITY_EVAL",
+        "level": "L2",
+        "score": 3,
+        "executor": "ai",
+        "reasoning": "投入:高, 依赖:无, 影响:普通"
+      }
+    },
+    {
+      "timestamp": "2026-04-18T15:39:26.003Z",
+      "action": "PHASE1",
+      "detail": {
+        "phase": "PHASE1",
+        "coarseRoi": 1,
+        "maslow": {
+          "L1": 0,
+          "L2": 1,
+          "L3": 0,
+          "L4": 0,
+          "L5": 1
+        },
+        "decision": "APPROVED",
+        "nextPhase": "PHASE2"
+      }
+    },
+    {
+      "timestamp": "2026-04-18T15:39:26.004Z",
+      "action": "PHASE2",
+      "detail": {
+        "phase": "PHASE2",
+        "subtaskCount": 5
+      }
+    }
+  ]
+}

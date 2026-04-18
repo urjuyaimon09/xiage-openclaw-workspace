@@ -1,0 +1,7 @@
+{
+  "phase": "COMPLEXITY_EVAL",
+  "level": "L1",
+  "score": 2,
+  "executor": "human",
+  "reasoning": "投入:中/低, 依赖:无, 影响:普通"
+}

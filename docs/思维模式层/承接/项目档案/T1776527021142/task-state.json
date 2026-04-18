@@ -1,0 +1,39 @@
+{
+  "id": "T1776527021142",
+  "input": "测试模板匹配：调研华为采购流程",
+  "state": "done",
+  "executor": "ai",
+  "createdAt": "2026-04-18T15:43:41.142Z",
+  "updatedAt": "2026-04-18T15:43:41.145Z",
+  "currentPhase": "PHASE5",
+  "complexity": {
+    "phase": "COMPLEXITY_EVAL",
+    "level": "L1",
+    "score": 1,
+    "executor": "ai",
+    "reasoning": "投入:中/低, 依赖:无, 影响:普通"
+  },
+  "subtasks": [],
+  "confirmedByHuman": false,
+  "history": [
+    {
+      "timestamp": "2026-04-18T15:43:41.145Z",
+      "action": "COMPLEXITY_EVAL",
+      "detail": {
+        "phase": "COMPLEXITY_EVAL",
+        "level": "L1",
+        "score": 1,
+        "executor": "ai",
+        "reasoning": "投入:中/低, 依赖:无, 影响:普通"
+      }
+    },
+    {
+      "timestamp": "2026-04-18T15:43:41.145Z",
+      "action": "PHASE5",
+      "detail": {
+        "phase": "PHASE5",
+        "decision": "DONE"
+      }
+    }
+  ]
+}

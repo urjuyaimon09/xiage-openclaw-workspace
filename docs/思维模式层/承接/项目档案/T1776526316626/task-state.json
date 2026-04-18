@@ -1,0 +1,50 @@
+{
+  "id": "T1776526316626",
+  "input": "开发一个自动化日报系统，包括天气API查询、报告生成、邮件发送、微信通知四个模块",
+  "state": "abort",
+  "executor": "human",
+  "createdAt": "2026-04-18T15:31:56.627Z",
+  "updatedAt": "2026-04-18T15:31:56.632Z",
+  "currentPhase": "PHASE1",
+  "complexity": {
+    "phase": "COMPLEXITY_EVAL",
+    "level": "L2",
+    "score": 3,
+    "executor": "human",
+    "reasoning": "投入:高, 依赖:无, 影响:普通"
+  },
+  "subtasks": [],
+  "confirmedByHuman": false,
+  "history": [
+    {
+      "timestamp": "2026-04-18T15:31:56.631Z",
+      "action": "COMPLEXITY_EVAL",
+      "detail": {
+        "phase": "COMPLEXITY_EVAL",
+        "level": "L2",
+        "score": 3,
+        "executor": "human",
+        "reasoning": "投入:高, 依赖:无, 影响:普通"
+      }
+    },
+    {
+      "timestamp": "2026-04-18T15:31:56.632Z",
+      "action": "PHASE1",
+      "detail": {
+        "phase": "PHASE1",
+        "concept": "开发一个自动化日报系统，包括天气API查询、报告生成、邮件发送、微信通知四个模块",
+        "maslowMapping": {
+          "L1": 0,
+          "L2": 1,
+          "L3": 0,
+          "L4": 0,
+          "L5": 1
+        },
+        "coarseRoi": 1,
+        "decision": "REJECTED",
+        "rejectReason": "ROI < 1.0",
+        "nextPhase": null
+      }
+    }
+  ]
+}

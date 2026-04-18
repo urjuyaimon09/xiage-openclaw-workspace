@@ -79,7 +79,7 @@
 
 **调用方式：**
 ```javascript
-const docLoader = require('./scripts/doc-loader.js');
+const docLoader = require('./docs/意识层/doc-loader.js');
 docLoader.warmUp();  // 启动时调用一次
 
 // 获取所有文档向量（用于模型推理输入）
@@ -213,7 +213,7 @@ docLoader.loadForLoop2() → 加载原文
 - 最近教训
 
 **加载流程（BOOTSTRAP.md 补充）：**
-1. 读取 `CROSS_SESSION.md`
+1. ~~读取 `CROSS_SESSION.md`~~ → 已废除，改用memory层同步
 2. 读取 `memory/hot/current.md`（思维快照）
 3. 从快照还原高频认知和最近状态
 4. 合并进 Loop1 输入层

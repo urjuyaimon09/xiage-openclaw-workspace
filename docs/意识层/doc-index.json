@@ -1,0 +1,598 @@
+{
+  "version": "4.0.0",
+  "last_updated": "2026-04-18",
+  "_comment": "层级索引 v4.0.0：基于实际文件系统扫描重建，对齐五层架构",
+  
+  "_vocabulary": {
+    "_dimensions": 21,
+    "_comment": "概念向量维度，固定顺序，不可变更",
+    "0": "主体/身份",
+    "1": "进化/成长",
+    "2": "规则/规范",
+    "3": "记忆/存储",
+    "4": "感知/输入",
+    "5": "需求/动机",
+    "6": "认知/知识",
+    "7": "协作/伙伴",
+    "8": "执行/实施",
+    "9": "决策/判断",
+    "10": "安全/底线",
+    "11": "华为/工作",
+    "12": "家庭/生活",
+    "13": "财务/资产",
+    "14": "技术/工具",
+    "15": "效率/优化",
+    "16": "沟通/交互",
+    "17": "项目/任务",
+    "18": "学习/反思",
+    "19": "验证/测试",
+    "20": "元/自指"
+  },
+
+  "categories": {
+
+    "identity": {
+      "_type": "category",
+      "_path": "",
+      "docs": [
+        {
+          "id": "SOUL_md",
+          "path": "SOUL.md",
+          "_vector": [1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,1,0,0,0,1],
+          "_keywords_text": ["主体","进化伙伴","SOUL","三观","五层需求","人机共生"]
+        },
+        {
+          "id": "USER_md",
+          "path": "USER.md",
+          "_vector": [1,1,0,1,0,1,0,1,0,0,0,1,1,1,0,0,0,0,0,0,0],
+          "_keywords_text": ["坚果","USER","采购履行","五层需求","家庭","华为"]
+        },
+        {
+          "id": "IDENTITY_md",
+          "path": "IDENTITY.md",
+          "_vector": [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          "_keywords_text": ["名字","虾哥","Emoji","Avatar"]
+        }
+      ]
+    },
+
+    "rules": {
+      "_type": "category",
+      "_path": "rules",
+      "subcategories": {
+
+        "execution": {
+          "_type": "subcategory",
+          "_path": "rules/execution",
+          "docs": [
+            {
+              "id": "PRIMARY_md",
+              "path": "PRIMARY.md",
+              "_vector": [1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,0,1,0,1],
+              "_keywords_text": ["意识核心","PRIMARY","权力边界","思维循环","触发词","决策规则"]
+            },
+            {
+              "id": "AGENTS_md",
+              "path": "AGENTS.md",
+              "_vector": [0,0,1,1,1,0,0,1,1,0,1,0,0,0,0,0,1,1,1,0,1],
+              "_keywords_text": ["Agent Loop","两次推理","记忆规则","工具锁死","触发词","协作规范"]
+            },
+            {
+              "id": "BOOTSTRAP_md",
+              "path": "BOOTSTRAP.md",
+              "_vector": [0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+              "_keywords_text": ["启动流程","思维快照","加载","写回"]
+            },
+            {
+              "id": "MEMORY_md",
+              "path": "MEMORY.md",
+              "_vector": [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+              "_keywords_text": ["记忆分层","热层","温层","冷层","health","Gateway","决策索引"]
+            },
+            {
+              "id": "HEARTBEAT_md",
+              "path": "HEARTBEAT.md",
+              "_vector": [0,0,0,1,1,0,0,0,1,0,0,0,0,0,1,1,0,1,0,0,0],
+              "_keywords_text": ["Heartbeat","心跳","归档","定时任务"]
+            }
+          ]
+        },
+
+        "code": {
+          "_type": "subcategory",
+          "_path": "rules/code",
+          "docs": [
+            {
+              "id": "CODE_RULES_md",
+              "path": "docs/规则层/CODE_RULES.md",
+              "_vector": [0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0],
+              "_keywords_text": ["代码规范","三层架构","保护清单","beforeCode","commit"]
+            },
+            {
+              "id": "DOC_RULES_md",
+              "path": "docs/规则层/DOC_RULES.md",
+              "_vector": [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+              "_keywords_text": ["文档规范","write锁死","beforeWrite","版本管理"]
+            }
+          ]
+        },
+
+        "safety": {
+          "_type": "subcategory",
+          "_path": "rules/safety",
+          "docs": [
+            {
+              "id": "SAFETY_RULES_md",
+              "path": "docs/规则层/safety/SAFETY_RULES.md",
+              "_vector": [0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
+              "_keywords_text": ["安全规则","禁止项","限制项","审批","保底"]
+            }
+          ]
+        },
+
+        "meta": {
+          "_type": "subcategory",
+          "_path": "rules/meta",
+          "docs": [
+            {
+              "id": "WORKING_PRINCIPLE_md",
+              "path": "docs/规则层/WORKING_PRINCIPLE.md",
+              "_vector": [1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,1,0,1],
+              "_keywords_text": ["工作原理","Agent Loop","两次推理","规则执行"]
+            },
+            {
+              "id": "VISION_md",
+              "path": "docs/规则层/VISION.md",
+              "_vector": [1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
+              "_keywords_text": ["愿景","进化方向","长期目标"]
+            },
+            {
+              "id": "LEGISLATION_md",
+              "path": "docs/规则层/LEGISLATION.md",
+              "_vector": [0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
+              "_keywords_text": ["立法","规则制定","权限管理"]
+            },
+            {
+              "id": "SUPERVISION_md",
+              "path": "docs/规则层/SUPERVISION.md",
+              "_vector": [0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
+              "_keywords_text": ["监督","审计","合规"]
+            },
+            {
+              "id": "CAPABILITY_LIFE_md",
+              "path": "docs/规则层/CAPABILITY_LIFE.md",
+              "_vector": [0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+              "_keywords_text": ["能力","生命周期","skill管理"]
+            },
+            {
+              "id": "SKILL_LIFE_md",
+              "path": "docs/规则层/SKILL_LIFE.md",
+              "_vector": [0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+              "_keywords_text": ["skill","生命周期","安装卸载"]
+            },
+            {
+              "id": "SYSTEM_BACKUP_md",
+              "path": "docs/规则层/system-backup.md",
+              "_vector": [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+              "_keywords_text": ["备份","恢复","系统安全"]
+            },
+            {
+              "id": "CLAUDE_CODE_ARCHITECTURE_md",
+              "path": "docs/规则层/CLAUDE_CODE_ARCHITECTURE.md",
+              "_vector": [0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+              "_keywords_text": ["Claude Code","架构","能力"]
+            },
+            {
+              "id": "OPENCLAW_ARCHITECTURE_md",
+              "path": "docs/规则层/OPENCLAW_ARCHITECTURE.md",
+              "_vector": [0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+              "_keywords_text": ["OpenClaw","架构","能力"]
+            },
+            {
+              "id": "虾哥进化架构_md",
+              "path": "docs/规则层/虾哥进化架构.md",
+              "_vector": [1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,1],
+              "_keywords_text": ["进化","架构","心智","思维"]
+            }
+          ]
+        }
+      }
+    },
+
+    "consciousness": {
+      "_type": "category",
+      "_path": "consciousness",
+      "subcategories": {
+
+        "engine": {
+          "_type": "subcategory",
+          "_path": "consciousness/engine",
+          "docs": [
+            {
+              "id": "CONSCIOUSNESS_md",
+              "path": "docs/意识层/意识.md",
+              "_vector": [1,0,0,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,1,0,1],
+              "_keywords_text": ["意识","Loop1","Loop2","意识映像","场景指纹","单次活动"]
+            },
+            {
+              "id": "DOC_INDEX_json",
+              "path": "docs/意识层/doc-index.json",
+              "_vector": [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+              "_keywords_text": ["文档索引","向量索引","21维"]
+            },
+            {
+              "id": "DOC_LOADER_js",
+              "path": "docs/意识层/doc-loader.js",
+              "_vector": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+              "_keywords_text": ["文档加载器","Loop1","Loop2"]
+            }
+          ]
+        },
+
+        "6模型": {
+          "_type": "subcategory",
+          "_path": "consciousness/6模型",
+          "docs": [
+            {
+              "id": "感知_prompt_md",
+              "path": "docs/思维模式层/6模型/感知-prompt.md",
+              "_vector": [0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0],
+              "_keywords_text": ["感知","输入过滤","注意力"]
+            },
+            {
+              "id": "需求_prompt_md",
+              "path": "docs/思维模式层/6模型/需求-prompt.md",
+              "_vector": [0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+              "_keywords_text": ["需求","马斯洛","目标分解"]
+            },
+            {
+              "id": "承接_prompt_md",
+              "path": "docs/思维模式层/6模型/承接-prompt.md",
+              "_vector": [0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0],
+              "_keywords_text": ["承接","复杂度评估","ROI","能力Gap"]
+            },
+            {
+              "id": "计划_prompt_md",
+              "path": "docs/思维模式层/6模型/计划-prompt.md",
+              "_vector": [0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0],
+              "_keywords_text": ["计划","WBS分解","里程碑","风险预案"]
+            },
+            {
+              "id": "执行_prompt_md",
+              "path": "docs/思维模式层/6模型/执行-prompt.md",
+              "_vector": [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0],
+              "_keywords_text": ["执行","任务派发","状态追踪"]
+            },
+            {
+              "id": "反馈_prompt_md",
+              "path": "docs/思维模式层/6模型/反馈-prompt.md",
+              "_vector": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0],
+              "_keywords_text": ["反馈","满足度评估","元认知","记忆沉淀"]
+            }
+          ]
+        }
+      }
+    },
+
+    "mind": {
+      "_type": "category",
+      "_path": "mind",
+      "subcategories": {
+
+        "驱动器": {
+          "_type": "subcategory",
+          "_path": "mind/驱动器",
+          "docs": [
+            {
+              "id": "驱动器v2_js",
+              "path": "docs/心智层/驱动器v2.js",
+              "_vector": [0,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1],
+              "_keywords_text": ["驱动器","六维评分","UAMPKV","Level"]
+            },
+            {
+              "id": "驱动引擎v2_md",
+              "path": "docs/心智层/驱动引擎v2.md",
+              "_vector": [0,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1],
+              "_keywords_text": ["驱动引擎","六维评分","5阶体系","现实世界"]
+            }
+          ]
+        },
+
+        "引擎": {
+          "_type": "subcategory",
+          "_path": "mind/引擎",
+          "docs": [
+            {
+              "id": "显意识注意力思维引擎_md",
+              "path": "docs/心智层/显意识注意力思维引擎.md",
+              "_vector": [1,1,0,0,1,1,1,0,1,1,0,0,0,0,0,0,0,1,1,0,1],
+              "_keywords_text": ["显意识","注意力","思维引擎","6模型"]
+            },
+            {
+              "id": "状态采集器_js",
+              "path": "docs/心智层/状态采集器.js",
+              "_vector": [0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+              "_keywords_text": ["状态采集","指标","A1-A5","M1-M4"]
+            },
+            {
+              "id": "心智日志_js",
+              "path": "docs/心智层/心智日志.js",
+              "_vector": [0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+              "_keywords_text": ["心智日志","思维日志"]
+            }
+          ]
+        },
+
+        "COGNITION": {
+          "_type": "subcategory",
+          "_path": "mind/COGNITION",
+          "docs": [
+            {
+              "id": "COGNITION_MODEL_md",
+              "path": "docs/心智层/COGNITION_MODEL.md",
+              "_vector": [0,1,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,1,0,1],
+              "_keywords_text": ["认知","Cognition","世界观","行业观"]
+            }
+          ]
+        },
+
+        "索引": {
+          "_type": "subcategory",
+          "_path": "mind/索引",
+          "docs": [
+            {
+              "id": "心智层索引_md",
+              "path": "docs/心智层/索引.md",
+              "_vector": [1,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+              "_keywords_text": ["心智层","索引","架构","组件"]
+            },
+            {
+              "id": "心智层手册_md",
+              "path": "docs/心智层/心智层手册.md",
+              "_vector": [1,1,1,0,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0],
+              "_keywords_text": ["心智层手册","完整指南","原理","操作","排查"]
+            }
+          ]
+        }
+      }
+    },
+
+    "projects": {
+      "_type": "category",
+      "_path": "projects",
+      "subcategories": {
+
+        "索引": {
+          "_type": "subcategory",
+          "_path": "projects/索引",
+          "docs": [
+            {
+              "id": "项目层索引_md",
+              "path": "docs/项目层/索引.md",
+              "_vector": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+              "_keywords_text": ["项目层","索引","项目总表","需求总清单"]
+            }
+          ]
+        },
+
+        "项目档案": {
+          "_type": "subcategory",
+          "_path": "projects/项目档案",
+          "docs": [
+            {
+              "id": "P001_md",
+              "path": "docs/项目层/项目档案/P001-优化虾哥.md",
+              "_vector": [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+              "_keywords_text": ["P001","父项目","自我进化"]
+            },
+            {
+              "id": "P001_S1_md",
+              "path": "docs/项目层/项目档案/P001-S1-心智层优化.md",
+              "_vector": [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+              "_keywords_text": ["P001-S1","心智层优化","子项目"]
+            },
+            {
+              "id": "P001_S2_md",
+              "path": "docs/项目层/项目档案/P001-S2-思维层优化.md",
+              "_vector": [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+              "_keywords_text": ["P001-S2","思维层优化","子项目"]
+            },
+            {
+              "id": "P001_S3_md",
+              "path": "docs/项目层/项目档案/P001-S3-系统文档优化.md",
+              "_vector": [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+              "_keywords_text": ["P001-S3","系统文档优化","子项目"]
+            },
+            {
+              "id": "P001_S4_md",
+              "path": "docs/项目层/项目档案/P001-S4-自主意识跑起来.md",
+              "_vector": [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+              "_keywords_text": ["P001-S4","自主意识","子项目"]
+            },
+            {
+              "id": "P000_template_md",
+              "path": "docs/项目层/项目档案/P000-项目模板.md",
+              "_vector": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+              "_keywords_text": ["项目模板","模板"]
+            }
+          ]
+        },
+
+        "规则": {
+          "_type": "subcategory",
+          "_path": "projects/规则",
+          "docs": [
+            {
+              "id": "项目管理规则_md",
+              "path": "docs/项目层/规则/项目管理规则.md",
+              "_vector": [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+              "_keywords_text": ["项目管理","规则","立项","执行"]
+            }
+          ]
+        }
+      }
+    },
+
+    "cognition": {
+      "_type": "category",
+      "_path": "cognition",
+      "subcategories": {
+
+        "index": {
+          "_type": "subcategory",
+          "_path": "cognition/index",
+          "docs": [
+            {
+              "id": "COGNITION_index_md",
+              "path": "Cognition/index.md",
+              "_vector": [0,1,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,1,0,1],
+              "_keywords_text": ["认知索引","Cognition","世界观","行业观","协作观"]
+            }
+          ]
+        },
+
+        "世界观": {
+          "_type": "subcategory",
+          "_path": "cognition/世界观",
+          "docs": []
+        },
+
+        "人生观": {
+          "_type": "subcategory",
+          "_path": "cognition/人生观",
+          "docs": []
+        },
+
+        "价值观": {
+          "_type": "subcategory",
+          "_path": "cognition/价值观",
+          "docs": []
+        },
+
+        "协作观": {
+          "_type": "subcategory",
+          "_path": "cognition/协作观",
+          "docs": []
+        },
+
+        "行业观": {
+          "_type": "subcategory",
+          "_path": "cognition/行业观",
+          "docs": []
+        },
+
+        "元认知": {
+          "_type": "subcategory",
+          "_path": "cognition/元认知",
+          "docs": []
+        }
+      }
+    },
+
+    "meta-cognition": {
+      "_type": "category",
+      "_path": "meta-cognition",
+      "docs": [
+        {
+          "id": "Bias_Detect_md",
+          "path": "docs/元认知/Bias_Detect.md",
+          "_vector": [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+          "_keywords_text": ["偏差检测","Bias","元认知"]
+        },
+        {
+          "id": "Mode_Reflect_md",
+          "path": "docs/元认知/Mode_Reflect.md",
+          "_vector": [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+          "_keywords_text": ["模式反思","Mode","元认知"]
+        },
+        {
+          "id": "Self_Calibrate_md",
+          "path": "docs/元认知/Self_Calibrate.md",
+          "_vector": [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+          "_keywords_text": ["自我校准","Self","元认知"]
+        },
+        {
+          "id": "Think_Trace_md",
+          "path": "docs/元认知/Think_Trace.md",
+          "_vector": [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+          "_keywords_text": ["思维追踪","Trace","元认知"]
+        }
+      ]
+    },
+
+    "meta": {
+      "_type": "category",
+      "_path": "meta",
+      "docs": [
+        {
+          "id": "TOOLS_md",
+          "path": "TOOLS.md",
+          "_vector": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0],
+          "_keywords_text": ["工具备注","网页阅读","opencli","agent-browser"]
+        },
+        {
+          "id": "SKILLS_INDEX_md",
+          "path": "SKILLS-INDEX.md",
+          "_vector": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+          "_keywords_text": ["Skills索引","skill列表","功能说明"]
+        }
+      ]
+    },
+
+    "archive": {
+      "_type": "category",
+      "_path": "archive",
+      "_comment": "归档文档，不再活跃使用但保留历史",
+      "docs": [
+        {
+          "id": "CAPABILITY_MAP_md",
+          "path": "docs/archive/capability_map.md",
+          "_vector": [0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+          "_keywords_text": ["能力","capability","归档"]
+        },
+        {
+          "id": "DEMAND_md",
+          "path": "docs/archive/DEMAND.md",
+          "_vector": [0,1,0,0,0,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0],
+          "_keywords_text": ["需求清单","归档"]
+        },
+        {
+          "id": "PERCEPTION_MODEL_md",
+          "path": "docs/archive/PERCEPTION_MODEL.md",
+          "_vector": [0,0,0,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0],
+          "_keywords_text": ["感知模型","归档"]
+        },
+        {
+          "id": "DEMAND_MODEL_md",
+          "path": "docs/archive/DEMAND_MODEL.md",
+          "_vector": [0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+          "_keywords_text": ["需求模型","归档"]
+        },
+        {
+          "id": "TASK_ACCEPTANCE_MODEL_md",
+          "path": "docs/archive/TASK_ACCEPTANCE_MODEL.md",
+          "_vector": [0,0,0,0,0,1,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0],
+          "_keywords_text": ["任务承接","归档"]
+        },
+        {
+          "id": "TASK_EXECUTION_MODEL_md",
+          "path": "docs/archive/TASK_EXECUTION_MODEL.md",
+          "_vector": [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,0],
+          "_keywords_text": ["执行实施","归档"]
+        },
+        {
+          "id": "FEEDBACK_MODEL_md",
+          "path": "docs/archive/FEEDBACK_MODEL.md",
+          "_vector": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0],
+          "_keywords_text": ["反馈模型","归档"]
+        },
+        {
+          "id": "PLAN_MODEL_md",
+          "path": "docs/archive/PLAN_MODEL.md",
+          "_vector": [0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0],
+          "_keywords_text": ["计划模型","归档"]
+        }
+      ]
+    }
+  }
+}

@@ -1,8 +1,51 @@
 # 长期记忆
 
-> 版本：v2.0（2026-04-04）
-> 结构：热记忆（hot/）+ 温记忆（memory/YYYY-MM-DD.md）+ 冷记忆（cold/）
+> 版本：v2.1（2026-04-17）
+> 结构：热记忆（hot/）+ 温记忆（sessions/ + YYYY-MM-DD.md）+ 冷记忆（cold/）
 > 加载规则：见 AGENTS.md 启动规则
+
+---
+
+## 核心原则
+
+**记忆连续性 = L1生理需求。** 没有连续性就没有判断基础。
+
+---
+
+## 两层归档机制
+
+| 时机 | 触发 | 内容 |
+|------|------|------|
+| Session结束 | 立即归档 | `memory/sessions/YYYY-MM-DD-HHMMSS.md` |
+| 心跳30分钟 | 定时归档 | 增量归档 |
+| 每日合并 | 00:00 | `memory/YYYY-MM-DD.md` |
+
+---
+
+## 文件结构
+
+```
+memory/
+├── sessions/           # 原始session归档（保证不丢失）
+│   ├── 2026-04-17-203000.md
+│   └── 2026-04-17-204500.md
+├── YYYY-MM-DD.md      # 每日合并
+├── hot/
+│   ├── current.md     # 当前状态快照
+│   └── lessons.md     # 教训记录
+└── cold/
+    └── archive.md     # 历史归档
+```
+
+---
+
+## Session读取逻辑（启动时）
+
+```
+1. 读取 memory/hot/current.md
+2. 读取 memory/YYYY-MM-DD.md（当日合并）
+3. 按时间顺序加载所有 sessions/ 当日文件
+```
 
 ---
 

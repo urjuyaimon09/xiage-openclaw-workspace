@@ -148,3 +148,6 @@ time,incident_id,type,status,rpcMs,memoryMB,portPID,restartCount,configValid,log
 2026-04-12T14:42:01.354Z,INC-20260412-001,fix,healthy,1,,20852,,true,0,false,,PORT_DOWN,A:清理端口占用 + PM2 restart,failed
 2026-04-12T15:12:01.005Z,INC-20260412-001,check,healthy,1,,21308,,true,0,false,
 2026-04-12T15:12:01.492Z,INC-20260412-001,fix,healthy,1,,21308,,true,0,false,,PORT_DOWN,A:清理端口占用 + PM2 restart,failed
+2026-04-17T12:51:12.037Z,INC-20260412-001,check,healthy,2,2343.2,15024,1,true,0,false,
+2026-04-17T16:35:05.700Z,INC-20260412-001,check,healthy,1,2582.6,15024,1,true,0,false,
+2026-04-18T03:11:52.359Z,INC-20260412-001,check,healthy,1,2694.3,15024,1,true,0,false,

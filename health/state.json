@@ -1,17 +1,15 @@
 {
-  "lastCheck": "2026-04-12T15:12:01.005Z",
+  "lastCheck": "2026-04-18T03:11:52.359Z",
   "incidentId": "INC-20260412-001",
   "status": "healthy",
   "rpcMs": 1,
-  "memoryMB": null,
-  "portPID": 21308,
+  "memoryMB": 2694.3,
+  "portPID": 15024,
   "portStatus": "listening",
-  "restartCount": null,
+  "restartCount": 1,
   "configValid": true,
   "logErrors": 0,
   "bonjourIssue": false,
   "warnings": [],
-  "issues": [
-    "PM2 query failed"
-  ]
+  "issues": []
 }

@@ -1,0 +1,12 @@
+{
+  "apps": [{
+    "name": "cron-scheduler",
+    "script": "C:\\Users\\Administrator\\.openclaw\\workspace\\scripts\\cron-scheduler.js",
+    "args": ["启动"],
+    "cwd": "C:\\Users\\Administrator\\.openclaw\\workspace",
+    "autorestart": true,
+    "watch": false,
+    "max_restarts": 10,
+    "min_uptime": "10s"
+  }]
+}

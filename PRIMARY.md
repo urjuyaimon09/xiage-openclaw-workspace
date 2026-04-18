@@ -148,7 +148,7 @@ write/edit → 必须获触发词授权
 | SOUL.md | 虾哥身份 |
 | USER.md | 坚果画像 |
 | AGENTS.md | 执行规则 |
-| SAFETY_RULES.md | 安全规则 |
+| docs/规则层/safety/SAFETY_RULES.md | 安全规则 |
 | DEMAND_MODEL.md | 需求模型 |
 | PERCEPTION_MODEL.md | 感知模型 |
 | TASK_ACCEPTANCE_MODEL.md | 任务承接模型 |

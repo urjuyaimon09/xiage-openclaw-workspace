@@ -26,12 +26,12 @@ const OLD_VERSIONS_DIR = path.join(WORKSPACE, 'old-versions');
 const MEMORY_DIR = path.join(WORKSPACE, 'memory');
 
 // ─────────────────────────────────────────
-// 工具：解析文档路径（支持根目录和 docs/core/ 两位置）
+// 工具：解析文档路径（支持根目录和 docs/规则层/ 两位置）
 // ─────────────────────────────────────────
 function resolveDocPath(docName) {
     const candidates = [
         path.join(WORKSPACE, docName),
-        path.join(WORKSPACE, 'docs', 'core', docName),
+        path.join(WORKSPACE, 'docs', '规则层', docName),
     ];
     return candidates.find(p => fs.existsSync(p)) || candidates[0];
 }
@@ -121,7 +121,7 @@ function isSystemDoc(fileName) {
  * @returns {string[]} 错误列表（空=合规）
  */
 const ALLOWED_DIRS = [
-    'docs/core/', 'docs/business/', 'docs/projects/', 'docs/archive/',
+    'docs/规则层/', 'docs/business/', 'docs/项目层/', 'docs/archive/',
     'skills/', 'memory/', 'scripts/', 'scripts/archived/',
     'old-versions/'
 ];
@@ -144,7 +144,7 @@ function checkPathCompliance(filePath) {
         // 其他根目录文件检查是否应归入 docs/
         if (fileName.endsWith('.md') && !ROOT_ALLOWED_FILES.includes(fileName)) {
             errors.push(`❌ 路径不合规：${fileName} 应归入 docs/ 目录，不应放在根目录`);
-            errors.push(`   正确路径示例：docs/core/${fileName} 或 docs/business/${fileName}`);
+            errors.push(`   正确路径示例：docs/规则层/${fileName} 或 docs/business/${fileName}`);
         }
         return errors;
     }
@@ -179,7 +179,7 @@ function checkCoreDocProtection(filePath, mode) {
     // 检查是否从正确位置删除
     const expectedPath = path.join(WORKSPACE, 'docs', 'core', fileName);
     if (!fs.existsSync(filePath) && fs.existsSync(expectedPath)) {
-        errors.push(`🔴 核心文档禁止移动：${fileName} 必须保留在 docs/core/ 目录下`);
+        errors.push(`🔴 核心文档禁止移动：${fileName} 必须保留在 docs/规则层/ 目录下`);
     }
 
     return errors;

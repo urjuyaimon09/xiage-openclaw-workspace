@@ -23,10 +23,10 @@ const OLD_VERSIONS_DIR = path.join(WORKSPACE, 'old-versions');
 // query - 按层级读取文档内容
 // ─────────────────────────────────────────
 function queryDoc(docName, level) {
-    // 文档路径：先查根目录，再查 docs/core/（核心文档已移入该目录）
+    // 文档路径：先查根目录，再查 docs/规则层/（核心文档已移入该目录）
     const candidates = [
         path.join(WORKSPACE, docName),
-        path.join(WORKSPACE, 'docs', 'core', docName),
+        path.join(WORKSPACE, 'docs', '规则层', docName),
     ];
     const filePath = candidates.find(p => fs.existsSync(p)) || candidates[0];
     if (!fs.existsSync(filePath)) {
@@ -153,10 +153,10 @@ function createTodo(docName, content) {
 // append-version-history - 追加版本历史行
 // ─────────────────────────────────────────
 function appendVersionHistory(targetFile, version, date, updateLevel, change, author) {
-    // 文档路径：先查根目录，再查 docs/core/
+    // 文档路径：先查根目录，再查 docs/规则层/
     const candidates = [
         path.join(WORKSPACE, targetFile),
-        path.join(WORKSPACE, 'docs', 'core', targetFile),
+        path.join(WORKSPACE, 'docs', '规则层', targetFile),
     ];
     const filePath = candidates.find(p => fs.existsSync(p)) || candidates[0];
     if (!fs.existsSync(filePath)) {

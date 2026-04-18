@@ -158,6 +158,9 @@ function 启动全部任务() {
   if (状态.当前频率.低频繁) {
     启动Cron任务('低频繁', 感知调度配置.低频繁, 触发感知循环);
   }
+  if (状态.当前频率.心智) {
+    启动Cron任务('心智', 感知调度配置.心智, 触发感知循环);
+  }
 }
 
 function 停止全部任务() {
@@ -176,13 +179,21 @@ function 触发感知循环(频率键, 配置) {
   if (频率键 === '心智') {
     // 心智驱动：使用驱动器v2
     try {
-      const 驱动器v2 = require('./驱动器v2');
+      const 驱动器v2 = require('../docs/心智层/驱动器v2');
       const 状态 = 驱动器v2.加载状态();
       const 结果 = 驱动器v2.计算总分(状态);
-      console.log(`[Cron调度器] 心智状态: ${(结果.Total*100).toFixed(1)}% ${结果.及格?'✅':'❌'}`);
+      console.log(`[Cron调度器] 心智状态: ${(结果.Total*100).toFixed(1)}% ${结果.及格?'✅':'❌'} ${结果.危险?'🚨危险':''}`);
       
-      if (结果.危险) {
-        console.log(`[Cron调度器] 🚨 危险阈值，强制心智启动`);
+      if (结果.Total < 0.6 || 结果.危险) {
+        console.log(`[Cron调度器] 🚨 触发条件满足，启动心智子Session`);
+        // 写入触发文件，由外部机制处理session启动
+        const 触发文件 = path.join(WORKSPACE, 'memory', 'hot', '心智触发.json');
+        fs.writeFileSync(触发文件, JSON.stringify({
+          时间戳: new Date().toISOString(),
+          总分: 结果.Total,
+          及格: 结果.及格,
+          危险: 结果.危险
+        }, null, 2));
       }
     } catch (e) {
       console.log(`[Cron调度器] 驱动器v2加载失败: ${e.message}`);
@@ -190,21 +201,8 @@ function 触发感知循环(频率键, 配置) {
     return;
   }
   
-  // 1. 先采集状态
-  const 状态采集器 = require('./状态采集器');
-  const 指标 = 状态采集器.完整采集();
-  console.log(`[Cron调度器] 状态采集: 上下文${(指标.上下文连续性*100).toFixed(0)}% 规则${(指标.规则稳定性*100).toFixed(0)}%`);
-  
-  // 2. 检查是否需要启动思维模式
-  const 思维引擎 = require('./思维模式引擎');
-  const 需要思考 = 思维引擎.判断是否需要思考(思维引擎.加载驱动器状态());
-  
-  if (需要思考) {
-    console.log(`[Cron调度器] 驱动强度足够，启动思维模式`);
-  } else {
-    console.log(`[Cron调度器] 驱动强度不足，仅记录感知`);
-    状态采集器.添加环境感知(`[${配置.感知类型}] 状态采集完成`);
-  }
+  // 其他频率暂不处理，仅记录日志
+  console.log(`[Cron调度器] ${频率键} 频率触发，功能待实现`);
 }
 
 function 触发紧急循环(紧急类型, 数据) {
@@ -216,14 +214,16 @@ function 触发紧急循环(紧急类型, 数据) {
   
   console.log(`[Cron调度器] 触发紧急循环: ${配置.名称}`);
   
-  const 意识循环 = require('./consciousness-loop');
-  let 触发类型 = '用户输入';
-  if (紧急类型 === '执行卡住') {
-    触发类型 = '执行卡住';
-  }
-  
-  意识循环.启动循环(触发类型, {
-    紧急类型,
+  // 紧急触发：写入触发文件
+  const 触发文件 = path.join(WORKSPACE, 'memory', 'hot', '心智触发.json');
+  fs.writeFileSync(触发文件, JSON.stringify({
+    时间戳: new Date().toISOString(),
+    类型: '紧急',
+    紧急类型: 紧急类型,
+    数据: 数据
+  }, null, 2));
+  console.log(`[Cron调度器] 紧急触发已写入: ${触发文件}`);
+}
     数据,
     优先级: 配置.优先级,
     时间戳: new Date().toISOString()

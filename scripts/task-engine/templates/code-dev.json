@@ -1,0 +1,48 @@
+{
+  "name": "代码开发工作流",
+  "description": "代码编写、测试、提交的标准流程",
+  "trigger": ["代码", "脚本", "程序", "开发", "实现", "编写代码"],
+  "steps": [
+    {
+      "id": "S1",
+      "name": "理解需求",
+      "description": "分析任务要求，确认输入输出，识别边界条件",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10
+    },
+    {
+      "id": "S2",
+      "name": "编写代码",
+      "description": "根据需求编写代码，遵守编码规范",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 30
+    },
+    {
+      "id": "S3",
+      "name": "语法检查",
+      "description": "运行 node -c 或对应语言的语法检查工具",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 2
+    },
+    {
+      "id": "S4",
+      "name": "测试验证",
+      "description": "执行测试用例，验证正确性",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 15
+    },
+    {
+      "id": "S5",
+      "name": "Git提交",
+      "description": "git add → git commit → 推送（如网络通）",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 2
+    }
+  ],
+  "totalEstimatedMinutes": 60
+}

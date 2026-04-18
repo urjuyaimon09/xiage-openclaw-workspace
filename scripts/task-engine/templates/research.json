@@ -1,0 +1,40 @@
+{
+  "name": "调研工作流",
+  "description": "信息收集、整理分析、输出报告的标准流程",
+  "trigger": ["调研", "研究", "分析", "调查", "搜索", "查找"],
+  "steps": [
+    {
+      "id": "S1",
+      "name": "信息收集",
+      "description": "多渠道搜索：搜索引擎、文档、代码库、知识库",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 20
+    },
+    {
+      "id": "S2",
+      "name": "整理分析",
+      "description": "去重、分类、提炼关键信息，形成结构化笔记",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 15
+    },
+    {
+      "id": "S3",
+      "name": "报告撰写",
+      "description": "按结论→依据→来源的结构输出调研报告",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 20
+    },
+    {
+      "id": "S4",
+      "name": "质量校验",
+      "description": "核对报告内容与原始信息的准确性",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 5
+    }
+  ],
+  "totalEstimatedMinutes": 60
+}

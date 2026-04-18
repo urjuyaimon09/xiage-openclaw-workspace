@@ -1,0 +1,48 @@
+{
+  "name": "文档写作工作流",
+  "description": "文档、文章、报告的编写和发布流程",
+  "trigger": ["文档", "文章", "报告", "写作", "撰写", "写文章", "写文档"],
+  "steps": [
+    {
+      "id": "S1",
+      "name": "收集资料",
+      "description": "收集相关参考资料、上下文信息",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10
+    },
+    {
+      "id": "S2",
+      "name": "确定结构",
+      "description": "列出大纲结构，确认写作方向",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 5
+    },
+    {
+      "id": "S3",
+      "name": "撰写内容",
+      "description": "按大纲填充内容，保持逻辑连贯",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 30
+    },
+    {
+      "id": "S4",
+      "name": "格式校验",
+      "description": "检查格式、错别字、链接有效性",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 5
+    },
+    {
+      "id": "S5",
+      "name": "发布/提交",
+      "description": "保存文件，提交 git（如适用）",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 5
+    }
+  ],
+  "totalEstimatedMinutes": 55
+}

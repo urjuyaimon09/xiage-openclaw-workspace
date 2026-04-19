@@ -1,0 +1,79 @@
+{
+  "id": "P1776517475205",
+  "goal": "掌握 OpenClaw 进阶配置",
+  "state": "scheduled",
+  "createdAt": "2026-04-18T13:04:35.206Z",
+  "updatedAt": "2026-04-18T13:05:00.000Z",
+  "decomposed": {
+    "goal": "掌握 OpenClaw 进阶配置",
+    "type": "compound",
+    "subGoals": [
+      {
+        "name": "理论学习",
+        "type": "compound",
+        "children": [
+          { "goal": "阅读 AGENTS.md 文档", "type": "atomic" },
+          { "goal": "理解记忆系统原理", "type": "atomic" }
+        ]
+      },
+      {
+        "name": "实践练习",
+        "type": "compound",
+        "children": [
+          { "goal": "配置 memoryFlush", "type": "atomic" },
+          { "goal": "设置 Cron 定时任务", "type": "atomic" }
+        ]
+      },
+      {
+        "name": "总结输出",
+        "type": "atomic"
+      }
+    ]
+  },
+  "milestones": [
+    {
+      "id": "M001",
+      "name": "阅读 AGENTS.md 文档",
+      "path": "掌握 OpenClaw 进阶配置 > 理论学习 > 阅读 AGENTS.md 文档",
+      "status": "pending",
+      "estimatedHours": 1
+    },
+    {
+      "id": "M002",
+      "name": "理解记忆系统原理",
+      "path": "掌握 OpenClaw 进阶配置 > 理论学习 > 理解记忆系统原理",
+      "status": "pending",
+      "estimatedHours": 1
+    },
+    {
+      "id": "M003",
+      "name": "配置 memoryFlush",
+      "path": "掌握 OpenClaw 进阶配置 > 实践练习 > 配置 memoryFlush",
+      "status": "pending",
+      "estimatedHours": 2
+    },
+    {
+      "id": "M004",
+      "name": "设置 Cron 定时任务",
+      "path": "掌握 OpenClaw 进阶配置 > 实践练习 > 设置 Cron 定时任务",
+      "status": "pending",
+      "estimatedHours": 2
+    },
+    {
+      "id": "M005",
+      "name": "总结输出",
+      "path": "掌握 OpenClaw 进阶配置 > 总结输出",
+      "status": "pending",
+      "estimatedHours": 1
+    }
+  ],
+  "timeline": [
+    { "id": "M001", "startDate": "2026-04-18", "endDate": "2026-04-18", "order": 1 },
+    { "id": "M002", "startDate": "2026-04-19", "endDate": "2026-04-19", "order": 2 },
+    { "id": "M003", "startDate": "2026-04-20", "endDate": "2026-04-21", "order": 3 },
+    { "id": "M004", "startDate": "2026-04-22", "endDate": "2026-04-23", "order": 4 },
+    { "id": "M005", "startDate": "2026-04-24", "endDate": "2026-04-24", "order": 5 }
+  ],
+  "totalEstimatedDays": 7,
+  "completionRate": 0
+}

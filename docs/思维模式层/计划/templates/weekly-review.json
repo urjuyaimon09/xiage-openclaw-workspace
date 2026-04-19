@@ -1,0 +1,53 @@
+{
+  "name": "周计划模板",
+  "description": "制定每周工作计划的标准流程",
+  "trigger": ["周计划", "本周计划", "每周计划", "工作安排"],
+  "steps": [
+    {
+      "id": "P1",
+      "name": "回顾上周",
+      "description": "查看上周计划完成情况",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 5,
+      "output": "上周完成率 + 未完成原因"
+    },
+    {
+      "id": "P2",
+      "name": "收集待办",
+      "description": "从记忆、项目、邮件等收集本周待办",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "待办清单"
+    },
+    {
+      "id": "P3",
+      "name": "优先级排序",
+      "description": "按重要紧急程度排序",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 5,
+      "output": "排序后的待办列表"
+    },
+    {
+      "id": "P4",
+      "name": "时间分配",
+      "description": "估算每项任务所需时间，分配到各天",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "每日时间分配表"
+    },
+    {
+      "id": "P5",
+      "name": "坚果确认",
+      "description": "向坚果确认计划是否合理",
+      "executor": "human",
+      "autoable": false,
+      "estimatedMinutes": 5,
+      "output": "确认/调整意见"
+    }
+  ],
+  "totalEstimatedMinutes": 35
+}

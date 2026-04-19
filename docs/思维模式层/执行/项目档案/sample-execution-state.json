@@ -1,0 +1,68 @@
+{
+  "id": "E1776517475205",
+  "taskName": "配置 OpenClaw 进阶功能",
+  "state": "running",
+  "createdAt": "2026-04-18T13:04:35.206Z",
+  "updatedAt": "2026-04-18T13:10:00.000Z",
+  "startedAt": "2026-04-18T13:05:00.000Z",
+  "steps": [
+    {
+      "id": "S001",
+      "name": "读取现有配置",
+      "type": "read",
+      "path": "C:\\Users\\Administrator\\.openclaw\\openclaw.json",
+      "status": "done",
+      "result": {
+        "success": true,
+        "output": "[文件内容已读取]",
+        "duration": 45
+      }
+    },
+    {
+      "id": "S002",
+      "name": "配置 memoryFlush",
+      "type": "write",
+      "path": "C:\\Users\\Administrator\\.openclaw\\openclaw.json",
+      "content": "[更新后的配置]",
+      "status": "done",
+      "result": {
+        "success": true,
+        "output": "文件已写入: C:\\Users\\Administrator\\.openclaw\\openclaw.json",
+        "duration": 120
+      }
+    },
+    {
+      "id": "S003",
+      "name": "验证配置语法",
+      "type": "exec",
+      "command": "node -c C:\\Users\\Administrator\\.openclaw\\openclaw.json",
+      "status": "failed",
+      "result": {
+        "success": false,
+        "error": "JSON 语法错误：缺少逗号",
+        "duration": 230
+      }
+    },
+    {
+      "id": "S004",
+      "name": "修复 JSON 语法",
+      "type": "write",
+      "path": "C:\\Users\\Administrator\\.openclaw\\openclaw.json",
+      "status": "pending"
+    },
+    {
+      "id": "S005",
+      "name": "重启 Gateway 验证",
+      "type": "exec",
+      "command": "pm2 restart openclaw",
+      "status": "pending"
+    }
+  ],
+  "currentStep": 3,
+  "completionRate": 40,
+  "results": [
+    { "step": "S001", "success": true, "duration": 45 },
+    { "step": "S002", "success": true, "duration": 120 },
+    { "step": "S003", "success": false, "error": "JSON 语法错误" }
+  ]
+}

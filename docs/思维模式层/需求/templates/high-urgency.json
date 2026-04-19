@@ -1,0 +1,53 @@
+{
+  "name": "紧急需求分析",
+  "description": "处理紧急、高优先级需求的完整流程",
+  "trigger": ["紧急", "危机", "马上", "立刻", "崩溃"],
+  "steps": [
+    {
+      "id": "D1",
+      "name": "紧急度评估",
+      "description": "判断需求紧急程度，决定处理优先级",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 2,
+      "output": "紧急度等级 (critical/high/medium/low)"
+    },
+    {
+      "id": "D2",
+      "name": "现状快速确认",
+      "description": "用最简短的话确认当前状态和痛点",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 5,
+      "output": "现状描述（一句话）"
+    },
+    {
+      "id": "D3",
+      "name": "方案快速制定",
+      "description": "制定最小可行解决方案，不求完美但求有效",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "方案描述 + 预期效果"
+    },
+    {
+      "id": "D4",
+      "name": "坚果确认",
+      "description": "向坚果确认方案是否可行",
+      "executor": "human",
+      "autoable": false,
+      "estimatedMinutes": 5,
+      "output": "坚果回复 (同意/修改/否决)"
+    },
+    {
+      "id": "D5",
+      "name": "执行落地",
+      "description": "执行确认的方案",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 30,
+      "output": "执行结果"
+    }
+  ],
+  "totalEstimatedMinutes": 52
+}

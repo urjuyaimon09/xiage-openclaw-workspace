@@ -1,0 +1,71 @@
+{
+  "name": "问题反馈响应",
+  "description": "处理问题反馈的完整流程",
+  "trigger": ["问题", "错误", "bug", "不对", "故障"],
+  "steps": [
+    {
+      "id": "FB1",
+      "name": "问题确认",
+      "description": "确认问题现象和影响范围",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 5,
+      "output": "问题描述 + 严重度"
+    },
+    {
+      "id": "FB2",
+      "name": "复现尝试",
+      "description": "尝试复现问题",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 15,
+      "output": "复现结果"
+    },
+    {
+      "id": "FB3",
+      "name": "原因分析",
+      "description": "分析问题根因",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 20,
+      "output": "根因分析"
+    },
+    {
+      "id": "FB4",
+      "name": "解决方案",
+      "description": "制定修复方案",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 15,
+      "output": "方案描述"
+    },
+    {
+      "id": "FB5",
+      "name": "坚果确认",
+      "description": "向坚果确认解决方案",
+      "executor": "human",
+      "autoable": false,
+      "estimatedMinutes": 10,
+      "output": "坚果确认"
+    },
+    {
+      "id": "FB6",
+      "name": "修复执行",
+      "description": "执行修复并验证",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 30,
+      "output": "修复结果"
+    },
+    {
+      "id": "FB7",
+      "name": "预防建议",
+      "description": "给出防止类似问题的建议",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "预防措施清单"
+    }
+  ],
+  "totalEstimatedMinutes": 105
+}

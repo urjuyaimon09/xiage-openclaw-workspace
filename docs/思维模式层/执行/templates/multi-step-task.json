@@ -1,0 +1,53 @@
+{
+  "name": "多步骤任务执行",
+  "description": "复杂任务的多步骤执行追踪",
+  "trigger": ["复杂任务", "多步骤", "项目"],
+  "steps": [
+    {
+      "id": "E1",
+      "name": "步骤规划",
+      "description": "将任务分解为明确步骤",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "步骤列表"
+    },
+    {
+      "id": "E2",
+      "name": "依赖分析",
+      "description": "识别步骤间的依赖关系",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 5,
+      "output": "依赖图/顺序"
+    },
+    {
+      "id": "E3",
+      "name": "步骤执行",
+      "description": "按顺序执行各步骤",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 60,
+      "output": "每步执行结果"
+    },
+    {
+      "id": "E4",
+      "name": "进度检查点",
+      "description": "每个里程碑向坚果汇报进度",
+      "executor": "human",
+      "autoable": false,
+      "estimatedMinutes": 5,
+      "output": "坚果确认"
+    },
+    {
+      "id": "E5",
+      "name": "结果汇总",
+      "description": "汇总所有步骤结果",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "完整结果报告"
+    }
+  ],
+  "totalEstimatedMinutes": 90
+}

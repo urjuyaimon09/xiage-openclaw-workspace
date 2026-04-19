@@ -1,0 +1,62 @@
+{
+  "name": "反馈循环优化",
+  "description": "持续收集反馈并驱动改进",
+  "trigger": ["反馈", "意见", "建议", "优化"],
+  "steps": [
+    {
+      "id": "FB1",
+      "name": "反馈收集",
+      "description": "收集近期所有反馈（对话/文档/行为）",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "反馈列表"
+    },
+    {
+      "id": "FB2",
+      "name": "情感分析",
+      "description": "分析反馈的情感倾向和强度",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 5,
+      "output": "情感分析结果"
+    },
+    {
+      "id": "FB3",
+      "name": "分类汇总",
+      "description": "按类型（功能/体验/性能等）分类",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 5,
+      "output": "分类统计"
+    },
+    {
+      "id": "FB4",
+      "name": "优先级排序",
+      "description": "按影响度和紧急度排序改进项",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "优先级列表"
+    },
+    {
+      "id": "FB5",
+      "name": "改进建议",
+      "description": "针对每个高频问题给出改进建议",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 15,
+      "output": "改进建议清单"
+    },
+    {
+      "id": "FB6",
+      "name": "坚果确认",
+      "description": "向坚果确认改进优先级和方向",
+      "executor": "human",
+      "autoable": false,
+      "estimatedMinutes": 10,
+      "output": "坚果确认/调整"
+    }
+  ],
+  "totalEstimatedMinutes": 55
+}

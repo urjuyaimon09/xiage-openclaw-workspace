@@ -1,0 +1,253 @@
+{
+  "snapshotId": "snapshot_2026-04-19T01-49-35",
+  "timestamp": "2026-04-19T01:49:35.433Z",
+  "demandCount": 5,
+  "demands": [
+    {
+      "id": "D1776563375429_U1_y6rgk",
+      "type": "user",
+      "dimension": "U1",
+      "currentLevel": 2,
+      "targetLevel": 3,
+      "gap": 1,
+      "metrics": [
+        {
+          "name": "月收入稳定性",
+          "current": 0.5,
+          "target": 0.8,
+          "unit": "%"
+        }
+      ],
+      "riskLevel": "high",
+      "reason": "月收入波动超阈值",
+      "levelDropped": true,
+      "execMode": "human_confirm",
+      "needHumanConfirm": true,
+      "strategy": {
+        "id": "S-U1-1776563375430",
+        "title": "将 U1 从 2 提升到 3",
+        "dimension": "U1",
+        "currentLevel": 2,
+        "targetLevel": 3,
+        "timeFrame": "3年",
+        "keyMetric": "月收入稳定性",
+        "status": "pending"
+      },
+      "tactics": [
+        {
+          "id": "T-U1-1",
+          "metric": "月收入稳定性",
+          "target": 0.8,
+          "current": 0.5,
+          "unit": "%",
+          "cycle": "quarter",
+          "parent": "S-U1-1776563375430",
+          "status": "pending"
+        }
+      ],
+      "execution": [
+        {
+          "id": "E-U1-1",
+          "task": "优化 月收入稳定性",
+          "targetValue": 0.8,
+          "currentValue": 0.5,
+          "unit": "%",
+          "checkAfter": "10min",
+          "parent": "T-U1-1",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "D1776563375429_U3_evg0g",
+      "type": "user",
+      "dimension": "U3",
+      "currentLevel": 2,
+      "targetLevel": 3,
+      "gap": 1,
+      "metrics": [
+        {
+          "name": "有效社交时长",
+          "current": 2,
+          "target": 5,
+          "unit": "小时/周"
+        }
+      ],
+      "riskLevel": "medium",
+      "reason": "社交圈子收窄",
+      "levelDropped": false,
+      "execMode": "auto",
+      "needHumanConfirm": false,
+      "strategy": {
+        "id": "S-U3-1776563375430",
+        "title": "将 U3 从 2 提升到 3",
+        "dimension": "U3",
+        "currentLevel": 2,
+        "targetLevel": 3,
+        "timeFrame": "3年",
+        "keyMetric": "有效社交时长",
+        "status": "pending"
+      },
+      "tactics": [
+        {
+          "id": "T-U3-1",
+          "metric": "有效社交时长",
+          "target": 5,
+          "current": 2,
+          "unit": "小时/周",
+          "cycle": "quarter",
+          "parent": "S-U3-1776563375430",
+          "status": "pending"
+        }
+      ],
+      "execution": [
+        {
+          "id": "E-U3-1",
+          "task": "优化 有效社交时长",
+          "targetValue": 5,
+          "currentValue": 2,
+          "unit": "小时/周",
+          "checkAfter": "10min",
+          "parent": "T-U3-1",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "D1776563375429_A2_a6yrk",
+      "type": "ai",
+      "dimension": "A2",
+      "currentLevel": 3,
+      "targetLevel": 4,
+      "gap": 1,
+      "metrics": [
+        {
+          "name": "规则稳定性",
+          "current": 0.6,
+          "target": 0.9,
+          "unit": "%"
+        }
+      ],
+      "riskLevel": "high",
+      "reason": "规则被频繁推翻",
+      "levelDropped": false,
+      "execMode": "human_confirm",
+      "needHumanConfirm": true,
+      "strategy": {
+        "id": "S-A2-1776563375430",
+        "title": "将 A2 从 3 提升到 4",
+        "dimension": "A2",
+        "currentLevel": 3,
+        "targetLevel": 4,
+        "timeFrame": "5年",
+        "keyMetric": "规则稳定性",
+        "status": "pending"
+      },
+      "tactics": [
+        {
+          "id": "T-A2-1",
+          "metric": "规则稳定性",
+          "target": 0.9,
+          "current": 0.6,
+          "unit": "%",
+          "cycle": "quarter",
+          "parent": "S-A2-1776563375430",
+          "status": "pending"
+        }
+      ],
+      "execution": [
+        {
+          "id": "E-A2-1",
+          "task": "优化 规则稳定性",
+          "targetValue": 0.9,
+          "currentValue": 0.6,
+          "unit": "%",
+          "checkAfter": "10min",
+          "parent": "T-A2-1",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "D1776563375429_A4_pc73a",
+      "type": "ai",
+      "dimension": "A4",
+      "currentLevel": 3,
+      "targetLevel": 4,
+      "gap": 1,
+      "metrics": [],
+      "riskLevel": "low",
+      "reason": "判断采纳率下降",
+      "levelDropped": false,
+      "execMode": "human_confirm",
+      "needHumanConfirm": true,
+      "strategy": {
+        "id": "S-A4-1776563375430",
+        "title": "将 A4 从 3 提升到 4",
+        "dimension": "A4",
+        "currentLevel": 3,
+        "targetLevel": 4,
+        "timeFrame": "5年",
+        "keyMetric": null,
+        "status": "pending"
+      },
+      "tactics": [],
+      "execution": []
+    },
+    {
+      "id": "D1776563375430_M3_27lnc",
+      "type": "mind",
+      "domain": "M",
+      "dimension": "M3",
+      "currentLevel": 2,
+      "targetLevel": 3,
+      "gap": 1,
+      "metrics": [
+        {
+          "name": "平均决策时间",
+          "current": 30,
+          "target": 10,
+          "unit": "秒"
+        }
+      ],
+      "riskLevel": "medium",
+      "reason": "决策延迟",
+      "execMode": "auto",
+      "needHumanConfirm": false,
+      "strategy": {
+        "id": "S-M3-1776563375430",
+        "title": "将 M3 从 2 提升到 3",
+        "dimension": "M3",
+        "currentLevel": 2,
+        "targetLevel": 3,
+        "timeFrame": "3年",
+        "keyMetric": "平均决策时间",
+        "status": "pending"
+      },
+      "tactics": [
+        {
+          "id": "T-M3-1",
+          "metric": "平均决策时间",
+          "target": 10,
+          "current": 30,
+          "unit": "秒",
+          "cycle": "quarter",
+          "parent": "S-M3-1776563375430",
+          "status": "pending"
+        }
+      ],
+      "execution": [
+        {
+          "id": "E-M3-1",
+          "task": "优化 平均决策时间",
+          "targetValue": 10,
+          "currentValue": 30,
+          "unit": "秒",
+          "checkAfter": "10min",
+          "parent": "T-M3-1",
+          "status": "pending"
+        }
+      ]
+    }
+  ]
+}

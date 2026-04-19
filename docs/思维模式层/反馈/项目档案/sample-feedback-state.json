@@ -1,0 +1,31 @@
+{
+  "id": "F1776517475205",
+  "input": "配置 memoryFlush 后 AI 还是偶尔会失忆",
+  "state": "actioned",
+  "createdAt": "2026-04-18T13:04:35.206Z",
+  "updatedAt": "2026-04-18T14:00:00.000Z",
+  "sentiment": {
+    "sentiment": "negative",
+    "intensity": 7,
+    "isUrgent": false
+  },
+  "category": "BUG",
+  "causality": [
+    { "type": "cause", "matched": true, "segment": "配置 memoryFlush 后" }
+  ],
+  "improvements": [
+    "建议建立 BUG 追踪机制，记录问题现象、复现步骤、修复方案",
+    "建议添加自动化测试用例，防止类似问题再次发生",
+    "建议在发布前增加代码审查环节"
+  ],
+  "source": "manual",
+  "relatedEntity": "memoryFlush",
+  "tags": ["memory", "失忆", "配置"],
+  "actioned": true,
+  "actionedAt": "2026-04-18T14:00:00.000Z",
+  "resolution": {
+    "rootCause": "softThresholdTokens 设置过低（2000），压缩在保存前触发",
+    "fix": "调整为 4000",
+    "verified": true
+  }
+}

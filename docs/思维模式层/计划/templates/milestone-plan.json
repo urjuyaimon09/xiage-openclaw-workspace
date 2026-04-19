@@ -1,0 +1,62 @@
+{
+  "name": "里程碑计划生成",
+  "description": "从目标生成带里程碑的完整计划",
+  "trigger": ["计划", "规划", "安排", "分解", "目标"],
+  "steps": [
+    {
+      "id": "P1",
+      "name": "目标澄清",
+      "description": "明确目标的最终状态和衡量标准",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "清晰的目标定义 + 成功标准"
+    },
+    {
+      "id": "P2",
+      "name": "目标分解",
+      "description": "将目标分解为3-5个主要阶段",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 15,
+      "output": "分解后的子目标列表"
+    },
+    {
+      "id": "P3",
+      "name": "里程碑设定",
+      "description": "为每个阶段设定关键里程碑",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "里程碑列表 + 完成标准"
+    },
+    {
+      "id": "P4",
+      "name": "时间估算",
+      "description": "估算每个里程碑所需时间",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "时间线草案"
+    },
+    {
+      "id": "P5",
+      "name": "资源确认",
+      "description": "确认所需资源（工具、时间、坚果配合）",
+      "executor": "human",
+      "autoable": false,
+      "estimatedMinutes": 10,
+      "output": "资源清单 + 坚果确认"
+    },
+    {
+      "id": "P6",
+      "name": "计划输出",
+      "description": "生成最终计划文档",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "完整计划文档"
+    }
+  ],
+  "totalEstimatedMinutes": 65
+}

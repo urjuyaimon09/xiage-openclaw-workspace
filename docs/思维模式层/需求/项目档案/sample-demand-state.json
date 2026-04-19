@@ -1,0 +1,43 @@
+{
+  "id": "D1776517475205",
+  "input": "学习 OpenClaw 进阶配置",
+  "state": "prioritized",
+  "createdAt": "2026-04-18T13:04:35.206Z",
+  "updatedAt": "2026-04-18T13:05:00.000Z",
+  "classification": {
+    "urgency": "medium",
+    "category": "growth"
+  },
+  "maslow": {
+    "level": "L5",
+    "name": "自我实现"
+  },
+  "priority": 5.2,
+  "complexity": "medium",
+  "executor": "ai",
+  "tags": ["openclaw", "学习", "进阶"],
+  "history": [
+    {
+      "timestamp": "2026-04-18T13:04:35.210Z",
+      "action": "CREATED",
+      "detail": "需求创建"
+    },
+    {
+      "timestamp": "2026-04-18T13:04:35.220Z",
+      "action": "CLASSIFIED",
+      "detail": {
+        "urgency": "medium",
+        "category": "growth",
+        "maslowLevel": "L5"
+      }
+    },
+    {
+      "timestamp": "2026-04-18T13:05:00.000Z",
+      "action": "PRIORITIZED",
+      "detail": {
+        "priority": 5.2,
+        "reasoning": "自我实现需求，中等优先级"
+      }
+    }
+  ]
+}

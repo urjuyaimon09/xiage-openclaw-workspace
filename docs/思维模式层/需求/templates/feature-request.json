@@ -1,0 +1,62 @@
+{
+  "name": "功能需求分析",
+  "description": "常规功能需求的完整分析流程",
+  "trigger": ["功能", "需求", "实现", "开发", "想要"],
+  "steps": [
+    {
+      "id": "D1",
+      "name": "需求理解",
+      "description": "理解用户想做什么，识别核心诉求",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "需求理解摘要"
+    },
+    {
+      "id": "D2",
+      "name": "分类标注",
+      "description": "归类到对应领域和马斯洛层级",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 5,
+      "output": "分类结果 + 马斯洛层级"
+    },
+    {
+      "id": "D3",
+      "name": "价值评估",
+      "description": "评估需求对坚果/虾哥的价值",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 10,
+      "output": "价值评分 (1-10) + 说明"
+    },
+    {
+      "id": "D4",
+      "name": "可行性分析",
+      "description": "评估技术可行性、依赖条件、风险点",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 15,
+      "output": "可行性结论 + 风险点"
+    },
+    {
+      "id": "D5",
+      "name": "优先级排序",
+      "description": "综合紧急度、价值、可行性给出优先级",
+      "executor": "ai",
+      "autoable": true,
+      "estimatedMinutes": 5,
+      "output": "优先级建议 (P0-P3)"
+    },
+    {
+      "id": "D6",
+      "name": "需求确认",
+      "description": "向坚果确认需求理解是否正确",
+      "executor": "human",
+      "autoable": false,
+      "estimatedMinutes": 10,
+      "output": "坚果确认/修改意见"
+    }
+  ],
+  "totalEstimatedMinutes": 55
+}

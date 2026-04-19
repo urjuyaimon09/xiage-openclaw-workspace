@@ -17,7 +17,8 @@ const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
-const WORKSPACE = path.join(__dirname, '..');
+// WORKSPACE 固定指向 openclaw workspace 根目录
+const WORKSPACE = path.join(__dirname, '..', '..', '..');
 const 状态文件 = path.join(WORKSPACE, 'memory', 'hot', 'cron-scheduler-state.json');
 
 // 感知频率配置

@@ -7,6 +7,7 @@
 
 ## 每次启动必须执行
 
+0. 读取 `HEARTBEAT.md`（心智中枢：10分钟自动运行+驱动器评估+缺口检测）
 1. 读取 `memory/hot/current.md`（思维状态快照）
 2. 读取 `memory/hot/lessons.md`（教训记录）
 3. 读取当日 `memory/YYYY-MM-DD.md`（每日合并）
